@@ -1,0 +1,141 @@
+.story {
+    position: relative;
+}
+
+.storyList {
+    display: flex;
+    height: 190px;
+    list-style: none;
+    padding: 0;
+}
+
+.myStory,
+.friendStory {
+    flex: 1;
+    margin: 0 4px;
+    border-radius: 10px;
+
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    background-color: #242526;
+}
+
+.myStoryImg {
+    height: 140px;
+    overflow: hidden;
+}
+
+.myStoryImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s;
+}
+
+.myStory:hover .myStoryImg img {
+    transform: scale(1.05);
+
+    cursor: pointer;
+}
+
+.friendStory:hover .friendStoryImg {
+    transform: scale(1.05);
+    background-color: #242526;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.friendStoryImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s;
+}
+
+.myStoryText,
+.friendStoryText {
+    color: #d8e6eb;
+    position: absolute;
+    bottom: 8px;
+    left: 0;
+    right: 0;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.myStoryIcon {
+    position: relative;
+    bottom: 22px;
+    color: #2e89ff;
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    margin-right: auto;
+    margin-left: auto;
+    line-height: 40px;
+    border-radius: 50%;
+    /* background-color: red; */
+    background-color: #242526;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.myStoryIcon::before {
+    content: '';
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+
+    position: absolute;
+}
+
+.friendStoryAvatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    position: absolute;
+    background-color: #33363a;
+    top: 10px;
+    left: 10px;
+    z-index: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.friendStoryAvatarOnline {
+    background-color: #3d80d6;
+}
+
+.friendStoryAvatar img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.storyBtn {
+    position: absolute;
+    top: 70px;
+    right: -18px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #3e4042;
+    color: #a8abaf;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.storyBtn:hover {
+    background-color: rgb(77, 77, 77);
+    cursor: pointer;
+    transition: all 0.3s;
+}

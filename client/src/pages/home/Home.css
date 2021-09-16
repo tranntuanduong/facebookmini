@@ -1,0 +1,22 @@
+.container {
+    margin: 0;
+    padding: 0 8px;
+}
+
+.homePage {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cLeft {
+    flex: 1;
+}
+
+.cMiddle {
+    flex: 3;
+    height: 4000px;
+}
+
+.cRight {
+    flex: 1;
+}

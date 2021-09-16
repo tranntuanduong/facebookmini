@@ -1,0 +1,198 @@
+.post {
+    margin-top: 16px;
+
+    background-color: #242526;
+    border-radius: 8px;
+}
+
+.postHr {
+    border: none;
+    padding-bottom: 4px;
+    border-top: 0.5px solid rgb(68, 68, 68);
+}
+
+.postTop {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+}
+
+.postTopAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+}
+
+.postTopInfo {
+    flex: 1;
+}
+
+.postTopInfoName {
+    color: #e4e0df;
+    font-size: 15px;
+    font-size: 500;
+}
+
+.postTopInfoTime {
+    color: #8d8b8b;
+    font-size: 13px;
+    margin-top: 4px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.postTopInfoTime span {
+    margin-right: 2px;
+}
+
+.postTopInfoTimeIcon {
+    font-size: 12px;
+}
+
+.postTopAction {
+    color: #e4e0df;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.postTopAction:hover {
+    background-color: #3a3b3c;
+    cursor: pointer;
+}
+
+.postContent {
+}
+
+.postContentText {
+    color: #e4e0df;
+    padding: 0 16px 12px 16px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.postContentImg {
+    width: 100%;
+}
+
+.postBottom {
+    padding: 8px 16px 4px 16px;
+}
+
+.postBottmInfo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.postBottomLikeInfo {
+    display: flex;
+    align-items: center;
+}
+
+.postBottomLikeInfoImg {
+    width: 18px;
+    height: 18px;
+}
+
+.postBottomLikeInfoText {
+    color: #969797;
+    font-size: 15px;
+    margin-left: 8px;
+    font-weight: 400;
+}
+
+.postBottomTextInfo {
+    color: #969797;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.postBottomTextInfoItem {
+    margin-left: 8px;
+}
+
+.postBottomAction {
+    margin-top: 12px;
+}
+
+.postBottomActionItem {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.postBottomActionItemBg {
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    filter: invert(64%) sepia(5%) saturate(37%) hue-rotate(131deg) brightness(92%) contrast(94%);
+}
+
+.postBottomActionItemText {
+    margin-left: 4px;
+    color: #969797;
+}
+
+.filterBottomActionList {
+    display: flex;
+    justify-content: center;
+}
+
+.postBottomActionItem {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    padding: 8px 16px;
+}
+
+.postBottomActionItem:hover {
+    background-color: #3a3b3c;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.postBottomLikeDetailList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    list-style: none;
+    background-color: #212222;
+    padding: 5px 4px;
+    border-radius: 30px;
+    border: 0.5px solid rgb(65, 65, 65);
+
+    position: absolute;
+    top: -46px;
+    left: 0;
+
+    display: none;
+}
+
+.postBottomActionItemLike:hover .postBottomLikeDetailList {
+    display: flex;
+}
+
+.postBottomLikeDetailItem {
+    line-height: 0;
+}
+
+.postBottomLikeDetailItem:hover {
+    transform: scale(1.1);
+}
+
+.postBottomLikeDetailImg {
+    width: 35px;
+    height: 35px;
+    margin: 0 4px;
+}

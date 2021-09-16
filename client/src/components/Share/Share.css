@@ -1,0 +1,75 @@
+.share {
+    padding: 12px 16px;
+    background-color: #242526;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.shareTop {
+    display: flex;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 0.5px solid rgba(77, 77, 77, 0.713);
+}
+
+.shareTopImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+}
+
+.shareTopInput {
+    flex: 1;
+    padding: 12px 12px;
+    border: none;
+    background-color: #3a3b3c;
+    border-radius: 20px;
+    color: #b0b3b8;
+}
+
+.shareTopInput:focus {
+    outline: none;
+}
+
+.shareTopInput::placeholder {
+    color: #b0b3b8;
+    font-size: 15px;
+    letter-spacing: 1.1px;
+}
+
+.shareBottom {
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.shareBottomAction {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    padding: 8px 16px;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+.shareBottomAction:hover {
+    background-color: #3a3b3c;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.shareBottomActionItemBg {
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+.shareBottomActionItemText {
+    color: #b0b3b8;
+    font-size: 15px;
+    margin-left: 8px;
+    font-weight: 500;
+}

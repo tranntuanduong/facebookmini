@@ -1,0 +1,159 @@
+.sideBar {
+    position: sticky;
+    top: 57px; /*56px header + 1px header border bottom*/
+    height: calc(100vh - 56px);
+    overflow-y: scroll;
+}
+
+.sideBar::-webkit-scrollbar {
+    width: 8px;
+    display: none;
+}
+
+.sideBar:hover::-webkit-scrollbar {
+    display: block;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(109, 109, 109, 0.576);
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #acacac06;
+}
+
+.sideBarList {
+    list-style: none;
+    padding: 0;
+}
+
+.sideBarItem,
+.shortcuts {
+    padding: 8px 8px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.sideBarItem:hover,
+.shortcuts:hover {
+    background-color: #3a3b3c70;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.sideBarItemImg {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.shortcutsImg {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.sideBarItemBadge,
+.shortcutsBadge {
+    width: 36px;
+    height: 36px;
+}
+
+.sideBarItemText {
+    display: flex;
+    flex-direction: column;
+    margin-left: 8px;
+    justify-content: space-between;
+}
+
+.sideBarItemName,
+.shortcutsName {
+    color: #cfd1d5;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.shortcutsName {
+    margin-left: 8px;
+}
+
+.sideBarItemInfo {
+    margin-top: 5px;
+    color: #2a75d5;
+    font-size: 12px;
+    position: relative;
+    margin-left: 12px;
+}
+
+.sideBarItemInfo::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    top: 2px;
+    left: -12px;
+    background-color: #2a75d5;
+    border-radius: 50%;
+}
+
+.sideBarItemIcon {
+    color: #cfd1d5;
+    background-color: #3a3b3c;
+    border-radius: 50%;
+    padding: 4px;
+}
+
+.sideBarHr {
+    border: none;
+    border-bottom: 0.5px solid rgba(187, 187, 187, 0.433);
+    margin: 8px 0;
+}
+
+.shortcutsTitle {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    justify-content: space-between;
+}
+
+.shortcutsTitleText {
+    font-size: 18px;
+    color: #9a9ea2;
+    font-weight: 500;
+    margin-left: 8px;
+}
+
+.shortcutsTitleAction {
+    padding: 8px 16px;
+    color: #18191a;
+    border-radius: 5px;
+}
+
+.shortcutsTitle:hover .shortcutsTitleAction {
+    color: rgb(57, 127, 218);
+}
+
+.shortcutsTitleAction:hover {
+    background-color: #3a3b3c3a;
+    cursor: pointer;
+}
+
+.sideBarPolicies {
+    color: #94969a;
+
+    margin: 16px 8px;
+}
+
+.sideBarPolicies a {
+    color: #94969a;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.sideBarPolicies a:hover {
+    text-decoration: underline;
+}
