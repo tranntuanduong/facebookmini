@@ -1,6 +1,5 @@
 .post {
     margin-top: 16px;
-
     background-color: #242526;
     border-radius: 8px;
 }
@@ -84,7 +83,8 @@
 }
 
 .postBottom {
-    padding: 8px 16px 4px 16px;
+    padding: 12px 16px 4px 16px;
+    overflow: hidden;
 }
 
 .postBottmInfo {
@@ -140,6 +140,7 @@
 .postBottomActionItemText {
     margin-left: 4px;
     color: #969797;
+    font-weight: 500;
 }
 
 .filterBottomActionList {
@@ -170,17 +171,22 @@
     background-color: #212222;
     padding: 5px 4px;
     border-radius: 30px;
-    border: 0.5px solid rgb(65, 65, 65);
+    border: 0.5px solid rgb(82, 82, 82);
 
     position: absolute;
     top: -46px;
     left: 0;
 
-    display: none;
+    transition: all 0.3s;
+    transform: translateY(55px);
+    opacity: 0;
+    /* display: none; */
 }
 
 .postBottomActionItemLike:hover .postBottomLikeDetailList {
-    display: flex;
+    /* display: flex; */
+    transform: translateY(0);
+    opacity: 1;
 }
 
 .postBottomLikeDetailItem {
@@ -188,11 +194,15 @@
 }
 
 .postBottomLikeDetailItem:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
 
 .postBottomLikeDetailImg {
     width: 35px;
     height: 35px;
     margin: 0 4px;
+}
+
+.postCommentWrap {
+    padding: 0 16px 12px 16px;
 }

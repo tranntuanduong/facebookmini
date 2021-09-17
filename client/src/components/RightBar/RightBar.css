@@ -1,0 +1,27 @@
+.rightBar {
+    padding-right: 8px;
+    height: calc(100vh - 56px);
+    position: sticky;
+    /*56px header, 1px borderbottom*/
+    top: 57px;
+    overflow-y: scroll;
+}
+
+.rightBarHr {
+    border: none;
+    border-bottom: 0.5px solid rgb(63, 63, 63);
+    margin: 8px 12px 0 12px;
+}
+
+.rightBar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.rightBar::-webkit-scrollbar-thumb {
+    background-color: rgba(109, 109, 109, 0.576);
+    border-radius: 8px;
+}
+
+.rightBar::-webkit-scrollbar-track {
+    background-color: #acacac06;
+}

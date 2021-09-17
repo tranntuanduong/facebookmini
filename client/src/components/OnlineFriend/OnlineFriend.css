@@ -1,0 +1,82 @@
+.onlineFriend {
+    margin-top: 16px;
+}
+
+.onlineFriendTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #9a9ca1;
+}
+
+.onlineFriendTopTitle {
+    font-size: 18px;
+    font-weight: 500;
+    padding: 0 12px;
+}
+
+.onlineFriendTopAction {
+    display: flex;
+}
+
+.onlineFriendTopActionItem {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.onlineFriendTopActionItem:hover {
+    background-color: #3a3b3c;
+    cursor: pointer;
+}
+
+/* online friend */
+.onlineFriendList {
+    padding: 0;
+}
+
+.onlineFirendItem {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+
+    border-radius: 8px;
+}
+
+.onlineFirendItem:hover {
+    cursor: pointer;
+    background-color: #3a3b3c;
+    transition: all 0.25s;
+}
+
+.onlineFriendItemAvatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+}
+
+.onlineFriendItemName {
+    color: #e4e0df;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.onlineFriendItemAvatarWrap {
+    position: relative;
+}
+
+.onlineFriendItemBadge {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    border-radius: 50%;
+    top: 2px;
+    right: 5px;
+    background-color: #31a24c;
+    border: 1px solid #fff;
+}

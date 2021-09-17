@@ -14,12 +14,12 @@
     display: block;
 }
 
-::-webkit-scrollbar-thumb {
+.sideBar::-webkit-scrollbar-thumb {
     background-color: rgba(109, 109, 109, 0.576);
     border-radius: 8px;
 }
 
-::-webkit-scrollbar-track {
+.sideBar::-webkit-scrollbar-track {
     background-color: #acacac06;
 }
 

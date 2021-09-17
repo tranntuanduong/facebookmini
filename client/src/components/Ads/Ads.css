@@ -1,0 +1,55 @@
+.ads {
+    margin-top: 16px;
+}
+
+.adsTitle {
+    color: #9a9ca1;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 0 12px;
+}
+
+.adsItemImg {
+    width: 130px;
+    height: 130px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.adsList {
+    padding: 0;
+    list-style: none;
+    margin-top: 8px;
+}
+
+.adsItem {
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.adsItem a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.adsItem:hover {
+    cursor: pointer;
+    background-color: #242526;
+}
+
+.adsItemContent {
+    margin-left: 10px;
+}
+
+.adsItemContentHeader {
+    color: #cfd1d5;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.adsItemContentDonors {
+    color: #a8abaf;
+    font-size: 12px;
+    font-weight: 400;
+}

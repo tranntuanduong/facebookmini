@@ -2,6 +2,7 @@ import React from 'react';
 import './Post.css';
 import PublicIcon from '@material-ui/icons/Public';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import Comment from '../Comment';
 
 Post.propTypes = {};
 
@@ -85,19 +86,48 @@ function Post(props) {
                                 </li>
                                 <li className="postBottomLikeDetailItem">
                                     <img
+                                        src="./assets/feed/lovely.svg"
+                                        alt=""
+                                        className="postBottomLikeDetailImg"
+                                    />
+                                </li>
+                                <li className="postBottomLikeDetailItem">
+                                    <img
                                         src="./assets/feed/heart.svg"
+                                        alt=""
+                                        className="postBottomLikeDetailImg"
+                                    />
+                                </li>
+                                <li className="postBottomLikeDetailItem">
+                                    <img
+                                        src="./assets/feed/wow.svg"
+                                        alt=""
+                                        className="postBottomLikeDetailImg"
+                                    />
+                                </li>
+                                <li className="postBottomLikeDetailItem">
+                                    <img
+                                        src="./assets/feed/sad.svg"
+                                        alt=""
+                                        className="postBottomLikeDetailImg"
+                                    />
+                                </li>
+                                <li className="postBottomLikeDetailItem">
+                                    <img
+                                        src="./assets/feed/angry.svg"
                                         alt=""
                                         className="postBottomLikeDetailImg"
                                     />
                                 </li>
                             </ul>
                         </div>
+
                         <div className="postBottomActionItem">
                             <div
                                 className="postBottomActionItemBg "
                                 style={{
                                     backgroundImage: `url("/assets/feed/infoImg.png")`,
-                                    backgroundPosition: '0 -214px',
+                                    backgroundPosition: '0 -175px',
                                 }}
                             ></div>
                             <span className="postBottomActionItemText">Bình luận</span>
@@ -107,13 +137,18 @@ function Post(props) {
                                 className="postBottomActionItemBg "
                                 style={{
                                     backgroundImage: `url("/assets/feed/infoImg.png")`,
-                                    backgroundPosition: '0 -214px',
+                                    backgroundPosition: '0 -232px',
                                 }}
                             ></div>
                             <span className="postBottomActionItemText">Chia sẻ</span>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div className="postCommentWrap">
+                <hr className="postHr" />
+                <Comment />
             </div>
         </div>
     );

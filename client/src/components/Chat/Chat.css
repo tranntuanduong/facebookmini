@@ -1,0 +1,151 @@
+.chat {
+    position: fixed;
+    width: 330px;
+    height: 455px;
+    background-color: #242526;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+    bottom: 0;
+    right: 90px;
+    border: 0.5px solid #393a3c90;
+    border-bottom: none;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.chatTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 8px;
+
+    border-bottom: 0.5px solid #393a3c90;
+}
+
+.chatTopUser {
+    display: flex;
+    align-items: center;
+}
+
+.chatTopUserAvatar {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+    position: relative;
+}
+
+.chatTopUserAvatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+
+    display: block;
+}
+
+.chatTopUserAvatarBadge {
+    width: 8px;
+    height: 8px;
+    background-color: #31a24c;
+    border-radius: 50%;
+    position: absolute;
+    border: 2px solid #242526;
+    bottom: 0px;
+    right: -4px;
+}
+
+.chatTopUserInfo {
+}
+
+.chatTopUserInfoName {
+    color: #e4e0d8;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.chatTopUserInfoState {
+    color: #cbd1ca;
+    font-size: 12px;
+    font-weight: 400;
+    margin-top: 5px;
+}
+
+.chatTopAction {
+    display: flex;
+}
+
+.chatTopActionItem {
+    color: #bec2c9;
+    margin-left: 4px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.chatTopActionItem:hover {
+    cursor: pointer;
+    background-color: #3a3b3c;
+}
+
+.chatContent {
+    flex: 1;
+    width: calc(100% - 16px);
+    padding: 8px;
+    overflow-y: scroll;
+}
+
+.chatContent::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chatContent::-webkit-scrollbar-thumb {
+    background-color: rgba(109, 109, 109, 0.576);
+    border-radius: 8px;
+}
+
+.chatContent::-webkit-scrollbar-track {
+    background-color: #acacac06;
+}
+
+.chatBottom {
+    height: 54px;
+    border-top: 0.5px solid #393a3c90;
+    padding: 0 10px;
+
+    display: flex;
+    align-items: center;
+}
+
+.chatBottomInput {
+    background-color: #3a3b3c;
+    padding: 8px 16px;
+    flex: 1;
+    border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+}
+
+.chatBottomInput input {
+    background-color: #3a3b3c;
+    border: none;
+    outline: none;
+    color: #e4e6eb;
+    font-size: 14px;
+    font-weight: 400;
+    flex: 1;
+}
+
+.chatBottomInputIconBg {
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    margin-left: 8px;
+}

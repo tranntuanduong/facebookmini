@@ -1,0 +1,241 @@
+.comment {
+    padding-top: 12px;
+}
+
+.commentTop {
+    display: flex;
+    align-items: center;
+}
+
+.commentTopAvatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+}
+
+.commentTopInput {
+    padding: 2px 2px 2px 16px;
+    background-color: #3a3b3c;
+    border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.commentTopInput input {
+    background-color: #3a3b3c;
+    border: none;
+    flex: 1;
+    color: #b0b3b8;
+    font-size: 14px;
+}
+
+.commentTopInput input::placeholder {
+    font-size: 14px;
+    color: #b0b3b8;
+}
+
+.commentTopInput input:focus {
+    outline: none;
+}
+
+.commentTopInputAttach {
+    display: flex;
+}
+
+.commentTopInputAttachItem {
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    /* background-color: #9b9b9b44; */
+
+    position: relative;
+}
+
+.commentTopInputAttachItem:hover {
+    background-color: #9b9b9b44;
+    cursor: pointer;
+}
+
+.commentTopInputAttachItemBg {
+    position: absolute;
+    width: 20px;
+    height: 18px;
+    margin-left: 5px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    filter: invert(86%) sepia(5%) saturate(241%) hue-rotate(179deg) brightness(86%) contrast(80%);
+
+    top: 6px;
+    right: 4px;
+}
+
+/* Comment list */
+.commentList {
+    padding: 0;
+    list-style: none;
+}
+
+.commentItem {
+    display: flex;
+    margin-top: 8px;
+}
+
+.commentItemAvatarImg {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+}
+
+.commentItemContent {
+    display: flex;
+    align-items: center;
+}
+
+.commentItemContentLeft {
+    padding: 8px 14px;
+    background-color: #3a3b3c;
+    color: #e4e6eb;
+    font-size: 14px;
+    font-weight: 300;
+    border-radius: 22px;
+    margin-right: 5px;
+    flex: 1;
+    position: relative;
+}
+
+.commentItemContentRight {
+    color: #b6b2b1;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+}
+
+.commentItemContent:hover .commentItemContentRight {
+    opacity: 1;
+}
+
+.commentItemContentRight:hover {
+    background-color: #3a3b3c;
+}
+
+.commentItemContentName {
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.commentItemContentText {
+    margin-top: 5px;
+    line-height: 1.3;
+}
+
+.commentItemContentAction {
+    display: flex;
+    font-size: 14px;
+    color: #949496;
+    font-weight: 500;
+    padding: 8px 12px;
+    align-items: center;
+}
+
+.commentItemContentActionItem {
+    margin-right: 8px;
+}
+
+.commentItemContentActionItem:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.commentItemContentTime {
+    font-weight: 300;
+    font-size: 12px;
+}
+
+.commentMore {
+    font-size: 15px;
+    font-weight: 500;
+    color: #b6b6b6;
+}
+
+.commentMore:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.commentItemContentReportAction {
+    cursor: pointer;
+    padding: 2px 4px;
+    background-color: #3a3b3c;
+    border-radius: 20px;
+    border: 0.5px solid rgba(118, 117, 117, 0.385);
+    list-style: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: absolute;
+    bottom: -16px;
+    right: -2px;
+}
+
+.commentItemContentReportAction .reportItem {
+    width: 16px;
+    height: 16px;
+}
+
+.reportItemQuantity {
+    font-size: 12px;
+    font-weight: 400;
+    color: #b6b6b6;
+    margin-left: 4px;
+}
+
+.reportItemDetail {
+    list-style: none;
+    padding: 0 12px 8px;
+    background-color: rgb(146, 146, 146);
+    border-radius: 10px;
+    position: absolute;
+    width: 50px;
+    top: 22px;
+    left: 0;
+    display: none;
+    z-index: 1;
+}
+
+.commentItemContentReportAction:hover .reportItemDetail {
+    display: block;
+
+    transition: all 0.3s;
+}
+
+.reportItemDetailItem {
+    display: flex;
+    margin-top: 8px;
+}
+
+.reportItemDetailItem img {
+    width: 16px;
+    height: 16px;
+}
+
+.reportItemDetailItemQuantity {
+    margin-left: 8px;
+    color: #333;
+    font-weight: 500;
+    font-size: 14px;
+}

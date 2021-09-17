@@ -1,0 +1,91 @@
+.friendRequest {
+    padding: 12px 16px;
+    background-color: #242526;
+    border-radius: 8px;
+    margin: 20px 0 0 12px;
+    color: #e4e6eb;
+}
+
+.friendRequestTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.friendRequestTitle {
+    display: flex;
+    align-items: center;
+}
+
+.friendRequestTitleImg {
+    width: 25px;
+    height: 25px;
+    margin-right: 8px;
+}
+
+.friendRequestTitleText {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.friendRequestTopAction {
+    width: 35px;
+    height: 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.friendRequestTopAction:hover {
+    background-color: #3e4042;
+    cursor: pointer;
+}
+
+.friendRequestAvatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.friendRequestContent {
+    display: flex;
+    padding: 8px;
+    margin-top: 8px;
+    align-items: center;
+}
+
+.friendRequestContentBody {
+    margin-left: 10px;
+}
+
+.friendRequestContentBodyBtn {
+    display: flex;
+}
+
+.friendRequestContentBodyAccept,
+.friendRequestContentBodyDeny {
+    padding: 8px 0;
+    background-color: #3a3b3c;
+    min-width: 100px;
+    text-align: center;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.friendRequestContentBodyAccept {
+    background-color: #2d88ff;
+    margin-right: 10px;
+}
+
+.friendRequestContentBodyAccept:hover {
+    background-color: #4595ff;
+    cursor: pointer;
+}
+
+.friendRequestContentBodyDeny:hover {
+    background-color: #434446;
+    cursor: pointer;
+}

@@ -43,7 +43,7 @@ function Share(props) {
                             backgroundPosition: '0 -50px',
                         }}
                     ></div>
-                    <span className="shareBottomActionItemText">Cảm xúc hoạt động</span>
+                    <span className="shareBottomActionItemText">Cảm xúc/Hoạt động</span>
                 </div>
             </div>
         </div>

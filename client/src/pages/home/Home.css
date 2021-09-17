@@ -5,18 +5,20 @@
 
 .homePage {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 
 .cLeft {
-    flex: 1;
+    flex: 0.8;
 }
 
 .cMiddle {
     flex: 3;
-    height: 4000px;
+    margin-bottom: 20px;
 }
 
 .cRight {
-    flex: 1;
+    flex: 0.8;
 }
