@@ -124,13 +124,13 @@
     background-color: #f02849;
     border-radius: 20px;
     color: #fff;
-    top: 0px;
-    right: 36px;
+    top: 2px;
+    right: 44px;
 }
 
 .headerLeftMiddleItemBadgePlus {
     padding: 0 4px;
-    right: 28px;
+    right: 35px;
 }
 
 /* Header right */

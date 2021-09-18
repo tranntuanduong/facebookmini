@@ -7,7 +7,7 @@
     border-top-right-radius: 8px;
 
     bottom: 0;
-    right: 90px;
+    /* right: 90px; */
     border: 0.5px solid #393a3c90;
     border-bottom: none;
 
@@ -78,7 +78,7 @@
 }
 
 .chatTopActionItem {
-    color: #bec2c9;
+    color: #0084ff;
     margin-left: 4px;
     width: 30px;
     height: 30px;
@@ -124,7 +124,7 @@
 
 .chatBottomInput {
     background-color: #3a3b3c;
-    padding: 8px 16px;
+    padding-left: 10px;
     flex: 1;
     border-radius: 20px;
 
@@ -142,10 +142,109 @@
     flex: 1;
 }
 
+.chatBottomInputIcon {
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+    /* display: flex;
+    align-items: center; */
+    position: relative;
+}
+
+.chatBottomInputIcon:hover {
+    background-color: #464748;
+    cursor: pointer;
+}
+
 .chatBottomInputIconBg {
+    cursor: pointer;
     width: 24px;
     height: 24px;
     background-repeat: no-repeat;
     display: inline-block;
     margin-left: 8px;
+    filter: invert(49%) sepia(8%) saturate(69%) hue-rotate(169deg) brightness(92%) contrast(93%);
+
+    position: absolute;
+    top: 6px;
+    left: -2px;
+}
+
+.chatBottomLikeIcon {
+    color: #666768;
+    margin-left: 4px;
+    width: 34px;
+    height: 34px;
+
+    border-radius: 50%;
+    font-size: 22px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chatBottomLikeIcon:hover {
+    color: #0084ff;
+    cursor: pointer;
+    background-color: #3a3b3c;
+}
+
+.chatZoomOut {
+    position: fixed;
+    bottom: 40px;
+    /* right: 90px; */
+    right: 18px;
+    border-bottom: none;
+
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.chatZoomOutImg {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+}
+
+.chatZoomOutBadge {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #31a24c;
+    border: 2px solid #3a3b3c;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.chatZoomOutClose {
+    position: absolute;
+    top: -4px;
+    right: -5px;
+
+    color: #999ca0;
+    font-size: 18px;
+    width: 22px;
+    height: 22px;
+    background-color: #2b2c2e;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transform: scale(0);
+    transition: all 0.2s;
+}
+
+.chatZoomOutClose:hover {
+    background-color: #444548;
+}
+
+.chatZoomOut:hover .chatZoomOutClose {
+    transform: scale(1);
 }

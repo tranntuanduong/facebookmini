@@ -77,3 +77,5 @@ const Message = {
   senderId: 1,
   text: "",
 };
+
+export const conversations = [];

@@ -1,5 +1,7 @@
 .story {
     position: relative;
+    margin-left: -4px;
+    margin-right: -4px;
 }
 
 .storyList {

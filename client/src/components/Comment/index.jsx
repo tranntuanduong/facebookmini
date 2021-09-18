@@ -4,7 +4,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import SubComment from '../SubComment';
 Comment.propTypes = {};
 
-function Comment(props) {
+function Comment() {
     return (
         <div className="comment">
             <div className="commentTop">

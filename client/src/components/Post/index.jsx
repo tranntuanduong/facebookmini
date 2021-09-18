@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Post.css';
 import PublicIcon from '@material-ui/icons/Public';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -7,6 +7,8 @@ import Comment from '../Comment';
 Post.propTypes = {};
 
 function Post(props) {
+    const [isShowComment, setIsShowComment] = useState(false);
+
     return (
         <div className="post">
             <div className="postTop">
@@ -145,11 +147,12 @@ function Post(props) {
                     </div>
                 </div>
             </div>
-
-            <div className="postCommentWrap">
-                <hr className="postHr" />
-                <Comment />
-            </div>
+            {isShowComment && (
+                <div className="postCommentWrap">
+                    <hr className="postHr" />
+                    <Comment isShowComment={false} />
+                </div>
+            )}
         </div>
     );
 }
