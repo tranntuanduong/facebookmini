@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Header.css';
 import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
@@ -10,10 +10,13 @@ import AppsIcon from '@material-ui/icons/Apps';
 import MessageIcon from '@material-ui/icons/Message';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import { AuthContext } from '../../context/AuthProvider';
 
 Header.propTypes = {};
 
 function Header(props) {
+    const { user: currentUser } = useContext(AuthContext);
+
     return (
         <div className="header">
             <div className="headerLeft">
@@ -46,7 +49,7 @@ function Header(props) {
             <ul className="headerLeftRight">
                 <li className="headerLeftRightUser">
                     <img src="/assets/person/7.jpeg" alt="" />
-                    <span className="headerLeftRightUsername">Dương</span>
+                    <span className="headerLeftRightUsername">{currentUser.username}</span>
                 </li>
                 <li className="headerLeftRightInfo">
                     <AppsIcon />

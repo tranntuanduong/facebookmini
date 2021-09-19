@@ -12,30 +12,23 @@ html {
     margin-top: 16px;
 }
 
-.saturate {
-    filter: saturate(3);
+.grid__row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 8px;
+    margin-right: 8px;
 }
-.grayscale {
-    filter: grayscale(100%);
+.grid__col {
+    padding-left: 8px;
+    padding-right: 8px;
 }
-.contrast {
-    filter: contrast(160%);
+
+.grid__col-4-12 {
+    width: 33.33333%;
 }
-.brightness {
-    filter: brightness(0.25);
+.grid__col-6-12 {
+    width: 50%;
 }
-.blur {
-    filter: blur(3px);
-}
-.invert {
-    filter: invert(100%);
-}
-.sepia {
-    filter: sepia(100%);
-}
-.huerotate {
-    filter: hue-rotate(180deg);
-}
-.rss.opacity {
-    filter: opacity(50%);
+.grid__col-12-12 {
+    width: 100%;
 }

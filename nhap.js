@@ -2,6 +2,7 @@ const User = {
   id: 1,
   email: "",
   username: "",
+  password: "",
   avatar: "",
   coverImg: "",
   phonenumber: "",

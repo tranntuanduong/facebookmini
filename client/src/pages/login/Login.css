@@ -1,0 +1,254 @@
+.login {
+    width: 100%;
+    height: 100vh;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+}
+
+.loginWrap {
+    display: flex;
+    width: 1200px;
+    justify-content: space-between;
+}
+.loginLeft {
+    flex: 1;
+    margin-right: 40px;
+    padding: 50px;
+}
+.loginLeftLogo {
+    height: 106px;
+}
+.loginLeftDesc {
+    margin-left: 32px;
+    font-size: 28px;
+    font-weight: 400;
+}
+.loginRight {
+    width: 400px;
+    padding: 50px;
+}
+.loginRightForm {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background-color: #fff;
+    border-radius: 8px;
+    align-items: center;
+    -webkit-box-shadow: 0px 5px 22px -4px rgba(0, 0, 0, 0.46);
+    box-shadow: 0px 5px 22px -4px rgba(0, 0, 0, 0.46);
+}
+.loginRightFormInput {
+    width: 100%;
+    height: 48px;
+
+    border: 1px solid rgb(208, 205, 205);
+    border-radius: 5px;
+    margin-bottom: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loginRightFormInput input {
+    border: none;
+    width: 90%;
+    color: #333;
+    font-size: 15px;
+}
+
+.loginRightFormInput input::placeholder {
+    font-size: 15px;
+    color: rgb(151, 150, 150);
+    font-weight: 400;
+}
+
+.loginRightFormInput input:focus {
+    outline: none;
+}
+
+.loginRightFormBtnSubmit {
+    width: 100%;
+    height: 48px;
+    background-color: #1877f2;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 8px;
+    margin-bottom: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loginRightFormForgotPassword {
+    color: #1877f2;
+    margin-top: 4px;
+    font-size: 15px;
+}
+.loginRightFormHr {
+    width: 100%;
+    margin: 16px 0 25px 0;
+    border: none;
+    border-bottom: 0.5px solid rgb(232, 230, 230);
+}
+.loginRightFormNav {
+    width: 60%;
+    height: 48px;
+    background-color: #42b72a;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-bottom: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+/* Register */
+.registerModalWrap {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(232, 232, 232, 0.823);
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.registerModal {
+    background-color: #fff;
+    display: fixed;
+    border-radius: 8px;
+    width: 430px;
+
+    position: absolute;
+    top: 200px;
+    right: calc(50% - 230px);
+
+    -webkit-box-shadow: 0px 5px 22px -4px rgba(0, 0, 0, 0.46);
+    box-shadow: 0px 5px 22px -4px rgba(0, 0, 0, 0.46);
+}
+
+.registerTop {
+    display: flex;
+    padding: 16px;
+    justify-content: space-between;
+}
+
+.registerTopTextTitle {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.registerTopTextDesc {
+    font-size: 14px;
+    color: rgb(97, 94, 94);
+    margin-top: 6px;
+}
+
+.registerTopIcon {
+    color: #9ca0a6;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.registerTopIcon:hover {
+    cursor: pointer;
+    background-color: rgba(232, 232, 232, 0.611);
+}
+
+.registerHr {
+    border: none;
+    border-bottom: 0.5px solid rgb(225, 225, 225);
+}
+
+.registerInput {
+    border: 1px solid rgb(163, 162, 162);
+    padding: 8px 8px;
+    margin-top: 16px;
+    border-radius: 5px;
+    background-color: #f5f6f7;
+}
+
+.registerInput input {
+    width: 100%;
+    color: #333;
+    font-size: 15px;
+    border: none;
+    background-color: #f5f6f7;
+    outline: none;
+}
+
+.registerInput input::placeholder {
+    color: rgb(155, 154, 154);
+    font-weight: 400;
+}
+
+.selectWrap {
+    width: 100%;
+    display: flex;
+    position: relative;
+    margin-top: 16px;
+}
+
+.selectWrapDesc {
+    font-size: 14px;
+    position: absolute;
+    top: -4px;
+    left: 8px;
+    color: #858a91;
+}
+
+.selectWrap select {
+    border: none;
+    width: 100%;
+}
+.selectWrap select:focus {
+    outline: none;
+}
+
+.registerInput {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.registerInput input[type='radio'] {
+    width: 20px;
+}
+
+.registerInput label {
+    flex: 1;
+    color: rgb(82, 82, 82);
+    font-size: 14px;
+}
+
+.selectWrap select,
+.selectWrap .registerInput {
+    background-color: #fff;
+}
+
+.registerBtn {
+    width: 120px;
+    background-color: #42b72a;
+    color: #fff;
+    padding: 8px 16px;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 18px;
+
+    margin: 25px auto;
+}

@@ -7,7 +7,7 @@ import Comment from '../Comment';
 Post.propTypes = {};
 
 function Post(props) {
-    const [isShowComment, setIsShowComment] = useState(false);
+    const [isShowComment, setIsShowComment] = useState(true);
 
     return (
         <div className="post">
@@ -150,7 +150,7 @@ function Post(props) {
             {isShowComment && (
                 <div className="postCommentWrap">
                     <hr className="postHr" />
-                    <Comment isShowComment={false} />
+                    <Comment />
                 </div>
             )}
         </div>

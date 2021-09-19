@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './App.css';
 import Chat from './components/Chat';
+import { AuthContext } from './context/AuthProvider';
 import Home from './pages/home';
+import Login from './pages/login';
 
 function App() {
+    const { user: currentUser } = useContext(AuthContext);
     const [conversations, setConversations] = useState([
         {
             id: 1,
@@ -40,8 +43,14 @@ function App() {
 
     return (
         <div className="app">
-            <Home />
-            <Chat conversations={conversations} zoomOutState={handleZoomOutState} />
+            {currentUser ? (
+                <>
+                    <Home />
+                    <Chat conversations={conversations} zoomOutState={handleZoomOutState} />
+                </>
+            ) : (
+                <Login />
+            )}
         </div>
     );
 }
