@@ -1,18 +1,19 @@
 import React from 'react';
+import { NO_AVARTAR, PF } from '../../constants';
 import './Share.css';
 
 Share.propTypes = {};
 
-function Share(props) {
+function Share({ currentUser }) {
     return (
         <div className="share">
             <div className="shareTop">
-                <img src="./assets/person/7.jpeg" alt="" className="shareTopImg" />
-                <input
-                    type="text"
-                    placeholder="Dương ơi, bạn đang nghĩ gì thế?"
-                    className="shareTopInput"
+                <img
+                    src={`${PF}/${currentUser.avatar ? currentUser.avatar : NO_AVARTAR}`}
+                    alt=""
+                    className="shareTopImg"
                 />
+                <input type="text" placeholder="Dương ơi, bạn đang nghĩ gì thế?" className="shareTopInput" />
             </div>
             <div className="shareBottom">
                 <div className="shareBottomAction">

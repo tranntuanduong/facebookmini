@@ -11,12 +11,12 @@ import MessageIcon from '@material-ui/icons/Message';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { AuthContext } from '../../context/AuthProvider';
-
+import { NO_AVARTAR, PF } from '../../constants';
 Header.propTypes = {};
 
 function Header(props) {
     const { user: currentUser } = useContext(AuthContext);
-
+    console.log(`${PF}/${currentUser.avatar ? currentUser.avatar : 'person/noAvatar.png'}`);
     return (
         <div className="header">
             <div className="headerLeft">
@@ -48,8 +48,8 @@ function Header(props) {
             </ul>
             <ul className="headerLeftRight">
                 <li className="headerLeftRightUser">
-                    <img src="/assets/person/7.jpeg" alt="" />
-                    <span className="headerLeftRightUsername">{currentUser.username}</span>
+                    <img src={`${PF}/${currentUser.avatar ? currentUser.avatar : NO_AVARTAR}`} alt="" />
+                    <span className="headerLeftRightUsername">{currentUser.lastName}</span>
                 </li>
                 <li className="headerLeftRightInfo">
                     <AppsIcon />

@@ -18,17 +18,6 @@ function App() {
             isZoomOut: false,
             receiverName: 'Sống Tích Cực',
         },
-
-        {
-            id: 3,
-            isZoomOut: true,
-            receiverName: 'Đảo Mèo',
-        },
-        {
-            id: 4,
-            isZoomOut: false,
-            receiverName: 'Chuu Chu',
-        },
     ]);
 
     const handleZoomOutState = (conversationId, zoomState) => {

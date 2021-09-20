@@ -137,10 +137,18 @@
     filter: invert(64%) sepia(5%) saturate(37%) hue-rotate(131deg) brightness(92%) contrast(94%);
 }
 
+.postBottomActionItemBg.liked {
+    filter: invert(34%) sepia(93%) saturate(3299%) hue-rotate(204deg) brightness(100%) contrast(90%);
+}
+
 .postBottomActionItemText {
     margin-left: 4px;
     color: #969797;
     font-weight: 500;
+}
+
+.postBottomActionItemText.liked {
+    color: #1877f2;
 }
 
 .filterBottomActionList {

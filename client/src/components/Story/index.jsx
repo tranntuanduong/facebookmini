@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Story.css';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { NO_AVARTAR, PF } from '../../constants';
+import { AuthContext } from '../../context/AuthProvider';
 
 Story.propTypes = {};
 
-function Story(props) {
+function Story({ currentUser }) {
     return (
         <div className="story">
             <ul className="storyList">
                 <li className="myStory">
                     <div className="myStoryImg">
-                        <img src="./assets/person/7.jpeg" alt="" />
+                        <img src={`${PF}/${currentUser.avatar ? currentUser.avatar : NO_AVARTAR}`} alt="" />
                     </div>
                     <div className="myStoryIcon">
                         <AddCircleIcon style={{ fontSize: 'inherit', zIndex: 1 }} />

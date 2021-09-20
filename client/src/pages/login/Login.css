@@ -84,7 +84,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none;
+    cursor: pointer;
 }
+
+.loginRightFormBtnSubmit.disabled {
+    cursor: not-allowed;
+    background-color: #669feb;
+}
+
+.loginRightFormBtnSubmit .lds-ring {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .loginRightFormForgotPassword {
     color: #1877f2;
     margin-top: 4px;
@@ -240,6 +256,12 @@
     background-color: #fff;
 }
 
+.registerForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .registerBtn {
     width: 120px;
     background-color: #42b72a;
@@ -251,4 +273,9 @@
     font-size: 18px;
 
     margin: 25px auto;
+    cursor: pointer;
+    border: none;
+
+    margin-left: auto;
+    margin-right: auto;
 }

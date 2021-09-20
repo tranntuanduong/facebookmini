@@ -3,9 +3,10 @@ const router = express.Router();
 const User = require('./../models/User');
 
 // register: [POST] api/auth/register
-router.post('/', async function (req, res) {
+router.post('/register', async function (req, res) {
     try {
         const newUser = new User(req.body);
+        newUser.username = req.body.email.split('@')[0];
         const savedUser = await newUser.save();
         res.status(200).json(savedUser);
     } catch (error) {

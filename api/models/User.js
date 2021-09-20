@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema(
         },
         username: {
             type: String,
-            required: true,
+            // required: true,
             min: 3,
             max: 20,
             unique: true,
@@ -22,7 +22,6 @@ const UserSchema = new mongoose.Schema(
         },
         avatar: {
             type: String,
-            default: '',
         },
         coverImg: {
             type: String,
@@ -47,6 +46,22 @@ const UserSchema = new mongoose.Schema(
         detailList: {
             type: Array,
             default: [],
+        },
+        firstName: {
+            type: String,
+            dafault: '',
+        },
+        lastName: {
+            type: String,
+            dafault: '',
+        },
+        birthDay: {
+            type: String,
+            dafault: '',
+        },
+        sex: {
+            type: String,
+            dafault: '',
         },
     },
     { timestamps: true }

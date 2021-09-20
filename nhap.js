@@ -34,8 +34,8 @@ const Post = {
   picture: "",
   likes: [
     {
-      type: "wow",
       userId: 1,
+      type: "wow",
     },
   ],
   commentIds: [1, 2, 3, 4],
@@ -50,6 +50,10 @@ const Comment = {
     {
       type: "haha",
       userId: 1,
+    },
+    {
+      type: "wow",
+      userId: 2,
     },
   ],
   subCommentIds: [1, 2, 3, 4],
@@ -80,3 +84,14 @@ const Message = {
 };
 
 export const conversations = [];
+
+const array1 = [
+  { type: "like", userId: "61486a3ac108c4be6b6f0f7b" },
+  { type: "like", userId: "61486c967181a46fbdabafd3" },
+  { type: "sad", userId: "614856eca6aa06de2b0c0ff9" },
+];
+
+const array2 = {
+  like: ["61486a3ac108c4be6b6f0f7b", "61486c967181a46fbdabafd3"],
+  sad: ["614856eca6aa06de2b0c0ff9"],
+};

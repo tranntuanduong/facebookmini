@@ -1,15 +1,21 @@
-import React from 'react';
-import './SideBar.css';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import React, { useContext } from 'react';
+import { NO_AVARTAR, PF } from '../../constants';
+import { AuthContext } from '../../context/AuthProvider';
+import './SideBar.css';
 
 SideBar.propTypes = {};
 
-function SideBar(props) {
+function SideBar({ currentUser }) {
     return (
         <div className="sideBar">
             <ul className="sideBarList mt16">
                 <li className="sideBarItem">
-                    <img src="./assets/person/7.jpeg" alt="" className="sideBarItemImg" />
+                    <img
+                        src={`${PF}/${currentUser.avatar ? currentUser.avatar : NO_AVARTAR}`}
+                        alt=""
+                        className="sideBarItemImg"
+                    />
                     <div className="sideBarItemText">
                         <span className="sideBarItemName">Trần Tuấn Dương</span>
                     </div>
@@ -163,9 +169,9 @@ function SideBar(props) {
                 </li>
             </ul>
             <div className="sideBarPolicies">
-                <a href="/">Quyền riêng tư</a> · <a href="/">Điều khoản</a> ·
-                <a href="/">Quảng cáo</a> · <a href="/">Lựa chọn quảng cáo</a> ·
-                <a href="/">Cookie</a> · <a href="/">Xem thêm</a> ·<a href="/">Facebook © 2021</a>
+                <a href="/">Quyền riêng tư</a> · <a href="/">Điều khoản</a> ·<a href="/">Quảng cáo</a> ·{' '}
+                <a href="/">Lựa chọn quảng cáo</a> ·<a href="/">Cookie</a> · <a href="/">Xem thêm</a> ·
+                <a href="/">Facebook © 2021</a>
             </div>
         </div>
     );
