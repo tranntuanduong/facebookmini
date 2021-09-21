@@ -180,3 +180,7 @@
     border-radius: 50%;
     margin-right: 8px;
 }
+
+.huhu {
+    filter: invert(34%) sepia(93%) saturate(3299%) hue-rotate(204deg) brightness(100%) contrast(90%);
+}

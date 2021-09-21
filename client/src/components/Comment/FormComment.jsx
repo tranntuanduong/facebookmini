@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import axios from 'axios';
+import React, { useState } from 'react';
 
 FormComment.propTypes = {};
 
@@ -38,6 +37,7 @@ function FormComment({ post, currentUser, comments, setComments }) {
                 onChange={handleFieldChange}
                 onClick={() => setCurrentPostId(post._id)}
             />
+
             <div className="commentTopInputAttach">
                 <div className="commentTopInputAttachItem">
                     <div

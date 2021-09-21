@@ -85,6 +85,7 @@ const Message = {
 
 export const conversations = [];
 
+// convert default like to:::
 const array1 = [
   { type: "like", userId: "61486a3ac108c4be6b6f0f7b" },
   { type: "like", userId: "61486c967181a46fbdabafd3" },
@@ -92,6 +93,16 @@ const array1 = [
 ];
 
 const array2 = {
-  like: ["61486a3ac108c4be6b6f0f7b", "61486c967181a46fbdabafd3"],
+  like: [
+    "61486a3ac108c4be6b6f0f7b",
+    "61486c967181a46fbdabafd3, 614856eca6aa06de2b0c0ff9",
+  ],
   sad: ["614856eca6aa06de2b0c0ff9"],
+  haha: ["614856eca6aa06de2b0c0ff9, 614856eca6aa06de2b0c0ff9"],
 };
+
+const array3 = [
+  ["like", "... 3 element"],
+  ["haha", "... 2 element"],
+  ["sad", "... 1 element"],
+];

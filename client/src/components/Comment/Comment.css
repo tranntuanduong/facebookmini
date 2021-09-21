@@ -192,6 +192,11 @@
     right: -2px;
 }
 
+.commentItemContentReportAction.shortComment {
+    bottom: 10px;
+    right: -100px;
+}
+
 .commentItemContentReportAction .reportItem {
     width: 16px;
     height: 16px;

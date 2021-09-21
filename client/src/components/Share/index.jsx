@@ -1,20 +1,76 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { NO_AVARTAR, PF } from '../../constants';
 import './Share.css';
+import axios from 'axios';
+import CloseIcon from '@mui/icons-material/Close';
 
 Share.propTypes = {};
 
-function Share({ currentUser }) {
+function Share({ currentUser, posts, setPosts }) {
+    const [desc, setDesc] = useState('');
+    const [files, setFiles] = useState(null);
+
+    const handleShareSubmmit = async (e) => {
+        e.preventDefault();
+        console.log(desc);
+        const newPost = {
+            userId: currentUser._id,
+            desc: desc,
+        };
+        const res = await axios.post('/posts', newPost);
+        setPosts([...posts, res.data]);
+        setDesc('');
+    };
+
+    const handleDescChange = (e) => {
+        setDesc(e.target.value);
+    };
+    if (files) {
+        console.log(Object.keys(files));
+    }
+
     return (
-        <div className="share">
+        <form className="share" onSubmit={handleShareSubmmit}>
             <div className="shareTop">
                 <img
                     src={`${PF}/${currentUser.avatar ? currentUser.avatar : NO_AVARTAR}`}
                     alt=""
                     className="shareTopImg"
                 />
-                <input type="text" placeholder="Dương ơi, bạn đang nghĩ gì thế?" className="shareTopInput" />
+                <input
+                    type="text"
+                    placeholder={`${currentUser.lastName} ơi, bạn đang nghĩ gì thế?`}
+                    className="shareTopInput"
+                    value={desc}
+                    onChange={handleDescChange}
+                />
             </div>
+
+            {files && (
+                <div className="shareImgContainer">
+                    {Object.keys(files)
+                        .slice(0, 4)
+                        .map((key, index) => (
+                            <div key={index} className="shareImgItemWrap">
+                                {index < 3 ? (
+                                    <>
+                                        <img src={URL.createObjectURL(files[key])} alt="" className="shareImg" />
+                                        <CloseIcon className="shareCancelImg" />
+                                    </>
+                                ) : (
+                                    <>
+                                        <img src={URL.createObjectURL(files[key])} alt="" className="shareImg" />
+                                        <CloseIcon className="shareCancelImg" />
+                                        {Object.keys(files).length > 4 && (
+                                            <div className="moreImg">+{Object.keys(files).length - 4}</div>
+                                        )}
+                                    </>
+                                )}
+                            </div>
+                        ))}
+                </div>
+            )}
+
             <div className="shareBottom">
                 <div className="shareBottomAction">
                     <div
@@ -26,7 +82,7 @@ function Share({ currentUser }) {
                     ></div>
                     <span className="shareBottomActionItemText">Video trực tiếp</span>
                 </div>
-                <div className="shareBottomAction">
+                <label htmlFor="file" className="shareBottomAction">
                     <div
                         className="shareBottomActionItemBg"
                         style={{
@@ -35,7 +91,15 @@ function Share({ currentUser }) {
                         }}
                     ></div>
                     <span className="shareBottomActionItemText">Ảnh/Video</span>
-                </div>
+                </label>
+                <input
+                    style={{ display: 'none' }}
+                    type="file"
+                    id="file"
+                    accept=".png, .jpeg, .jpg"
+                    multiple
+                    onChange={(e) => setFiles(e.target.files)}
+                />
                 <div className="shareBottomAction">
                     <div
                         className="shareBottomActionItemBg"
@@ -47,7 +111,7 @@ function Share({ currentUser }) {
                     <span className="shareBottomActionItemText">Cảm xúc/Hoạt động</span>
                 </div>
             </div>
-        </div>
+        </form>
     );
 }
 

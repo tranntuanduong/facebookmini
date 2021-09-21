@@ -4,6 +4,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { format } from 'timeago.js';
 import { NO_AVARTAR, PF } from '../../constants';
+import { likeUtils } from '../../utils/utils';
 import Comment from '../Comment';
 import './Post.css';
 
@@ -14,17 +15,18 @@ function Post({ post, currentUser }) {
     const [likes, setLikes] = useState(post.likes);
 
     const [user, setUser] = useState({});
+    const [topLikeType, setTopLikeType] = useState([]);
+    const [openChooseLikeType, setOpenChooseLikeType] = useState(false);
 
     useEffect(() => {
         (async () => {
             const res = await axios.get(`/users?userId=${post.userId}`);
-
             setUser(res.data);
         })();
     }, [post.userId]);
 
+    // handle when click like btn
     const likeHandler = async (type) => {
-        await axios.put(`/posts/${post._id}/likes`, { userId: currentUser._id, type: type });
         if (likes.some((like) => like.userId === currentUser._id)) {
             // liked
             likes.splice(
@@ -35,15 +37,36 @@ function Post({ post, currentUser }) {
         } else {
             setLikes([...likes, { type: type, userId: currentUser._id }]);
         }
+        setOpenChooseLikeType(false);
+        await axios.put(`/posts/${post._id}/likes`, { userId: currentUser._id, type: type });
     };
 
-    console.log(likes);
+    // view icon liketype
+    useEffect(() => {
+        setTopLikeType(likeUtils(likes));
+    }, [likes]);
 
-    const topLikeType = {
-        like: ['61486a3ac108c4be6b6f0f7b', '61486c967181a46fbdabafd3'],
-        sad: ['614856eca6aa06de2b0c0ff9'],
+    // handle open likes choose
+    const handleMouseEnter = () => {
+        setOpenChooseLikeType(true);
     };
 
+    const handleMouseLeave = () => {
+        setOpenChooseLikeType(false);
+    };
+
+    // handle open likes choose
+    // const handleMouseEvent = (type) => {
+    //     if (type === 'type') {
+    //         console.log(type);
+
+    //         setOpenChooseLikeType(true);
+    //     } else {
+    //         console.log(type);
+    //         setOpenChooseLikeType(false);
+    //     }
+    // };
+    console.log(openChooseLikeType);
     return (
         <div className="post">
             <div className="postTop">
@@ -51,7 +74,7 @@ function Post({ post, currentUser }) {
                 <div className="postTopInfo">
                     <span className="postTopInfoName">{`${user.firstName} ${user.lastName}`}</span>
                     <div className="postTopInfoTime">
-                        <span>{format(user.createdAt)} · </span> <PublicIcon style={{ fontSize: 'inherit' }} />
+                        <span>{format(post.createdAt)} · </span> <PublicIcon style={{ fontSize: 'inherit' }} />
                     </div>
                 </div>
                 <div className="postTopAction">
@@ -66,10 +89,10 @@ function Post({ post, currentUser }) {
             <div className="postBottom">
                 <div className="postBottmInfo">
                     <div className="postBottomLikeInfo">
-                        {Object.keys(topLikeType).map((key, index) => (
+                        {topLikeType.map((element, index) => (
                             <img
                                 key={index}
-                                src={`./assets/feed/${key}.svg`}
+                                src={`./assets/feed/${element[0]}.svg`}
                                 alt=""
                                 className="postBottomLikeInfoImg "
                             />
@@ -87,32 +110,46 @@ function Post({ post, currentUser }) {
                 <div className="postBottomAction">
                     <hr className="postHr" />
                     <div className="filterBottomActionList">
-                        <div className="postBottomActionItem postBottomActionItemLike">
-                            {likes.some((like) => like.userId === currentUser._id) ? (
-                                <>
-                                    <div
-                                        className="postBottomActionItemBg liked"
-                                        style={{
-                                            backgroundImage: `url("/assets/feed/infoImg.png")`,
-                                            backgroundPosition: '0 -214px',
-                                        }}
-                                    ></div>
-                                    <span className="postBottomActionItemText liked">Thích</span>
-                                </>
-                            ) : (
-                                <>
-                                    <div
-                                        className="postBottomActionItemBg"
-                                        style={{
-                                            backgroundImage: `url("/assets/feed/infoImg.png")`,
-                                            backgroundPosition: '0 -214px',
-                                        }}
-                                    ></div>
-                                    <span className="postBottomActionItemText">Thích</span>
-                                </>
-                            )}
+                        <div
+                            className="postBottomActionItem postBottomActionItemLike"
+                            onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}
+                        >
+                            <div className="postBottomActionItemLikeWrap" onClick={() => likeHandler('like')}>
+                                {likes.some((like) => like.userId === currentUser._id) ? (
+                                    <>
+                                        <div
+                                            className="postBottomActionItemBg liked"
+                                            style={{
+                                                backgroundImage: `url("/assets/feed/infoImg.png")`,
+                                                backgroundPosition: '0 -214px',
+                                            }}
+                                        ></div>
+                                        <span className="postBottomActionItemText liked">Thích</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div
+                                            className="postBottomActionItemBg"
+                                            style={{
+                                                backgroundImage: `url("/assets/feed/infoImg.png")`,
+                                                backgroundPosition: '0 -214px',
+                                            }}
+                                        ></div>
+                                        <span className="postBottomActionItemText">Thích</span>
+                                    </>
+                                )}
+                            </div>
 
-                            <ul className="postBottomLikeDetailList">
+                            {/* onMouseOver={handleOnMouseOver} */}
+
+                            <ul
+                                className={
+                                    openChooseLikeType
+                                        ? 'postBottomLikeDetailList postBottomLikeDetailListShow'
+                                        : 'postBottomLikeDetailList'
+                                }
+                            >
                                 <li className="postBottomLikeDetailItem" onClick={() => likeHandler('like')}>
                                     <img src="./assets/feed/like.svg" alt="" className="postBottomLikeDetailImg" />
                                 </li>

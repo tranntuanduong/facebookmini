@@ -5,6 +5,8 @@ import { NO_AVARTAR, PF } from '../../constants';
 import { AuthContext } from '../../context/AuthProvider';
 import './Comment.css';
 import FormComment from './FormComment';
+import SubComment from '../SubComment';
+import { format } from 'timeago.js';
 
 Comment.propTypes = {};
 
@@ -84,7 +86,13 @@ function Comment({ post }) {
                                 <div className="commentItemContentLeft">
                                     <div className="commentItemContentName">{comment.fullName}</div>
                                     <div className="commentItemContentText">{comment.text}</div>
-                                    <ul className="commentItemContentReportAction">
+                                    <ul
+                                        className={
+                                            comment.text.length <= 35
+                                                ? 'commentItemContentReportAction shortComment'
+                                                : 'commentItemContentReportAction'
+                                        }
+                                    >
                                         <li className="reportItem">
                                             <img src="./assets/feed/like.svg" alt="" />
                                         </li>
@@ -112,10 +120,11 @@ function Comment({ post }) {
                                 <div className="commentItemContentAction">
                                     <div className="commentItemContentActionItem">Thích</div>
                                     <div className="commentItemContentActionItem">Phản hồi</div>
-                                    <div className="commentItemContentTime">16 giờ</div>
+                                    <div className="commentItemContentTime">{format(comment.createdAt)}</div>
                                 </div>
                                 {/* <SubComment />
                                 <SubComment /> */}
+                                {/* <SubComment /> */}
                             </div>
                         </div>
                     </li>

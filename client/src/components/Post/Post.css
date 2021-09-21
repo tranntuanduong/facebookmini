@@ -129,6 +129,13 @@
     position: relative;
 }
 
+.postBottomActionItemLikeWrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .postBottomActionItemBg {
     width: 20px;
     height: 20px;
@@ -191,10 +198,10 @@
     /* display: none; */
 }
 
-.postBottomActionItemLike:hover .postBottomLikeDetailList {
-    /* display: flex; */
+.postBottomLikeDetailList.postBottomLikeDetailListShow {
     transform: translateY(0);
     opacity: 1;
+    /* display: flex; */
 }
 
 .postBottomLikeDetailItem {

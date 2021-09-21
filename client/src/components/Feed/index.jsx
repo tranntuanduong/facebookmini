@@ -21,7 +21,7 @@ function Feed({ currentUser }) {
     return (
         <div className="feed">
             <Story currentUser={currentUser} />
-            <Share currentUser={currentUser} />
+            <Share currentUser={currentUser} setPosts={setPosts} posts={posts} />
             {/* <Post currentUser={currentUser} />
             <Post currentUser={currentUser} />
             <Post currentUser={currentUser} /> */}
