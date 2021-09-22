@@ -12,22 +12,49 @@ function Share({ currentUser, posts, setPosts }) {
 
     const handleShareSubmmit = async (e) => {
         e.preventDefault();
-        console.log(desc);
+
+        const imgCollections = [];
+        if (files) {
+            const formData = new FormData();
+
+            // const imgs = [];
+            // for (let i = 0; i < files.length; i++) {
+            //     // append name before file to prevent proxy error
+            //     formData.append(`names[${i}]`, Date.now() + files[i].name);
+            //     formData.append(`images[${i}]`, files[i]);
+            //     imgs.push(`/${Date.now() + files[i].name}`);
+            // }
+            for (const key of Object.keys(files)) {
+                formData.append('imgCollections', files[key]);
+                imgCollections.push(files[key].name);
+            }
+
+            // Display the values
+            // for (var value of formData.values()) {
+            //     console.log(value);
+            // }
+            try {
+                await axios.post('/uploads', formData);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
         const newPost = {
             userId: currentUser._id,
             desc: desc,
+            imgCollections: imgCollections,
         };
+
         const res = await axios.post('/posts', newPost);
         setPosts([...posts, res.data]);
         setDesc('');
+        setFiles(null);
     };
 
     const handleDescChange = (e) => {
         setDesc(e.target.value);
     };
-    if (files) {
-        console.log(Object.keys(files));
-    }
 
     return (
         <form className="share" onSubmit={handleShareSubmmit}>

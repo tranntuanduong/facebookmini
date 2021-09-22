@@ -10,7 +10,7 @@ export const likeUtils = (likes) => {
         }
     });
 
-    console.log(topLike);
+    // console.log(topLike);
 
     const sortable = [];
     for (const property in topLike) {

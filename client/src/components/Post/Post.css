@@ -68,9 +68,6 @@
     cursor: pointer;
 }
 
-.postContent {
-}
-
 .postContentText {
     color: #e4e0df;
     padding: 0 16px 12px 16px;
@@ -78,9 +75,81 @@
     line-height: 1.5;
 }
 
+/* handle imgCollection viewer */
+.postContentImgWrap2,
+.postContentImgWrap3,
+.postContentImgWrap4,
+.postContentImgWrap5 {
+    width: 100%;
+    height: 340px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* 1 img */
 .postContentImg {
     width: 100%;
 }
+
+/* 2 img */
+.postContentImgWrap2 + .postContentImgWrap2 {
+    margin-top: 2px;
+}
+
+.postContentImg2_2 {
+    width: calc(50% - 1px);
+    height: 100%;
+    object-fit: cover;
+}
+
+.postContentImg2_2 + .postContentImg2_2 {
+    margin-left: 2px;
+}
+
+/* 3 img */
+.postContentImgWrap3 {
+    margin-bottom: 2px;
+}
+
+.postContentImg3_1 {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.postContentImgWrap3_3 {
+    display: flex;
+    height: 228px;
+    margin-top: 2px;
+
+    position: relative;
+}
+
+.postContentImg3_3 {
+    width: calc(33.3333% - 1.5px);
+    object-fit: cover;
+}
+
+.postContentImg3_3 + .postContentImg3_3 {
+    margin-left: 2px;
+}
+
+.postContentMoreImg {
+    color: #e4e0df;
+    font-size: 70px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: calc(33.3333% - 1.5px);
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* post bottom */
 
 .postBottom {
     padding: 12px 16px 4px 16px;
