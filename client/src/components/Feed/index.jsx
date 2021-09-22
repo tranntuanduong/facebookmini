@@ -5,6 +5,7 @@ import Story from '../Story';
 import axios from 'axios';
 
 import './Feed.css';
+import { sortDateUtils } from '../../utils/utils';
 
 Feed.propTypes = {};
 
@@ -14,7 +15,11 @@ function Feed({ currentUser }) {
     useEffect(() => {
         (async () => {
             const res = await axios.get(`/posts/${currentUser._id}`);
-            setPosts(res.data);
+
+            setPosts(sortDateUtils(res.data));
+            // res.data.sort((a, b) => {
+            //     return -(new Date(a.updatedAt) - new Date(b.updatedAt));
+            // })
         })();
     }, [currentUser._id]);
 

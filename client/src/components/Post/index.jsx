@@ -1,7 +1,7 @@
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import PublicIcon from '@material-ui/icons/Public';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { format } from 'timeago.js';
 import { NO_AVARTAR, PF } from '../../constants';
 import { likeUtils } from '../../utils/utils';
@@ -66,7 +66,8 @@ function Post({ post, currentUser }) {
     //         setOpenChooseLikeType(false);
     //     }
     // };
-    console.log(post.imgCollections);
+    // console.log(post.imgCollections);
+
     return (
         <div className="post">
             <div className="postTop">
@@ -83,72 +84,75 @@ function Post({ post, currentUser }) {
             </div>
             <div className="postContent">
                 <div className="postContentText">{post.desc}</div>
-                {/* map imgConnections */}
 
-                {/* imgConnections: 1 */}
-                {post.imgCollections.length === 1 && (
-                    <img src={`${PF}/post/${post.imgCollections[0]}`} alt="" className="postContentImg" />
-                )}
+                <div className="imgWraper">
+                    {/* imgConnections: 1 */}
+                    {post.imgCollections.length === 1 && (
+                        <img src={`${PF}/post/${post.imgCollections[0]}`} alt="" className="postContentImg" />
+                    )}
 
-                {/* imgConnections: 2 */}
-                {post.imgCollections.length === 2 && (
-                    <div className="postContentImgWrap2">
-                        {post.imgCollections.map((img, index) => (
-                            <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg2_2" />
-                        ))}
-                    </div>
-                )}
-
-                {/* imgConnections: 3 */}
-                {post.imgCollections.length === 3 && (
-                    <>
-                        <div className="postContentImgWrap3">
-                            {post.imgCollections.slice(0, 1).map((img, index) => (
-                                <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg3_1" />
-                            ))}
-                        </div>
+                    {/* imgConnections: 2 */}
+                    {post.imgCollections.length === 2 && (
                         <div className="postContentImgWrap2">
-                            {post.imgCollections.slice(1, 3).map((img, index) => (
+                            {post.imgCollections.map((img, index) => (
                                 <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg2_2" />
                             ))}
                         </div>
-                    </>
-                )}
+                    )}
 
-                {/* imgConnections: 4 */}
-                {post.imgCollections.length === 4 && (
-                    <>
-                        <div className="postContentImgWrap2">
-                            {post.imgCollections.slice(0, 2).map((img, index) => (
-                                <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg2_2" />
-                            ))}
-                        </div>
-                        <div className="postContentImgWrap2">
-                            {post.imgCollections.slice(2, 4).map((img, index) => (
-                                <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg2_2" />
-                            ))}
-                        </div>
-                    </>
-                )}
+                    {/* imgConnections: 3 */}
+                    {post.imgCollections.length === 3 && (
+                        <>
+                            <div className="postContentImgWrap3">
+                                {post.imgCollections.slice(0, 1).map((img, index) => (
+                                    <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg3_1" />
+                                ))}
+                            </div>
+                            <div className="postContentImgWrap2">
+                                {post.imgCollections.slice(1, 3).map((img, index) => (
+                                    <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg2_2" />
+                                ))}
+                            </div>
+                        </>
+                    )}
 
-                {/* imgConnections: 5 */}
-                {post.imgCollections.length >= 5 && (
-                    <>
-                        <div className="postContentImgWrap2">
-                            {post.imgCollections.slice(0, 2).map((img, index) => (
-                                <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg2_2" />
-                            ))}
-                        </div>
-                        <div className="postContentImgWrap3_3">
-                            {post.imgCollections.slice(2, 5).map((img, index) => (
-                                <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg3_3" />
-                            ))}
-                            {post.imgCollections.slice(5, 6).map((img, index) => (
-                                <div className="postContentMoreImg">+{post.imgCollections.length - 5}</div>
-                            ))}
-                        </div>
-                    </>
-                )}
+                    {/* imgConnections: 4 */}
+                    {post.imgCollections.length === 4 && (
+                        <>
+                            <div className="postContentImgWrap2">
+                                {post.imgCollections.slice(0, 2).map((img, index) => (
+                                    <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg2_2" />
+                                ))}
+                            </div>
+                            <div className="postContentImgWrap2">
+                                {post.imgCollections.slice(2, 4).map((img, index) => (
+                                    <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg2_2" />
+                                ))}
+                            </div>
+                        </>
+                    )}
+
+                    {/* imgConnections: 5 */}
+                    {post.imgCollections.length >= 5 && (
+                        <>
+                            <div className="postContentImgWrap2">
+                                {post.imgCollections.slice(0, 2).map((img, index) => (
+                                    <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg2_2" />
+                                ))}
+                            </div>
+                            <div className="postContentImgWrap3_3">
+                                {post.imgCollections.slice(2, 5).map((img, index) => (
+                                    <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg3_3" />
+                                ))}
+                                {post.imgCollections.slice(5, 6).map((img, index) => (
+                                    <div key={index} className="postContentMoreImg">
+                                        +{post.imgCollections.length - 5}
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    )}
+                </div>
             </div>
 
             <div className="postBottom">

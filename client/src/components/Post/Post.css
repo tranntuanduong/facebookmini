@@ -70,12 +70,17 @@
 
 .postContentText {
     color: #e4e0df;
-    padding: 0 16px 12px 16px;
+    padding: 0 16px;
     font-size: 14px;
     line-height: 1.5;
 }
 
+.imgWraper {
+    padding: 10px 0;
+}
+
 /* handle imgCollection viewer */
+
 .postContentImgWrap2,
 .postContentImgWrap3,
 .postContentImgWrap4,
@@ -89,6 +94,8 @@
 /* 1 img */
 .postContentImg {
     width: 100%;
+    max-height: 600px;
+    object-fit: contain;
 }
 
 /* 2 img */
@@ -152,7 +159,7 @@
 /* post bottom */
 
 .postBottom {
-    padding: 12px 16px 4px 16px;
+    padding: 12px 16px 0;
     overflow: hidden;
 }
 

@@ -83,6 +83,9 @@
     display: flex;
     margin-top: 8px;
 }
+.commentItem + .commentItem {
+    margin-top: 12px;
+}
 
 .commentItemAvatarImg {
     width: 35px;
@@ -146,7 +149,7 @@
     font-size: 14px;
     color: #949496;
     font-weight: 500;
-    padding: 8px 12px;
+    padding: 8px 12px 0;
     align-items: center;
 }
 
@@ -168,6 +171,7 @@
     font-size: 15px;
     font-weight: 500;
     color: #b6b6b6;
+    margin-top: 10px;
 }
 
 .commentMore:hover {

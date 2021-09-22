@@ -1,74 +1,72 @@
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { NO_AVARTAR, PF } from '../../constants';
 import { AuthContext } from '../../context/AuthProvider';
 import './Comment.css';
 import FormComment from './FormComment';
 import SubComment from '../SubComment';
 import { format } from 'timeago.js';
+import { sortDateUtils } from '../../utils/utils';
 
 Comment.propTypes = {};
 
-function Comment({ post }) {
+function Comment({ post, scrollInToView }) {
     const { user: currentUser } = useContext(AuthContext);
     const [comments, setComments] = useState([]); //comment of a post
+    const viewInputRef = useRef();
+    const autoFocusRef = useRef();
+    const [skip, setSkip] = useState(0);
 
     useEffect(() => {
         (async () => {
-            const res = await axios.get(`/comments/${post._id}`);
-            setComments(res.data);
+            const res = await axios.get(`/comments/${post._id}/${skip}`);
+            // Dang loi, ko dung body dc
+            const count = await axios.get(`/comments/count?postId=${post._id}`, { postId: post._id });
+
+            // ----Code chua clean----
+            // setComments(sortDateUtils(res.data));
+            // setComments(res.data);
+            // if (comments.length === 0) {
+            //     console.log('true');
+            //     setComments(res.data);
+            // } else {
+            //     console.log(res.data);
+            //     console.log([...comments, ...res.data]);
+            // }
+
+            // ----Code da dc clean----
+            setComments((prev) => [...prev, ...res.data]);
+            console.log(count.data);
         })();
-    }, [post._id]);
+    }, [post._id, skip]);
+
+    const scrollToCommentHandler = () => {
+        viewInputRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        autoFocusRef.current.focus({ preventScroll: true });
+    };
+
+    const readMoreHandler = async () => {
+        // setComments(sortDateUtils([...comments, res.data]));
+        setSkip(skip + 3);
+    };
 
     return (
         <div className="comment">
-            <div className="commentTop">
+            <div className="commentTop" ref={viewInputRef}>
                 <img
                     src={`${PF}/${currentUser.avatar ? currentUser.avatar : NO_AVARTAR}`}
                     alt=""
                     className="commentTopAvatar"
                 />
-                {/* <form className="commentTopInput" onSubmit={handleCommentSubmit}>
-                    <input
-                        type="text"
-                        placeholder="Viết bình luận..."
-                        value={myComment}
-                        onChange={handleFieldChange}
-                        onClick={() => setCurrentPostId(post._id)}
-                    />
-                    <div className="commentTopInputAttach">
-                        <div className="commentTopInputAttachItem">
-                            <div
-                                className="commentTopInputAttachItemBg"
-                                style={{
-                                    backgroundImage: `url("/assets/feed/infoImg.png")`,
-                                    backgroundPosition: '0 -420px',
-                                }}
-                            ></div>
-                        </div>
-                        <div className="commentTopInputAttachItem">
-                            <div
-                                className="commentTopInputAttachItemBg"
-                                style={{
-                                    backgroundImage: `url("/assets/feed/infoImg.png")`,
-                                    backgroundPosition: '0 -353px',
-                                }}
-                            ></div>
-                        </div>
-
-                        <div className="commentTopInputAttachItem">
-                            <div
-                                className="commentTopInputAttachItemBg"
-                                style={{
-                                    backgroundImage: `url("/assets/feed/infoImg.png")`,
-                                    backgroundPosition: '0 -472px',
-                                }}
-                            ></div>
-                        </div>
-                    </div>
-                </form> */}
-                <FormComment currentUser={currentUser} setComments={setComments} comments={comments} post={post} />
+                {/* <input type="text" ref={autoFocusRef}></input> */}
+                <FormComment
+                    autoFocusRef={autoFocusRef}
+                    currentUser={currentUser}
+                    setComments={setComments}
+                    comments={comments}
+                    post={post}
+                />
             </div>
             <ul className="commentList">
                 {comments.map((comment) => (
@@ -130,7 +128,12 @@ function Comment({ post }) {
                     </li>
                 ))}
             </ul>
-            <div className="commentMore">Xem thêm bình luận</div>
+            <div className="commentMore" onClick={scrollToCommentHandler}>
+                Viết bình luận ...
+            </div>
+            <div className="commentMore" onClick={readMoreHandler}>
+                Xem thêm bình luận
+            </div>
         </div>
     );
 }

@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
+import axios from 'axios';
+import React, { useState } from 'react';
 import { NO_AVARTAR, PF } from '../../constants';
 import './Share.css';
-import axios from 'axios';
-import CloseIcon from '@mui/icons-material/Close';
 
 Share.propTypes = {};
 
@@ -47,7 +47,7 @@ function Share({ currentUser, posts, setPosts }) {
         };
 
         const res = await axios.post('/posts', newPost);
-        setPosts([...posts, res.data]);
+        setPosts([res.data, ...posts]);
         setDesc('');
         setFiles(null);
     };

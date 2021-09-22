@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 FormComment.propTypes = {};
 
-function FormComment({ post, currentUser, comments, setComments }) {
+function FormComment({ post, currentUser, comments, setComments, autoFocusRef }) {
     const [myComment, setMyComment] = useState('');
     const [currentPostId, setCurrentPostId] = useState('');
 
@@ -18,7 +18,8 @@ function FormComment({ post, currentUser, comments, setComments }) {
                 fullName: `${currentUser.firstName} ${currentUser.lastName}`,
             };
             const res = await axios.post(`comments`, newComment);
-            setComments(comments.concat(res.data));
+            // setComments(comments.concat(res.data));
+            setComments([res.data, ...comments]);
 
             setMyComment('');
         }
@@ -31,6 +32,7 @@ function FormComment({ post, currentUser, comments, setComments }) {
     return (
         <form className="commentTopInput" onSubmit={handleCommentSubmit}>
             <input
+                ref={autoFocusRef}
                 type="text"
                 placeholder="Viết bình luận..."
                 value={myComment}

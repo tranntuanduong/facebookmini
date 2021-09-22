@@ -1,3 +1,4 @@
+// convert likes db -> likes viewer
 export const likeUtils = (likes) => {
     const topLike = {};
 
@@ -25,4 +26,10 @@ export const likeUtils = (likes) => {
     }
 
     return sortable;
+};
+
+export const sortDateUtils = (data) => {
+    return data.sort((a, b) => {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+    });
 };
