@@ -12,7 +12,7 @@ function SideBar({ currentUser }) {
             <ul className="sideBarList mt16">
                 <li className="sideBarItem">
                     <img
-                        src={`${PF}/${currentUser.avatar ? currentUser.avatar : NO_AVARTAR}`}
+                        src={`${PF}/${currentUser.avatar ? `person/${currentUser.avatar}` : NO_AVARTAR}`}
                         alt=""
                         className="sideBarItemImg"
                     />

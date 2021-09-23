@@ -16,7 +16,7 @@ Header.propTypes = {};
 
 function Header(props) {
     const { user: currentUser } = useContext(AuthContext);
-    console.log(`${PF}/${currentUser.avatar ? currentUser.avatar : 'person/noAvatar.png'}`);
+
     return (
         <div className="header">
             <div className="headerLeft">
@@ -48,7 +48,7 @@ function Header(props) {
             </ul>
             <ul className="headerLeftRight">
                 <li className="headerLeftRightUser">
-                    <img src={`${PF}/${currentUser.avatar ? currentUser.avatar : NO_AVARTAR}`} alt="" />
+                    <img src={`${PF}/${currentUser.avatar ? `person/${currentUser.avatar}` : NO_AVARTAR}`} alt="" />
                     <span className="headerLeftRightUsername">{currentUser.lastName}</span>
                 </li>
                 <li className="headerLeftRightInfo">

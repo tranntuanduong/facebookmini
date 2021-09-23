@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const CommentSchema = new mongoose.Schema(
+const SubCommentSchema = new mongoose.Schema(
     {
         userId: {
             type: String,
@@ -11,7 +11,10 @@ const CommentSchema = new mongoose.Schema(
         fullName: {
             type: String,
         },
-        postId: {
+        replyToUserId: {
+            type: String,
+        },
+        commentId: {
             type: String,
         },
         text: {
@@ -22,12 +25,8 @@ const CommentSchema = new mongoose.Schema(
             type: Array,
             default: [],
         },
-        // subCommentIds: {
-        //     type: Array,
-        //     default: [],
-        // },
     },
     { timestamps: true }
 );
 
-module.exports = mongoose.model('Comment', CommentSchema);
+module.exports = mongoose.model('SubComment', SubCommentSchema);

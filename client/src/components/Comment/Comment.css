@@ -15,6 +15,16 @@
     margin-right: 8px;
 }
 
+/* css for feedback comment*/
+.commentTop.feedback {
+    margin-top: 6px;
+    margin-bottom: 2px;
+}
+.commentTop.feedback .commentTopAvatar {
+    width: 25px;
+    height: 25px;
+}
+
 .commentTopInput {
     padding: 2px 2px 2px 16px;
     background-color: #3a3b3c;
@@ -23,6 +33,8 @@
     display: flex;
     align-items: center;
     flex: 1;
+
+    position: relative;
 }
 
 .commentTopInput input {
@@ -73,6 +85,50 @@
     right: 4px;
 }
 
+.commentTopInputAttachEmoji {
+    list-style: none;
+    padding: 0;
+    width: 314px;
+    height: 320px;
+    background-color: #242526;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 45px;
+    right: 0;
+    padding: 4px;
+
+    box-shadow: 0px 2px 26px 4px rgba(0, 0, 0, 0.63);
+
+    display: flex;
+    flex-wrap: wrap;
+
+    overflow-y: scroll;
+}
+
+.commentTopInputAttachEmoji li {
+    margin-bottom: 10px;
+    font-size: 25px;
+    height: 25px;
+}
+
+.commentTopInputAttachEmoji::-webkit-scrollbar {
+    width: 4px;
+    display: none;
+}
+
+.commentTopInputAttachEmoji:hover::-webkit-scrollbar {
+    display: block;
+}
+
+.commentTopInputAttachEmoji::-webkit-scrollbar-thumb {
+    background-color: rgba(109, 109, 109, 0.823);
+    border-radius: 8px;
+}
+
+.commentTopInputAttachEmoji::-webkit-scrollbar-track {
+    background-color: #acacac06;
+}
+
 /* Comment list */
 .commentList {
     padding: 0;
@@ -85,6 +141,10 @@
 }
 .commentItem + .commentItem {
     margin-top: 12px;
+}
+
+.commentItemContentWrap {
+    flex: 1;
 }
 
 .commentItemAvatarImg {
@@ -108,7 +168,7 @@
     font-weight: 300;
     border-radius: 22px;
     margin-right: 5px;
-    flex: 1;
+
     position: relative;
 }
 

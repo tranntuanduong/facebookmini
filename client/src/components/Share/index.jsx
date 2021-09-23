@@ -60,7 +60,7 @@ function Share({ currentUser, posts, setPosts }) {
         <form className="share" onSubmit={handleShareSubmmit}>
             <div className="shareTop">
                 <img
-                    src={`${PF}/${currentUser.avatar ? currentUser.avatar : NO_AVARTAR}`}
+                    src={`${PF}/${currentUser.avatar ? `person/${currentUser.avatar}` : NO_AVARTAR}`}
                     alt=""
                     className="shareTopImg"
                 />

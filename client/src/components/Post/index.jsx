@@ -17,6 +17,7 @@ function Post({ post, currentUser }) {
     const [user, setUser] = useState({});
     const [topLikeType, setTopLikeType] = useState([]);
     const [openChooseLikeType, setOpenChooseLikeType] = useState(false);
+    const [totalComment, setTotalComment] = useState();
 
     useEffect(() => {
         (async () => {
@@ -71,7 +72,11 @@ function Post({ post, currentUser }) {
     return (
         <div className="post">
             <div className="postTop">
-                <img src={`${PF}/${user.avatar ? user.avatar : NO_AVARTAR}`} alt="" className="postTopAvatar" />
+                <img
+                    src={`${PF}/${user.avatar ? `person/${user.avatar}` : NO_AVARTAR}`}
+                    alt=""
+                    className="postTopAvatar"
+                />
                 <div className="postTopInfo">
                     <span className="postTopInfoName">{`${user.firstName} ${user.lastName}`}</span>
                     <div className="postTopInfoTime">
@@ -171,7 +176,7 @@ function Post({ post, currentUser }) {
                     </div>
 
                     <div className="postBottomTextInfo">
-                        <span className="postBottomTextInfoItem">227 lượt bình luận</span>
+                        <span className="postBottomTextInfoItem">{totalComment} lượt bình luận</span>
                         <span className="postBottomTextInfoItem">31 lượt chia sẻ</span>
                     </div>
                 </div>
@@ -269,7 +274,7 @@ function Post({ post, currentUser }) {
             {isShowComment && (
                 <div className="postCommentWrap">
                     <hr className="postHr" />
-                    <Comment post={post} />
+                    <Comment post={post} setTotalComment={setTotalComment} totalComment={totalComment} />
                 </div>
             )}
         </div>

@@ -1,22 +1,24 @@
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import axios from 'axios';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { NO_AVARTAR, PF } from '../../constants';
+import { NO_AVARTAR, PF, TYPE_COMMENTPOST } from '../../constants';
 import { AuthContext } from '../../context/AuthProvider';
 import './Comment.css';
+import CommentItem from './CommentItem';
 import FormComment from './FormComment';
-import SubComment from '../SubComment';
-import { format } from 'timeago.js';
-import { sortDateUtils } from '../../utils/utils';
 
 Comment.propTypes = {};
 
-function Comment({ post, scrollInToView }) {
+function Comment({ post, totalComment, setTotalComment }) {
     const { user: currentUser } = useContext(AuthContext);
     const [comments, setComments] = useState([]); //comment of a post
+
     const viewInputRef = useRef();
     const autoFocusRef = useRef();
     const [skip, setSkip] = useState(0);
+
+    // const viewInputRef = useRef();
+    // const autoFocusRef = useRef();
+    // const [skip, setSkip] = useState(0);
 
     useEffect(() => {
         (async () => {
@@ -37,7 +39,7 @@ function Comment({ post, scrollInToView }) {
 
             // ----Code da dc clean----
             setComments((prev) => [...prev, ...res.data]);
-            console.log(count.data);
+            setTotalComment(count.data);
         })();
     }, [post._id, skip]);
 
@@ -51,11 +53,12 @@ function Comment({ post, scrollInToView }) {
         setSkip(skip + 3);
     };
 
+    console.log(currentUser);
     return (
         <div className="comment">
             <div className="commentTop" ref={viewInputRef}>
                 <img
-                    src={`${PF}/${currentUser.avatar ? currentUser.avatar : NO_AVARTAR}`}
+                    src={`${PF}/${currentUser.avatar ? `person/${currentUser.avatar}` : NO_AVARTAR}`}
                     alt=""
                     className="commentTopAvatar"
                 />
@@ -65,75 +68,23 @@ function Comment({ post, scrollInToView }) {
                     currentUser={currentUser}
                     setComments={setComments}
                     comments={comments}
-                    post={post}
+                    postId={post._id}
+                    type={TYPE_COMMENTPOST}
                 />
             </div>
             <ul className="commentList">
                 {comments.map((comment) => (
-                    <li key={comment._id} className="commentItem">
-                        <div className="commentItemAvatar">
-                            <img
-                                src={`${PF}/${comment.userAvatar ? comment.userAvatar : NO_AVARTAR}`}
-                                alt=""
-                                className="commentItemAvatarImg"
-                            />
-                        </div>
-
-                        <div className="commentItemContentWrap">
-                            <div className="commentItemContent">
-                                <div className="commentItemContentLeft">
-                                    <div className="commentItemContentName">{comment.fullName}</div>
-                                    <div className="commentItemContentText">{comment.text}</div>
-                                    <ul
-                                        className={
-                                            comment.text.length <= 35
-                                                ? 'commentItemContentReportAction shortComment'
-                                                : 'commentItemContentReportAction'
-                                        }
-                                    >
-                                        <li className="reportItem">
-                                            <img src="./assets/feed/like.svg" alt="" />
-                                        </li>
-                                        <li className="reportItem">
-                                            <img src="./assets/feed/haha.svg" alt="" />
-                                        </li>
-                                        <div className="reportItemQuantity">1</div>
-                                        <ul className="reportItemDetail">
-                                            <li className="reportItemDetailItem">
-                                                <img src="./assets/feed/like.svg" alt="" />
-                                                <div className="reportItemDetailItemQuantity">53</div>
-                                            </li>
-                                            <li className="reportItemDetailItem">
-                                                <img src="./assets/feed/haha.svg" alt="" />
-                                                <div className="reportItemDetailItemQuantity">32</div>
-                                            </li>
-                                        </ul>
-                                    </ul>
-                                </div>
-                                <div className="commentItemContentRight">
-                                    <MoreHorizIcon />
-                                </div>
-                            </div>
-                            <div className="commentItemBottom">
-                                <div className="commentItemContentAction">
-                                    <div className="commentItemContentActionItem">Thích</div>
-                                    <div className="commentItemContentActionItem">Phản hồi</div>
-                                    <div className="commentItemContentTime">{format(comment.createdAt)}</div>
-                                </div>
-                                {/* <SubComment />
-                                <SubComment /> */}
-                                {/* <SubComment /> */}
-                            </div>
-                        </div>
-                    </li>
+                    <CommentItem key={comment._id} comment={comment} currentUser={currentUser} />
                 ))}
             </ul>
             <div className="commentMore" onClick={scrollToCommentHandler}>
                 Viết bình luận ...
             </div>
-            <div className="commentMore" onClick={readMoreHandler}>
-                Xem thêm bình luận
-            </div>
+            {totalComment - comments.length > 0 && (
+                <div className="commentMore" onClick={readMoreHandler}>
+                    Xem thêm {`(${totalComment - comments.length})`} bình luận
+                </div>
+            )}
         </div>
     );
 }
