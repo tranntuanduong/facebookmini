@@ -1,9 +1,17 @@
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import React from 'react';
+import React, { useState } from 'react';
 import { NO_AVARTAR, PF } from '../../constants';
+import { format } from 'timeago.js';
 
 function SubCommentItem({ subComments }) {
-    console.log(subComments);
+    const [openChooseLikeType, setOpenChooseLikeType] = useState(false);
+    const handleMouseEnter = () => {
+        setOpenChooseLikeType(true);
+    };
+
+    const handleMouseLeave = () => {
+        setOpenChooseLikeType(false);
+    };
     return (
         <ul className="commentList">
             {subComments.map((subComment) => (
@@ -53,9 +61,56 @@ function SubCommentItem({ subComments }) {
                         </div>
                         <div className="commentItemBottom">
                             <div className="commentItemContentAction">
-                                <div className="commentItemContentActionItem">Thích</div>
+                                <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                                    <div className="commentItemContentActionItem">Thích</div>
+                                    {/* Like comment list btn */}
+                                    <ul
+                                        className={
+                                            openChooseLikeType ? 'commentLikeBtnList open' : 'commentLikeBtnList'
+                                        }
+                                    >
+                                        <li className="commentLikeBtnItem">
+                                            <img
+                                                src="./assets/feed/like.svg"
+                                                alt=""
+                                                className="commentLikeBtnItemImg"
+                                            />
+                                        </li>
+                                        <li className="commentLikeBtnItem">
+                                            <img
+                                                src="./assets/feed/haha.svg"
+                                                alt=""
+                                                className="commentLikeBtnItemImg"
+                                            />
+                                        </li>
+                                        <li className="commentLikeBtnItem">
+                                            <img
+                                                src="./assets/feed/lovely.svg"
+                                                alt=""
+                                                className="commentLikeBtnItemImg"
+                                            />
+                                        </li>
+                                        <li className="commentLikeBtnItem">
+                                            <img
+                                                src="./assets/feed/heart.svg"
+                                                alt=""
+                                                className="commentLikeBtnItemImg"
+                                            />
+                                        </li>
+                                        <li className="commentLikeBtnItem">
+                                            <img src="./assets/feed/wow.svg" alt="" className="commentLikeBtnItemImg" />
+                                        </li>
+                                        <li className="commentLikeBtnItem">
+                                            <img
+                                                src="./assets/feed/angry.svg"
+                                                alt=""
+                                                className="commentLikeBtnItemImg"
+                                            />
+                                        </li>
+                                    </ul>
+                                </div>
                                 <div className="commentItemContentActionItem">Phản hồi</div>
-                                <div className="commentItemContentTime">16 giờ</div>
+                                <div className="commentItemContentTime">{format(subComment.createdAt)}</div>
                             </div>
                         </div>
                     </div>

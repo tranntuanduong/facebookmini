@@ -82,7 +82,6 @@ function FormComment({
         <form className="commentTopInput" onSubmit={handleCommentSubmit}>
             <input
                 ref={autoFocusRef} /* forcus when click write comment */
-                autoFocus /*auto forcus when open feedback comment*/
                 type="text"
                 placeholder="Viết bình luận..."
                 value={myComment}
@@ -91,10 +90,9 @@ function FormComment({
             />
 
             <div className="commentTopInputAttach">
-                <div className="commentTopInputAttachItem">
+                <div className="commentTopInputAttachItem " onClick={showEmojiHandler}>
                     <div
                         className="commentTopInputAttachItemBg"
-                        onClick={showEmojiHandler}
                         style={{
                             backgroundImage: `url("/assets/feed/infoImg.png")`,
                             backgroundPosition: '0 -420px',

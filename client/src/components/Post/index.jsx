@@ -4,7 +4,7 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { format } from 'timeago.js';
 import { NO_AVARTAR, PF } from '../../constants';
-import { likeUtils } from '../../utils/utils';
+import { chooseLikeTypeUtils, likeBtnHanderUtils, likeUtils } from '../../utils/utils';
 import Comment from '../Comment';
 import './Post.css';
 
@@ -13,11 +13,13 @@ Post.propTypes = {};
 function Post({ post, currentUser }) {
     const [isShowComment, setIsShowComment] = useState(true);
     const [likes, setLikes] = useState(post.likes);
-
     const [user, setUser] = useState({});
     const [topLikeType, setTopLikeType] = useState([]);
     const [openChooseLikeType, setOpenChooseLikeType] = useState(false);
     const [totalComment, setTotalComment] = useState();
+    const [currentLikeIndex, setCurrentLikeIndex] = useState(
+        likes.findIndex((like) => like.userId === currentUser._id)
+    );
 
     useEffect(() => {
         (async () => {
@@ -27,19 +29,65 @@ function Post({ post, currentUser }) {
     }, [post.userId]);
 
     // handle when click like btn
-    const likeHandler = async (type) => {
-        if (likes.some((like) => like.userId === currentUser._id)) {
-            // liked
-            likes.splice(
-                likes.findIndex((like) => like.userId === currentUser._id),
-                1
-            );
-            setLikes([...likes]);
-        } else {
-            setLikes([...likes, { type: type, userId: currentUser._id }]);
-        }
-        setOpenChooseLikeType(false);
-        await axios.put(`/posts/${post._id}/likes`, { userId: currentUser._id, type: type });
+    const chooseLikeTypeHandler = async (data) => {
+        // if (likes.some((like) => like.userId === currentUser._id)) {
+        //     // liked
+        //     likes.splice(
+        //         likes.findIndex((like) => like.userId === currentUser._id),
+        //         1
+        //     );
+        //     const newLikes = [
+        //         ...likes,
+        //         { type: data.type, userId: currentUser._id, text: data.text, styleColor: data.styleColor },
+        //     ];
+        //     setLikes(newLikes);
+        // } else {
+        //     console.log('dislike');
+        //     const newLikes = [
+        //         ...likes,
+        //         { type: data.type, userId: currentUser._id, text: data.text, styleColor: data.styleColor },
+        //     ];
+        //     setLikes(newLikes);
+        //     setCurrentLikeIndex(newLikes.findIndex((like) => like.userId === currentUser._id));
+        // }
+        // setOpenChooseLikeType(false);
+
+        chooseLikeTypeUtils(likes, currentUser, data, setLikes, setCurrentLikeIndex, setOpenChooseLikeType);
+
+        await axios.put(`/posts/${post._id}/changelikes`, {
+            userId: currentUser._id,
+            type: data.type,
+            text: data.text,
+            styleColor: data.styleColor,
+        });
+    };
+
+    const likeBtnHandler = async () => {
+        const data = {
+            type: 'like',
+            styleColor: 'rgb(32, 120, 244)',
+            text: 'Thích',
+        };
+        // if (likes.some((like) => like.userId === currentUser._id)) {
+        //     // neu nhu da like:
+        //     likes.splice(
+        //         likes.findIndex((like) => like.userId === currentUser._id),
+        //         1
+        //     );
+        //     setLikes([...likes]);
+        //     setCurrentLikeIndex(likes.findIndex((like) => like.userId === currentUser._id));
+        // } else {
+        //     const newLikes = [...likes, { type: type, userId: currentUser._id, text: text, styleColor: styleColor }];
+        //     setLikes(newLikes);
+        //     setCurrentLikeIndex(newLikes.findIndex((like) => like.userId === currentUser._id));
+        // }
+        likeBtnHanderUtils(likes, currentUser, setLikes, setCurrentLikeIndex, data);
+        await axios.put(`/posts/${post._id}/likes`, {
+            userId: currentUser._id,
+            type: data.type,
+            text: data.text,
+            styleColor: data.styleColor,
+        });
     };
 
     // view icon liketype
@@ -189,16 +237,10 @@ function Post({ post, currentUser }) {
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}
                         >
-                            <div className="postBottomActionItemLikeWrap" onClick={() => likeHandler('like')}>
+                            {/* <div className="postBottomActionItemLikeWrap" onClick={() => chooseLikeTypeHandler('like')}>
                                 {likes.some((like) => like.userId === currentUser._id) ? (
                                     <>
-                                        <div
-                                            className="postBottomActionItemBg liked"
-                                            style={{
-                                                backgroundImage: `url("/assets/feed/infoImg.png")`,
-                                                backgroundPosition: '0 -214px',
-                                            }}
-                                        ></div>
+                                        <img src={`/assets/feed/like.svg`} alt="" className="postBottomLikeInfoImg" />
                                         <span className="postBottomActionItemText liked">Thích</span>
                                     </>
                                 ) : (
@@ -213,9 +255,36 @@ function Post({ post, currentUser }) {
                                         <span className="postBottomActionItemText">Thích</span>
                                     </>
                                 )}
+                            </div> */}
+                            <div className="postBottomActionItemLikeWrap" onClick={() => likeBtnHandler()}>
+                                {currentLikeIndex >= 0 ? (
+                                    // Khac voi chooseLikeTypeHandler, likeBtnHandler dung de xu li like va dislike
+                                    <div className="likeBtn">
+                                        <img
+                                            src={`/assets/feed/${likes[currentLikeIndex]?.type}.svg`}
+                                            alt=""
+                                            className="postBottomLikeInfoImg"
+                                        />
+                                        <span
+                                            className="postBottomActionItemText liked"
+                                            style={{ color: likes[currentLikeIndex]?.styleColor }}
+                                        >
+                                            {likes[currentLikeIndex]?.text}
+                                        </span>
+                                    </div>
+                                ) : (
+                                    <div className="likeBtn">
+                                        <div
+                                            className="postBottomActionItemBg"
+                                            style={{
+                                                backgroundImage: `url("/assets/feed/infoImg.png")`,
+                                                backgroundPosition: '0 -214px',
+                                            }}
+                                        ></div>
+                                        <span className="postBottomActionItemText">Thích</span>
+                                    </div>
+                                )}
                             </div>
-
-                            {/* onMouseOver={handleOnMouseOver} */}
 
                             <ul
                                 className={
@@ -224,25 +293,88 @@ function Post({ post, currentUser }) {
                                         : 'postBottomLikeDetailList'
                                 }
                             >
-                                <li className="postBottomLikeDetailItem" onClick={() => likeHandler('like')}>
+                                <li
+                                    className="postBottomLikeDetailItem"
+                                    onClick={() =>
+                                        chooseLikeTypeHandler({
+                                            type: 'like',
+                                            text: 'Thích',
+                                            styleColor: 'rgb(32, 120, 244)',
+                                        })
+                                    }
+                                >
                                     <img src="./assets/feed/like.svg" alt="" className="postBottomLikeDetailImg" />
                                 </li>
-                                <li className="postBottomLikeDetailItem" onClick={() => likeHandler('haha')}>
+                                <li
+                                    className="postBottomLikeDetailItem"
+                                    onClick={() =>
+                                        chooseLikeTypeHandler({
+                                            type: 'haha',
+                                            text: 'Haha',
+                                            styleColor: 'rgb(247, 177, 37)',
+                                        })
+                                    }
+                                >
                                     <img src="./assets/feed/haha.svg" alt="" className="postBottomLikeDetailImg" />
                                 </li>
-                                <li className="postBottomLikeDetailItem" onClick={() => likeHandler('lovely')}>
+                                <li
+                                    className="postBottomLikeDetailItem"
+                                    onClick={() =>
+                                        chooseLikeTypeHandler({
+                                            type: 'lovely',
+                                            text: 'Thương thương',
+                                            styleColor: 'rgb(247, 177, 37)',
+                                        })
+                                    }
+                                >
                                     <img src="./assets/feed/lovely.svg" alt="" className="postBottomLikeDetailImg" />
                                 </li>
-                                <li className="postBottomLikeDetailItem" onClick={() => likeHandler('heart')}>
+                                <li
+                                    className="postBottomLikeDetailItem"
+                                    onClick={() =>
+                                        chooseLikeTypeHandler({
+                                            type: 'heart',
+                                            text: 'Yêu thích',
+                                            styleColor: 'rgb(243, 62, 88)',
+                                        })
+                                    }
+                                >
                                     <img src="./assets/feed/heart.svg" alt="" className="postBottomLikeDetailImg" />
                                 </li>
-                                <li className="postBottomLikeDetailItem" onClick={() => likeHandler('wow')}>
+                                <li
+                                    className="postBottomLikeDetailItem"
+                                    onClick={() =>
+                                        chooseLikeTypeHandler({
+                                            type: 'wow',
+                                            text: 'Wow',
+                                            styleColor: 'rgb(247, 177, 37)',
+                                        })
+                                    }
+                                >
                                     <img src="./assets/feed/wow.svg" alt="" className="postBottomLikeDetailImg" />
                                 </li>
-                                <li className="postBottomLikeDetailItem" onClick={() => likeHandler('sad')}>
+                                <li
+                                    className="postBottomLikeDetailItem"
+                                    onClick={() =>
+                                        chooseLikeTypeHandler({
+                                            type: 'sad',
+                                            text: 'Buồn',
+                                            styleColor: 'rgb(247, 177, 37)',
+                                        })
+                                    }
+                                >
                                     <img src="./assets/feed/sad.svg" alt="" className="postBottomLikeDetailImg" />
                                 </li>
-                                <li className="postBottomLikeDetailItem" onClick={() => likeHandler('angry')}>
+                                <li
+                                    className="postBottomLikeDetailItem"
+                                    onClick={() =>
+                                        chooseLikeTypeHandler({
+                                            type: 'angry',
+                                            text: 'Phẫn nộ',
+                                            styleColor: 'rgb(233, 113, 15)',
+                                        })
+                                    }
+                                >
                                     <img src="./assets/feed/angry.svg" alt="" className="postBottomLikeDetailImg" />
                                 </li>
                             </ul>

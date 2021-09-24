@@ -14,13 +14,21 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.get('/:commentId/:skip', async (req, res) => {
+router.get('/:commentId', async (req, res) => {
     try {
-        const subCommentList = await SubComment.find({ commentId: req.params.commentId })
-            .sort({ createdAt: -1 })
-            .skip(Number.parseInt(req.params.skip))
-            .limit(3);
+        const subCommentList = await SubComment.find({ commentId: req.params.commentId }).sort({
+            createdAt: 1,
+        });
         res.status(200).json(subCommentList);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+router.get('/:commentId/count', async (req, res) => {
+    try {
+        const count = await SubComment.find({ commentId: req.params.commentId }).count();
+        res.status(200).json(count);
     } catch (error) {
         res.status(500).json(error);
     }

@@ -16,10 +16,6 @@ function Comment({ post, totalComment, setTotalComment }) {
     const autoFocusRef = useRef();
     const [skip, setSkip] = useState(0);
 
-    // const viewInputRef = useRef();
-    // const autoFocusRef = useRef();
-    // const [skip, setSkip] = useState(0);
-
     useEffect(() => {
         (async () => {
             const res = await axios.get(`/comments/${post._id}/${skip}`);
@@ -53,7 +49,6 @@ function Comment({ post, totalComment, setTotalComment }) {
         setSkip(skip + 3);
     };
 
-    console.log(currentUser);
     return (
         <div className="comment">
             <div className="commentTop" ref={viewInputRef}>

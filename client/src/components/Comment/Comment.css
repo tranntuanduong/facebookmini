@@ -211,6 +211,8 @@
     font-weight: 500;
     padding: 8px 12px 0;
     align-items: center;
+
+    position: relative; /* postion for list likebtn in subcomment*/
 }
 
 .commentItemContentActionItem {
@@ -258,7 +260,7 @@
 
 .commentItemContentReportAction.shortComment {
     bottom: 10px;
-    right: -100px;
+    right: -120px;
 }
 
 .commentItemContentReportAction .reportItem {
@@ -307,4 +309,86 @@
     color: #333;
     font-weight: 500;
     font-size: 14px;
+}
+
+/* subcomment */
+.subcommentReadMore {
+    position: relative;
+    cursor: pointer;
+}
+
+.subcommentReadMoreBg {
+    position: absolute;
+    width: 20px;
+    height: 18px;
+    margin-left: 5px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    filter: invert(86%) sepia(5%) saturate(241%) hue-rotate(179deg) brightness(86%) contrast(80%);
+
+    top: 0;
+    left: 8px;
+}
+
+.subcommentReadMoreText {
+    color: #b6b6b6;
+    font-size: 14px;
+    margin: 4px 30px;
+    font-weight: bold;
+}
+
+.subcommentReadMore:hover .subcommentReadMoreText {
+    text-decoration: underline;
+}
+
+/* list likebtn in subcomment */
+
+.commentLikeBtnList {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0;
+    list-style: none;
+
+    background-color: #212222;
+    padding: 5px 4px;
+    border-radius: 30px;
+    border: 0.5px solid rgb(82, 82, 82);
+
+    position: absolute;
+    bottom: 30px;
+    left: -4px;
+
+    display: none;
+}
+
+.commentLikeBtnList.open {
+    display: flex;
+}
+
+.commentLikeBtnList::after {
+    position: absolute;
+    bottom: -16px;
+    content: '';
+    width: 150px;
+    height: 20px;
+    background-color: transparent;
+}
+
+.commentLikeBtnItem {
+    line-height: 0;
+    padding: 0 2px;
+}
+
+.commentLikeBtnItemImg {
+    width: 32px;
+    height: 32px;
+    transform: scale(0.95);
+    cursor: pointer;
+}
+
+.commentLikeBtnItem:hover .commentLikeBtnItemImg {
+    transform: scale(1.05);
+    transition: all 0.2s;
 }

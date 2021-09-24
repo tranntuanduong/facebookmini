@@ -33,6 +33,30 @@ router.get('/:userId', async function (req, res) {
     }
 });
 
+// // changelikes post
+router.put('/:id/changelikes', async function (req, res) {
+    try {
+        const post = await Post.findOne({ _id: req.params.id });
+        await post.updateOne({
+            $pull: { likes: { userId: req.body.userId } },
+        });
+        // like post
+        await post.updateOne({
+            $push: {
+                likes: {
+                    type: req.body.type,
+                    userId: req.body.userId,
+                    text: req.body.text,
+                    styleColor: req.body.styleColor,
+                },
+            },
+        });
+        res.status(200).json('The post has been ' + req.body.type);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+
 // like post
 router.put('/:id/likes', async function (req, res) {
     try {
@@ -40,7 +64,14 @@ router.put('/:id/likes', async function (req, res) {
         if (!post.likes.some((like) => like['userId'] === req.body.userId)) {
             // like post
             await post.updateOne({
-                $push: { likes: { type: req.body.type, userId: req.body.userId } },
+                $push: {
+                    likes: {
+                        type: req.body.type,
+                        userId: req.body.userId,
+                        text: req.body.text,
+                        styleColor: req.body.styleColor,
+                    },
+                },
             });
             res.status(200).json('The post has been ' + req.body.type);
         } else {
