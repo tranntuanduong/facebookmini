@@ -4,6 +4,9 @@ import Chat from './components/Chat';
 import { AuthContext } from './context/AuthProvider';
 import Home from './pages/home';
 import Login from './pages/login';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import Profile from './pages/profile';
+import Header from './components/Header';
 
 function App() {
     const { user: currentUser } = useContext(AuthContext);
@@ -15,7 +18,7 @@ function App() {
         },
         {
             id: 2,
-            isZoomOut: false,
+            isZoomOut: true,
             receiverName: 'Sống Tích Cực',
         },
     ]);
@@ -31,16 +34,24 @@ function App() {
     };
 
     return (
-        <div className="app">
-            {currentUser ? (
-                <>
-                    <Home />
-                    <Chat conversations={conversations} zoomOutState={handleZoomOutState} />
-                </>
-            ) : (
-                <Login />
-            )}
-        </div>
+        // <div>
+        //     {currentUser ? (
+        //         <>
+        //             <Home />
+        //             <Chat conversations={conversations} zoomOutState={handleZoomOutState} />
+        //         </>
+        //     ) : (
+        //         <Login />
+        //     )}
+        // </div>
+        <Router>
+            {currentUser && <Header />}
+            <Switch>
+                <Route path="/profile">{currentUser ? <Profile /> : <Login />}</Route>
+                <Route path="/">{currentUser ? <Home /> : <Login />}</Route>
+            </Switch>
+            <Chat conversations={conversations} zoomOutState={handleZoomOutState} />
+        </Router>
     );
 }
 

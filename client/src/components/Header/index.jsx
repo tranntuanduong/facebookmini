@@ -12,6 +12,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { AuthContext } from '../../context/AuthProvider';
 import { NO_AVARTAR, PF } from '../../constants';
+import { Link } from 'react-router-dom';
 Header.propTypes = {};
 
 function Header(props) {
@@ -20,7 +21,9 @@ function Header(props) {
     return (
         <div className="header">
             <div className="headerLeft">
-                <img src="./assets/logo.png" alt="" className="headerLeftIcon" />
+                <Link to="/">
+                    <img src="./assets/logo.png" alt="" className="headerLeftIcon" />
+                </Link>
                 <div className="headerLeftInput">
                     <SearchIcon className="headerLeftInputIcon" />
                     <input type="text" placeholder="Tìm kiếm trên facebook" />
@@ -48,8 +51,10 @@ function Header(props) {
             </ul>
             <ul className="headerLeftRight">
                 <li className="headerLeftRightUser">
-                    <img src={`${PF}/${currentUser.avatar ? `person/${currentUser.avatar}` : NO_AVARTAR}`} alt="" />
-                    <span className="headerLeftRightUsername">{currentUser.lastName}</span>
+                    <Link to={`/profile`} className="headerLeftRightUserLink">
+                        <img src={`${PF}/${currentUser.avatar ? `person/${currentUser.avatar}` : NO_AVARTAR}`} alt="" />
+                        <span className="headerLeftRightUsername">{currentUser.lastName}</span>
+                    </Link>
                 </li>
                 <li className="headerLeftRightInfo">
                     <AppsIcon />

@@ -59,7 +59,8 @@ function FormComment({
             };
 
             const res = await axios.post(`subcomments`, newSubComment);
-            setSubComments([res.data, ...subComments]);
+            /*subcoment sap xep theo cai cu nhat*/
+            setSubComments([...subComments, res.data]);
             setMyComment('');
         }
     };

@@ -168,6 +168,13 @@
     font-size: 15px;
 }
 
+.headerLeftRightUserLink {
+    text-decoration: none;
+    color: #e4e6eb;
+    display: flex;
+    align-items: center;
+}
+
 .headerLeftRightUser:hover {
     background-color: #3a3b3c;
     cursor: pointer;

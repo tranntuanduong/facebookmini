@@ -33,6 +33,22 @@ router.get('/:userId', async function (req, res) {
     }
 });
 
+// get my post [GET] api/posts/myposts
+router.get('/:userId/me', async function (req, res) {
+    try {
+        let myPosts;
+        if (req.params.userId) {
+            myPosts = await Post.find({ userId: req.params.userId }); // get my post
+        } else {
+            const currentUser = await User.findOne({ _id: req.params.username });
+            myPosts = await Post.find({ userId: currentUser._id }); // get my post
+        }
+        res.json(myPosts);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+
 // // changelikes post
 router.put('/:id/changelikes', async function (req, res) {
     try {

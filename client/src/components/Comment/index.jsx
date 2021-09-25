@@ -69,7 +69,9 @@ function Comment({ post, totalComment, setTotalComment }) {
             </div>
             <ul className="commentList">
                 {comments.map((comment) => (
-                    <CommentItem key={comment._id} comment={comment} currentUser={currentUser} />
+                    <li key={comment._id} className="commentItem">
+                        <CommentItem key={comment._id} comment={comment} currentUser={currentUser} />
+                    </li>
                 ))}
             </ul>
             <div className="commentMore" onClick={scrollToCommentHandler}>

@@ -12,7 +12,6 @@ function Home(props) {
     const { user: currentUser } = useContext(AuthContext);
     return (
         <div>
-            <Header />
             <div className="container">
                 <div className="homePage">
                     <div className="cLeft">
