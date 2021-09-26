@@ -29,6 +29,7 @@ const authRoute = require('./routers/authRoute');
 const postRoute = require('./routers/postRoute');
 const commentRoute = require('./routers/commentRoute');
 const subCommentRoute = require('./routers/subCommentRoute');
+const storyRoute = require('./routers/storyRoute');
 
 // app
 app.use('/api/users', userRoute);
@@ -36,6 +37,7 @@ app.use('/api/auth', authRoute);
 app.use('/api/posts', postRoute);
 app.use('/api/comments', commentRoute);
 app.use('/api/subcomments', subCommentRoute);
+app.use('/api/stories', storyRoute);
 
 // upload file
 const storagePost = multer.diskStorage({

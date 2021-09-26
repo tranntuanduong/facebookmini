@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Post from '../Post';
 import Share from '../Share';
-import Story from '../Story';
 import axios from 'axios';
 
 import './Feed.css';
 import { sortDateUtils } from '../../utils/utils';
+import Stories from '../Story/Stories';
 
 Feed.propTypes = {};
 
 function Feed({ currentUser }) {
     const [posts, setPosts] = useState([]);
+    const [stories, setStories] = useState([]);
 
     useEffect(() => {
         (async () => {
@@ -23,9 +24,18 @@ function Feed({ currentUser }) {
         })();
     }, [currentUser._id]);
 
+    useEffect(() => {
+        (async () => {
+            const res = await axios.get(`/stories/${currentUser._id}`);
+            setStories(res.data);
+            console.log(res.data);
+        })();
+    }, [currentUser]);
+
     return (
         <div className="feed">
-            <Story currentUser={currentUser} />
+            {/* story list component */}
+            <Stories currentUser={currentUser} stories={stories} />
             <Share currentUser={currentUser} setPosts={setPosts} posts={posts} />
             {/* <Post currentUser={currentUser} />
             <Post currentUser={currentUser} />

@@ -108,3 +108,12 @@ const array3 = [
   ["haha", "... 2 element"],
   ["sad", "... 1 element"],
 ];
+
+const story = {
+  id: 1,
+  userId: 1,
+  viewerId: [1, 2, 3, 4],
+  text: "",
+  img: "",
+  likeIds: [1, 2, 3, 4],
+};

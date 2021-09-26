@@ -1,12 +1,13 @@
 import { useContext, useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Chat from './components/Chat';
+import Header from './components/Header';
 import { AuthContext } from './context/AuthProvider';
 import Home from './pages/home';
 import Login from './pages/login';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Profile from './pages/profile';
-import Header from './components/Header';
+import Story from './pages/story';
 
 function App() {
     const { user: currentUser } = useContext(AuthContext);
@@ -48,7 +49,10 @@ function App() {
             {currentUser && <Header />}
             <Switch>
                 <Route path="/profile">{currentUser ? <Profile /> : <Login />}</Route>
-                <Route path="/">{currentUser ? <Home /> : <Login />}</Route>
+                <Route path="/stories">{currentUser ? <Story /> : <Login />}</Route>
+                <Route path="/" exact>
+                    {currentUser ? <Home /> : <Login />}
+                </Route>
             </Switch>
             <Chat conversations={conversations} zoomOutState={handleZoomOutState} />
         </Router>

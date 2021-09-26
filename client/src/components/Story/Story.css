@@ -16,11 +16,34 @@
     flex: 1;
     margin: 0 4px;
     border-radius: 10px;
+    cursor: pointer;
 
     position: relative;
     overflow: hidden;
     text-align: center;
     background-color: #242526;
+}
+
+.friendStoryDesc {
+    position: absolute;
+    /* data from story */
+    /* top: 50px;
+    left: 50px;
+    color: #2e89ff;
+    transform: rotateZ(45deg);
+    font-size: 20px; */
+
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.friendStoryBgTextMode {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
 }
 
 .myStoryImg {
@@ -140,4 +163,104 @@
     background-color: rgb(77, 77, 77);
     cursor: pointer;
     transition: all 0.3s;
+}
+
+/* Story form */
+.storyForm {
+    padding: 16px;
+}
+
+.storyFormArea {
+    background-color: #242526;
+    width: calc(328px - 18px);
+    height: 150px;
+    border-radius: 8px;
+    padding: 8px;
+    outline: none;
+
+    color: #e4e6eb;
+    font-size: 16px;
+}
+
+.storyFormArea::placeholder {
+    font-size: 16px;
+    color: #9ea1a5;
+    font-size: 14px;
+}
+
+.storyFormArea:focus {
+    border: 1px solid #2d88ff83;
+}
+
+.storyFormBtnWrap {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    cursor: pointer;
+    margin-bottom: auto;
+}
+
+.storyFormBtn {
+    background-color: #3a3b3c;
+    color: #e4e6eb;
+    padding: 8px 32px;
+    border-radius: 5px;
+    min-width: 80px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.storyFormBtnPrimary {
+    background-color: #2d88ff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.storyFormBtnPrimary:hover {
+    background-color: #4592f7;
+}
+
+.storyFormBtnDefault:hover {
+    background-color: #545557;
+}
+
+.storyFormColor {
+    padding: 8px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin-top: 16px;
+}
+
+.storyFormColorTitle {
+    color: #b0b3b8;
+    font-size: 14px;
+}
+
+.storyFormColorList {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.storyFormColorItem {
+    width: 26px;
+    height: 26px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin: 8px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+
+.storyFormColorItem {
+    border: 4px solid #242526;
+}
+
+.storyFormColorItem.chosen {
+    border: 4px solid #2d88ff;
 }

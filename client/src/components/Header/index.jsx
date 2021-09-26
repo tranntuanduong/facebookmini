@@ -22,7 +22,7 @@ function Header(props) {
         <div className="header">
             <div className="headerLeft">
                 <Link to="/">
-                    <img src="./assets/logo.png" alt="" className="headerLeftIcon" />
+                    <img src="/assets/logo.png" alt="" className="headerLeftIcon" />
                 </Link>
                 <div className="headerLeftInput">
                     <SearchIcon className="headerLeftInputIcon" />
@@ -52,7 +52,12 @@ function Header(props) {
             <ul className="headerLeftRight">
                 <li className="headerLeftRightUser">
                     <Link to={`/profile`} className="headerLeftRightUserLink">
-                        <img src={`${PF}/${currentUser.avatar ? `person/${currentUser.avatar}` : NO_AVARTAR}`} alt="" />
+                        <img
+                            src={`${PF}/${
+                                currentUser.avatar ? `person/${currentUser.avatar}` : NO_AVARTAR
+                            }`}
+                            alt=""
+                        />
                         <span className="headerLeftRightUsername">{currentUser.lastName}</span>
                     </Link>
                 </li>
