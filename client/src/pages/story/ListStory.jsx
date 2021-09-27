@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
@@ -18,6 +18,7 @@ function ListStory(props) {
     const [followingUsers, setFollowingUsers] = useState([]);
     const [storyViewer, setStoryViewer] = useState([]); /*story will show inside class right */
     const [storyAuthor, setStoryAuthor] = useState(currentUser);
+    const [allUser, setAllUser] = useState([]);
 
     // get stories and get user from stories
     useEffect(() => {
@@ -32,6 +33,7 @@ function ListStory(props) {
                 StoriesRes.data.forEach((storyUser) => {
                     if (storyUser[0].userId === currentUser._id) {
                         setStoryViewer(storyUser);
+                        document.getElementById('storyPrevBtn').classList.add('hidden');
                     } else {
                         tempArray.push(storyUser);
                     }
@@ -46,20 +48,70 @@ function ListStory(props) {
                     /*get method ko co body*/ userIds: followingUserIds,
                 });
                 setFollowingUsers(followingUsersRes.data);
+                setAllUser([currentUser, ...followingUsersRes.data]);
             })();
         } catch (error) {
             console.log(error);
         }
     }, [currentUser]);
 
-    const changeStoryViewerHandler = (followingUser) => {
+    const changeStoryViewerHandler = (user) => {
         // get story by userId field
 
-        const sViewer = stories.filter((storyUser) => storyUser[0].userId === followingUser._id);
+        const sViewer = stories.filter((storyUser) => storyUser[0].userId === user._id);
         setStoryViewer(...sViewer);
-        setStoryAuthor(followingUser);
+        setStoryAuthor(user);
         setShowStoryIndex(0);
+
+        document.getElementById('storyNextBtn').classList.remove('hidden');
+        document.getElementById('storyPrevBtn').classList.remove('hidden');
+
+        if (user._id === currentUser._id) {
+            document.getElementById('storyPrevBtn').classList.add('hidden');
+        }
     };
+
+    const changeStoryIndexHandler = (number) => {
+        document.getElementById('storyNextBtn').classList.remove('hidden');
+        document.getElementById('storyPrevBtn').classList.remove('hidden');
+
+        if (showStoryIndex + number >= storyViewer.length || showStoryIndex + number < 0) {
+            console.log('change story view');
+
+            const currentIndex = allUser.findIndex((user) => user._id === storyAuthor._id);
+            const temStoryAuthor = allUser[currentIndex + number];
+            setStoryAuthor(temStoryAuthor);
+
+            const sViewer = stories.filter(
+                (storyUser) => storyUser[0].userId === allUser[currentIndex + number]._id
+            );
+
+            setStoryViewer(...sViewer);
+            setShowStoryIndex(0);
+
+            // disable storyPrevBtn
+            // click btn when change view
+            if (temStoryAuthor._id === currentUser._id && showStoryIndex === 0) {
+                document.getElementById('storyPrevBtn').classList.add('hidden');
+            }
+        } else {
+            setShowStoryIndex(showStoryIndex + number);
+        }
+
+        if (
+            storyAuthor._id === allUser[allUser.length - 1]._id &&
+            showStoryIndex + number === storyViewer.length - 1
+        ) {
+            console.log('last');
+            document.getElementById('storyNextBtn').classList.add('hidden');
+        }
+
+        // click btn prev in this story
+        if (storyAuthor._id === currentUser._id && showStoryIndex + number === 0) {
+            document.getElementById('storyPrevBtn').classList.add('hidden');
+        }
+    };
+    console.log('render');
 
     return (
         <div className="stories">
@@ -68,7 +120,12 @@ function ListStory(props) {
                     <div className="storyLeftTopTitle">Tin</div>
                 </div>
                 <div className="storySubTitle">Tin của bạn</div>
-                <div className="storyUser" onClick={() => changeStoryViewerHandler(currentUser)}>
+                <div
+                    className={
+                        storyAuthor._id === currentUser._id ? 'storyUser active' : 'storyUser'
+                    }
+                    onClick={() => changeStoryViewerHandler(currentUser)}
+                >
                     <div className="storyUserInfo">
                         <img
                             src={`${PF}/${
@@ -91,7 +148,11 @@ function ListStory(props) {
                     {followingUsers.map((followingUser) => (
                         <li
                             key={followingUser._id}
-                            className="storyUser"
+                            className={
+                                storyAuthor._id === followingUser._id
+                                    ? 'storyUser active'
+                                    : 'storyUser'
+                            }
                             onClick={() => changeStoryViewerHandler(followingUser)}
                         >
                             <div className="storyUserInfo">
@@ -145,16 +206,10 @@ function ListStory(props) {
                         </div>
                     </div>
                     <div className="storyItemContent">{storyViewer[showStoryIndex]?.desc}</div>
-                    <div
-                        className="storyPrevBtn"
-                        onClick={() => setShowStoryIndex(showStoryIndex - 1)}
-                    >
+                    <div id="storyPrevBtn" onClick={() => changeStoryIndexHandler(-1)}>
                         <KeyboardArrowLeftIcon style={{ fontSize: 'inherit' }} />
                     </div>
-                    <div
-                        className="storyNextBtn"
-                        onClick={() => setShowStoryIndex(showStoryIndex + 1)}
-                    >
+                    <div id="storyNextBtn" onClick={() => changeStoryIndexHandler(1)}>
                         <KeyboardArrowRightIcon style={{ fontSize: 'inherit' }} />
                     </div>
                 </div>

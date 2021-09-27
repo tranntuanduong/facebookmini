@@ -185,6 +185,10 @@
     justify-content: space-between;
 }
 
+.storyUser.active {
+    background-color: #3a3b3c;
+}
+
 .storyUser:hover {
     background-color: #3a3b3c;
     cursor: pointer;
@@ -325,7 +329,7 @@
     flex: 1;
     height: 4px;
     border-radius: 5px;
-    background-color: #c6c0b9;
+    background-color: #686663;
 }
 
 .storyProgessItem + .storyProgessItem {
@@ -337,11 +341,11 @@
     /* width: 20%; */
     height: 4px;
     border-radius: 4px;
-    background-color: #faf9f9;
+    background-color: #ffffff;
 }
 
-.storyPrevBtn,
-.storyNextBtn {
+#storyPrevBtn,
+#storyNextBtn {
     position: absolute;
     width: 50px;
     height: 50px;
@@ -356,20 +360,24 @@
     transition: all 0.25s;
 }
 
-.storyPrevBtn {
+#storyPrevBtn {
     left: -66px;
 }
-
-.storyNextBtn {
+#storyNextBtn {
     right: -66px;
 }
 
-.storyPrevBtn:hover {
+#storyPrevBtn:hover {
     transform: translateX(-4px);
     background-color: #47494b;
 }
 
-.storyNextBtn:hover {
+#storyNextBtn:hover {
     transform: translateX(4px);
     background-color: #47494b;
+}
+
+#storyPrevBtn.hidden,
+#storyNextBtn.hidden {
+    display: none;
 }
