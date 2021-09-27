@@ -173,6 +173,11 @@
     font-weight: bold;
 }
 
+.storyUserList {
+    list-style: none;
+    padding: 0;
+}
+
 .storyUser {
     padding: 12px 16px;
     display: flex;
@@ -229,6 +234,10 @@
     text-align: center;
     line-height: 60px;
     color: #087cea;
+}
+
+.storyUserBtnLink {
+    text-decoration: none;
 }
 
 .storyUser:hover .storyUserBtn {
@@ -299,4 +308,68 @@
     font-size: 22px;
     text-align: center;
     color: #e4e6ea;
+}
+
+.storyProgessList {
+    width: calc(100% - 32px);
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 8px 16px;
+    list-style: none;
+    justify-content: space-between;
+}
+
+.storyProgessItem {
+    flex: 1;
+    height: 4px;
+    border-radius: 5px;
+    background-color: #c6c0b9;
+}
+
+.storyProgessItem + .storyProgessItem {
+    margin-left: 4px;
+}
+
+.storyProgessItemProgress {
+    /* width get from reactjs */
+    /* width: 20%; */
+    height: 4px;
+    border-radius: 4px;
+    background-color: #faf9f9;
+}
+
+.storyPrevBtn,
+.storyNextBtn {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #242526;
+    border-radius: 50%;
+    color: #a8abaf;
+    font-size: 30px;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.storyPrevBtn {
+    left: -66px;
+}
+
+.storyNextBtn {
+    right: -66px;
+}
+
+.storyPrevBtn:hover {
+    transform: translateX(-4px);
+    background-color: #47494b;
+}
+
+.storyNextBtn:hover {
+    transform: translateX(4px);
+    background-color: #47494b;
 }
