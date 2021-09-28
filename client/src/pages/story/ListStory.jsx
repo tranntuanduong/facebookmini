@@ -21,6 +21,7 @@ function ListStory(props) {
     const [storyAuthor, setStoryAuthor] = useState(currentUser);
     const [allUser, setAllUser] = useState([]);
     const storyTimeOutRef = useRef(null);
+    const pauseFlag = useRef(false);
 
     // get stories and get user from stories
     useEffect(() => {
@@ -59,15 +60,23 @@ function ListStory(props) {
 
     // debounce with ref
     useEffect(() => {
+        console.log('fla', pauseFlag.current);
         if (storyViewer.length > 0) {
-            storyTimeOutRef.current = setTimeout(() => {
-                console.log('hihi');
-                changeStoryIndexHandler(1);
-            }, 5000);
+            let time = 0;
+            storyTimeOutRef.current = setInterval(() => {
+                console.log(time);
+                if (!pauseFlag.current) {
+                    time++;
+                    if (time === 5) {
+                        time = 0;
+                        changeStoryIndexHandler(1);
+                    }
+                }
+            }, 1000);
         }
 
         return () => {
-            clearTimeout(storyTimeOutRef.current);
+            clearInterval(storyTimeOutRef.current);
         };
     });
 
@@ -85,6 +94,7 @@ function ListStory(props) {
         if (user._id === currentUser._id) {
             document.getElementById('storyPrevBtn').classList.add('hidden');
         }
+        pauseFlag.current = false;
     };
 
     const changeStoryIndexHandler = (number) => {
@@ -126,6 +136,16 @@ function ListStory(props) {
         if (storyAuthor._id === currentUser._id && showStoryIndex + number === 0) {
             document.getElementById('storyPrevBtn').classList.add('hidden');
         }
+    };
+
+    const mouseMoveHandler = () => {
+        console.log('mouse move');
+        pauseFlag.current = false;
+    };
+
+    const mouseOutHandler = () => {
+        console.log('mouse Out');
+        pauseFlag.current = true;
     };
 
     return (
@@ -193,6 +213,8 @@ function ListStory(props) {
                 <div
                     className="storyItem"
                     style={{ background: storyViewer[showStoryIndex]?.style?.background }}
+                    onMouseMove={mouseMoveHandler}
+                    onMouseOut={mouseOutHandler}
                 >
                     {/* <ul className="storyProgessList">
                         {Array.from(new Array(storyViewer.length)).map((x, index) => (
@@ -204,7 +226,11 @@ function ListStory(props) {
                             </li>
                         ))}
                     </ul> */}
-                    <ProgressTimeOut storyViewer={storyViewer} showStoryIndex={showStoryIndex} />
+                    <ProgressTimeOut
+                        storyViewer={storyViewer}
+                        showStoryIndex={showStoryIndex}
+                        pauseFlag={pauseFlag}
+                    />
                     <div className="storyItemUser">
                         <img
                             src={`${PF}/${
