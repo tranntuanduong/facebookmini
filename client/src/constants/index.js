@@ -124,7 +124,9 @@ export const EMOJI_ICON = [
     <>&#128580;</>,
 ];
 
-export const TYPE_COMMENTPOST = 'TYPE_COMMENTTOP';
+// export const TYPE_COMMENTPOST = 'TYPE_COMMENTTOP';
+export const TYPE_COMMENTPOST = 'TYPE_COMMENTPOST';
+
 export const TYPE_REPLY = 'TYPE_REPLY';
 
 export const BACKGROUND_LIST = [

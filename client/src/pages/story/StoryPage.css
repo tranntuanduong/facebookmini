@@ -265,13 +265,22 @@
     align-items: center;
 }
 
+.storyItemWrap {
+    position: relative;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .storyItemUser {
     display: flex;
     align-items: center;
     padding: 30px 16px;
-    position: absolute;
-    top: 0;
-    left: 0;
 }
 
 .storyItemUserAvatar {
@@ -280,6 +289,19 @@
     border-radius: 50%;
     object-fit: cover;
     margin-right: 12px;
+}
+
+.storyItemAction {
+    display: flex;
+    color: #ffffff;
+    padding: 30px 16px;
+}
+
+.storyItemActionIcon {
+    margin-left: 8px;
+    font-size: 30px;
+
+    cursor: pointer;
 }
 
 .storyItemTextTop {

@@ -17,8 +17,6 @@ function StoryItem({ currentUser, story }) {
         })();
     }, [storyViewer]);
 
-    console.log(storyViewer);
-
     return (
         <li key={storyViewer._id} className="friendStory">
             <Link to="/stories">

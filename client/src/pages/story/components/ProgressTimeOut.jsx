@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 ProgressTimeOut.propTypes = {};
 
-function ProgressTimeOut({ storyViewer, showStoryIndex, pauseFlag }) {
+function ProgressTimeOut({ storyViewer, showStoryIndex, pauseFlagMouse }) {
     const [value, setValue] = useState();
     const interval = useRef(null);
 
@@ -15,7 +15,7 @@ function ProgressTimeOut({ storyViewer, showStoryIndex, pauseFlag }) {
         if (storyViewer.length > 0) {
             interval.current = setInterval(() => {
                 let newValue = 0;
-                if (!pauseFlag.current) {
+                if (!pauseFlagMouse.current) {
                     setValue((prevValue) => {
                         newValue = prevValue + 1;
 
@@ -29,7 +29,7 @@ function ProgressTimeOut({ storyViewer, showStoryIndex, pauseFlag }) {
                 }
             }, 50);
         }
-    }, [storyViewer, showStoryIndex, pauseFlag]);
+    }, [storyViewer, showStoryIndex, pauseFlagMouse]);
 
     return (
         <ul className="storyProgessList">

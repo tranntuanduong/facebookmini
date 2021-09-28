@@ -1,15 +1,16 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthProvider';
-import { NO_AVARTAR, PF } from '../../constants';
-import axios from 'axios';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import ProgressTimeOut from './ProgressTimeOut';
+import axios from 'axios';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { NO_AVARTAR, PF } from '../../constants';
+import { AuthContext } from '../../context/AuthProvider';
+import ProgressTimeOut from './components/ProgressTimeOut';
+import StoryAction from './components/StoryAction';
 
 ListStory.propTypes = {};
 
+// code ngu, khong ngoi phan tich tu dau, gio tach component kho !!!!!!!!!!!!!!
 function ListStory(props) {
     const { user: currentUser } = useContext(AuthContext);
     const [stories, setStories] = useState(); /* total story */
@@ -21,7 +22,11 @@ function ListStory(props) {
     const [storyAuthor, setStoryAuthor] = useState(currentUser);
     const [allUser, setAllUser] = useState([]);
     const storyTimeOutRef = useRef(null);
-    const pauseFlag = useRef(false);
+    const pauseFlagMouse = useRef(false); /*flag of mouse event */
+
+    /*flag of btn pause */
+    // const [pauseState, setPauseState] = useState(false); will re-render if use state in this case
+    const pauseFlagBtn = useRef(false);
 
     // get stories and get user from stories
     useEffect(() => {
@@ -60,12 +65,12 @@ function ListStory(props) {
 
     // debounce with ref
     useEffect(() => {
-        console.log('fla', pauseFlag.current);
+        // console.log('fla', pauseFlagMouse.current);
         if (storyViewer.length > 0) {
             let time = 0;
             storyTimeOutRef.current = setInterval(() => {
                 console.log(time);
-                if (!pauseFlag.current) {
+                if (!pauseFlagMouse.current) {
                     time++;
                     if (time === 5) {
                         time = 0;
@@ -94,7 +99,8 @@ function ListStory(props) {
         if (user._id === currentUser._id) {
             document.getElementById('storyPrevBtn').classList.add('hidden');
         }
-        pauseFlag.current = false;
+        pauseFlagMouse.current = false;
+        pauseFlagBtn.current = false;
     };
 
     const changeStoryIndexHandler = (number) => {
@@ -139,15 +145,18 @@ function ListStory(props) {
     };
 
     const mouseMoveHandler = () => {
-        console.log('mouse move');
-        pauseFlag.current = false;
+        if (pauseFlagBtn.current) return; /*cancel mouse event when click btn pause */
+
+        pauseFlagMouse.current = false;
     };
 
     const mouseOutHandler = () => {
-        console.log('mouse Out');
-        pauseFlag.current = true;
+        if (pauseFlagBtn.current) return; /*cancel mouse event when click btn pause */
+
+        pauseFlagMouse.current = true;
     };
 
+    // console.log('render');
     return (
         <div className="stories">
             <div className="left">
@@ -216,37 +225,33 @@ function ListStory(props) {
                     onMouseMove={mouseMoveHandler}
                     onMouseOut={mouseOutHandler}
                 >
-                    {/* <ul className="storyProgessList">
-                        {Array.from(new Array(storyViewer.length)).map((x, index) => (
-                            <li key={index} className="storyProgessItem">
-                                <div
-                                    className="storyProgessItemProgress"
-                                    style={{ width: index === showStoryIndex ? '60%' : '0%' }}
-                                ></div>
-                            </li>
-                        ))}
-                    </ul> */}
                     <ProgressTimeOut
                         storyViewer={storyViewer}
                         showStoryIndex={showStoryIndex}
-                        pauseFlag={pauseFlag}
+                        pauseFlagMouse={pauseFlagMouse}
                     />
-                    <div className="storyItemUser">
-                        <img
-                            src={`${PF}/${
-                                storyAuthor.avatar ? `person/${storyAuthor.avatar}` : NO_AVARTAR
-                            }`}
-                            alt=""
-                            className="storyItemUserAvatar"
-                        />
-                        <div className="storyItemUserText">
-                            <div className="storyItemTextTop">
-                                <div className="storyItemTextTopUsername">{`${storyAuthor.firstName} ${storyAuthor.lastName}`}</div>
-                                <div className="storyItemTextTopText">16 phút</div>
+
+                    <div className="storyItemWrap">
+                        <div className="storyItemUser">
+                            <img
+                                src={`${PF}/${
+                                    storyAuthor.avatar ? `person/${storyAuthor.avatar}` : NO_AVARTAR
+                                }`}
+                                alt=""
+                                className="storyItemUserAvatar"
+                            />
+                            <div className="storyItemUserText">
+                                <div className="storyItemTextTop">
+                                    <div className="storyItemTextTopUsername">{`${storyAuthor.firstName} ${storyAuthor.lastName}`}</div>
+                                    <div className="storyItemTextTopText">16 phút</div>
+                                </div>
+                                <div className="storyItemTextBottm">Cavendish music</div>
                             </div>
-                            <div className="storyItemTextBottm">Cavendish music</div>
                         </div>
+
+                        <StoryAction pauseFlagBtn={pauseFlagBtn} pauseFlagMouse={pauseFlagMouse} />
                     </div>
+
                     <div className="storyItemContent">{storyViewer[showStoryIndex]?.desc}</div>
                     <div id="storyPrevBtn" onClick={() => changeStoryIndexHandler(-1)}>
                         <KeyboardArrowLeftIcon style={{ fontSize: 'inherit' }} />
