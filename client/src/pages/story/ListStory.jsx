@@ -6,6 +6,7 @@ import { NO_AVARTAR, PF } from '../../constants';
 import axios from 'axios';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import ProgressTimeOut from './ProgressTimeOut';
 
 ListStory.propTypes = {};
 
@@ -19,6 +20,7 @@ function ListStory(props) {
     const [storyViewer, setStoryViewer] = useState([]); /*story will show inside class right */
     const [storyAuthor, setStoryAuthor] = useState(currentUser);
     const [allUser, setAllUser] = useState([]);
+    const storyTimeOutRef = useRef(null);
 
     // get stories and get user from stories
     useEffect(() => {
@@ -54,6 +56,20 @@ function ListStory(props) {
             console.log(error);
         }
     }, [currentUser]);
+
+    // debounce with ref
+    useEffect(() => {
+        if (storyViewer.length > 0) {
+            storyTimeOutRef.current = setTimeout(() => {
+                console.log('hihi');
+                changeStoryIndexHandler(1);
+            }, 5000);
+        }
+
+        return () => {
+            clearTimeout(storyTimeOutRef.current);
+        };
+    });
 
     const changeStoryViewerHandler = (user) => {
         // get story by userId field
@@ -111,7 +127,6 @@ function ListStory(props) {
             document.getElementById('storyPrevBtn').classList.add('hidden');
         }
     };
-    console.log('render');
 
     return (
         <div className="stories">
@@ -179,16 +194,17 @@ function ListStory(props) {
                     className="storyItem"
                     style={{ background: storyViewer[showStoryIndex]?.style?.background }}
                 >
-                    <ul className="storyProgessList">
+                    {/* <ul className="storyProgessList">
                         {Array.from(new Array(storyViewer.length)).map((x, index) => (
                             <li key={index} className="storyProgessItem">
                                 <div
                                     className="storyProgessItemProgress"
-                                    style={{ width: index === showStoryIndex ? '100%' : '0%' }}
+                                    style={{ width: index === showStoryIndex ? '60%' : '0%' }}
                                 ></div>
                             </li>
                         ))}
-                    </ul>
+                    </ul> */}
+                    <ProgressTimeOut storyViewer={storyViewer} showStoryIndex={showStoryIndex} />
                     <div className="storyItemUser">
                         <img
                             src={`${PF}/${
