@@ -1,21 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { NO_AVARTAR, PF } from '../../../constants';
 import axios from 'axios';
+import { sortDateUtils } from '../../../utils/utils';
 
 StoryItem.propTypes = {};
 
-function StoryItem({ story }) {
-    const storyViewer = story[0];
+function StoryItem({ story, currentUser }) {
+    const storyViewer = sortDateUtils(story)[0]; //hien thi story moi nhat cua tung user
     const [user, setUser] = useState({});
+    const [isWatched, setIsWatched] = useState(true);
 
+    console.log(storyViewer);
     useEffect(() => {
         (async () => {
             const res = await axios.get(`users?userId=${storyViewer.userId}`);
             setUser(res.data);
         })();
     }, [storyViewer]);
+
+    useEffect(() => {
+        setIsWatched(story.every((aStory) => aStory.viewerIds.includes(currentUser._id)));
+    }, [story, currentUser]);
+
+    console.log(storyViewer);
     return (
         <div className="pageStoryRow">
             <div className="pageStoryItem">
@@ -48,7 +57,11 @@ function StoryItem({ story }) {
                         </div>
                     )}
 
-                    <div className="pageStoryItemAvatar ">
+                    <div
+                        className={
+                            isWatched ? 'pageStoryItemAvatar watched' : 'pageStoryItemAvatar'
+                        }
+                    >
                         <img
                             src={`${PF}/${user.avatar ? `person/${user.avatar}` : NO_AVARTAR}`}
                             alt=""

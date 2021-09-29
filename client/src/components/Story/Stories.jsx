@@ -1,6 +1,6 @@
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { NO_AVARTAR, PF } from '../../constants';
 import './Story.css';
@@ -29,7 +29,7 @@ function Stories({ currentUser, stories }) {
                     </Link>
                 </li>
                 {stories.map((story) => (
-                    <StoryItem key={story._id} story={story} />
+                    <StoryItem key={story[0]._id} story={story} currentUser={currentUser} />
                 ))}
             </ul>
             <Link to="/stories" className="storyBtn">

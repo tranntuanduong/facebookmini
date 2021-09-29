@@ -3,12 +3,14 @@ import './Story.css';
 import axios from 'axios';
 import { NO_AVARTAR, PF } from '../../constants';
 import { Link } from 'react-router-dom';
+import { sortDateUtils } from '../../utils/utils';
 
 StoryItem.propTypes = {};
 
 function StoryItem({ currentUser, story }) {
     const [user, setUser] = useState({});
-    const storyViewer = story[0];
+    const storyViewer = sortDateUtils(story)[0]; //lay story moi nhat de hien thi ra trang home
+    const [isWatched, setIsWatched] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -16,6 +18,10 @@ function StoryItem({ currentUser, story }) {
             setUser(res.data);
         })();
     }, [storyViewer]);
+
+    useEffect(() => {
+        setIsWatched(story.every((aStory) => aStory.viewerIds.includes(currentUser._id)));
+    }, [story, currentUser]);
 
     return (
         <li key={storyViewer._id} className="friendStory">
@@ -48,7 +54,7 @@ function StoryItem({ currentUser, story }) {
                     </div>
                 )}
 
-                <div className="friendStoryAvatar ">
+                <div className={isWatched ? 'friendStoryAvatar watched' : 'friendStoryAvatar'}>
                     <img
                         src={`${PF}/${user.avatar ? `person/${user.avatar}` : NO_AVARTAR}`}
                         alt=""

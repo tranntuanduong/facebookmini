@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NO_AVARTAR, PF } from '../../../constants';
 import ProgressTimeOut from './ProgressTimeOut';
 import StoryAction from './StoryAction';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { PropTypes } from 'prop-types';
+import { format } from 'timeago.js';
+import axios from 'axios';
 
 StoryViewer.propTypes = {
     changeStoryIndex: PropTypes.func,
@@ -18,6 +20,7 @@ function StoryViewer(props) {
         pauseFlagMouse,
         storyAuthor,
         changeStoryIndex,
+        currentUser,
     } = props;
 
     const mouseMoveHandler = () => {
@@ -37,6 +40,26 @@ function StoryViewer(props) {
 
         changeStoryIndex(number);
     };
+
+    // update viewerIds in DB
+    useEffect(() => {
+        (async () => {
+            // update story viewerIds
+            //  await axios.put(`/stories/`)
+            if (storyViewer[showStoryIndex]?._id) {
+                console.log(
+                    'update:',
+                    storyViewer[showStoryIndex]?._id,
+                    'userId:',
+                    currentUser._id
+                );
+            }
+            await axios.put(`/stories/${storyViewer[showStoryIndex]?._id}`, {
+                userId: currentUser._id,
+            });
+        })();
+    }, [storyViewer, showStoryIndex, currentUser]);
+
     return (
         <div
             className="storyItem"
@@ -62,7 +85,9 @@ function StoryViewer(props) {
                     <div className="storyItemUserText">
                         <div className="storyItemTextTop">
                             <div className="storyItemTextTopUsername">{`${storyAuthor.firstName} ${storyAuthor.lastName}`}</div>
-                            <div className="storyItemTextTopText">16 phút</div>
+                            <div className="storyItemTextTopText">
+                                {format(storyViewer[showStoryIndex]?.createdAt)}
+                            </div>
                         </div>
                         <div className="storyItemTextBottm">Cavendish music</div>
                     </div>

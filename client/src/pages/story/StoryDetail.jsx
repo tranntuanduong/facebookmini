@@ -7,6 +7,7 @@ import { AuthContext } from '../../context/AuthProvider';
 import StoryViewer from './components/StoryViewer';
 
 import { useParams } from 'react-router-dom';
+import { sortDateUtils } from '../../utils/utils';
 
 StoryDetail.propTypes = {};
 
@@ -42,9 +43,10 @@ function StoryDetail(props) {
 
                 const tempArray = []; /*following story */
                 let userId;
-                storiesRes.data.forEach((storyUser) => {
-                    if (storyUser[0]._id === storyId) {
-                        setStoryViewer(storyUser);
+
+                sortDateUtils(storiesRes.data).forEach((storyUser) => {
+                    if (storyUser.some((aStoryUser) => aStoryUser._id === storyId)) {
+                        setStoryViewer(sortDateUtils(storyUser));
                         userId = storyUser[0].userId;
                     }
 
@@ -80,7 +82,7 @@ function StoryDetail(props) {
         if (storyViewer.length > 0) {
             let time = 0;
             storyTimeOutRef.current = setInterval(() => {
-                console.log(time);
+                // console.log(time);
                 if (!pauseFlagMouse.current) {
                     time++;
                     if (time === 5) {
@@ -225,6 +227,7 @@ function StoryDetail(props) {
                     pauseFlagMouse={pauseFlagMouse}
                     storyAuthor={storyAuthor}
                     changeStoryIndex={changeStoryIndexHandler}
+                    currentUser={currentUser}
                 />
             </div>
         </div>

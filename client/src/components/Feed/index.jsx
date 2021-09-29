@@ -26,7 +26,7 @@ function Feed({ currentUser }) {
 
     useEffect(() => {
         (async () => {
-            const res = await axios.get(`/stories/${currentUser._id}`);
+            const res = await axios.get(`/stories/view-home/${currentUser._id}`);
             setStories(res.data);
             console.log(res.data);
         })();

@@ -29,6 +29,7 @@ export const likeUtils = (likes) => {
     return sortable;
 };
 
+// sort date
 export const sortDateUtils = (data) => {
     return data.sort((a, b) => {
         return new Date(b.createdAt) - new Date(a.createdAt);
@@ -36,7 +37,14 @@ export const sortDateUtils = (data) => {
 };
 
 // chooseLikeType handler: like  va doi type like
-export const chooseLikeTypeUtils = (likes, currentUser, data, setLikes, setCurrentLikeIndex, setOpenChooseLikeType) => {
+export const chooseLikeTypeUtils = (
+    likes,
+    currentUser,
+    data,
+    setLikes,
+    setCurrentLikeIndex,
+    setOpenChooseLikeType
+) => {
     if (likes.some((like) => like.userId === currentUser._id)) {
         // liked
         likes.splice(
@@ -45,13 +53,23 @@ export const chooseLikeTypeUtils = (likes, currentUser, data, setLikes, setCurre
         );
         const newLikes = [
             ...likes,
-            { type: data.type, userId: currentUser._id, text: data.text, styleColor: data.styleColor },
+            {
+                type: data.type,
+                userId: currentUser._id,
+                text: data.text,
+                styleColor: data.styleColor,
+            },
         ];
         setLikes(newLikes);
     } else {
         const newLikes = [
             ...likes,
-            { type: data.type, userId: currentUser._id, text: data.text, styleColor: data.styleColor },
+            {
+                type: data.type,
+                userId: currentUser._id,
+                text: data.text,
+                styleColor: data.styleColor,
+            },
         ];
         console.log('newLikes', newLikes);
         setLikes(newLikes);
@@ -73,7 +91,12 @@ export const likeBtnHanderUtils = (likes, currentUser, setLikes, setCurrentLikeI
     } else {
         const newLikes = [
             ...likes,
-            { type: data.type, userId: currentUser._id, text: data.text, styleColor: data.styleColor },
+            {
+                type: data.type,
+                userId: currentUser._id,
+                text: data.text,
+                styleColor: data.styleColor,
+            },
         ];
         setLikes(newLikes);
         setCurrentLikeIndex(newLikes.findIndex((like) => like.userId === currentUser._id));

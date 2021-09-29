@@ -47,13 +47,7 @@ function ListStory(props) {
                 </div>
                 <div className="pageRightStoryList">
                     {stories.map((story, index) => (
-                        <StoryItem key={index} story={story} />
-                    ))}
-                    {stories.map((story, index) => (
-                        <StoryItem key={index} story={story} />
-                    ))}
-                    {stories.map((story, index) => (
-                        <StoryItem key={index} story={story} />
+                        <StoryItem key={index} story={story} currentUser={currentUser} />
                     ))}
                 </div>
             </div>

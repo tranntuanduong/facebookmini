@@ -429,7 +429,8 @@
 .pageRightStoryList {
     display: flex;
     flex-wrap: wrap;
-    width: 896px;
+    width: 700px;
+    margin-bottom: 16px;
 }
 
 .pageStoryRow {
@@ -472,17 +473,28 @@
     position: absolute;
     top: 16px;
     left: 16px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: #087cea;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.pageStoryItemAvatar.watched {
+    background-color: #3a3b3c;
+}
 .pageStoryItemAvatar img {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     object-fit: cover;
 }
 
 .pageRightTop {
-    width: 896px;
+    width: 700px;
+    margin-bottom: 16px;
 }
 
 .pageRightTopTitle {
