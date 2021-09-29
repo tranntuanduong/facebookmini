@@ -403,3 +403,165 @@
 #storyNextBtn.hidden {
     display: none;
 }
+
+/* Page story */
+.storyListPage {
+    display: flex;
+    width: 100%;
+}
+.pageLeft {
+    width: 358px;
+    border-right: 0.5px solid rgb(63, 62, 62);
+    height: calc(100vh - 57px);
+
+    position: sticky;
+    top: 57px;
+}
+
+.pageRight {
+    margin-top: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+.pageRightStoryList {
+    display: flex;
+    flex-wrap: wrap;
+    width: 896px;
+}
+
+.pageStoryRow {
+    width: 25%;
+}
+
+.pageStoryItem {
+    height: 234px;
+    position: relative;
+
+    padding: 4px;
+}
+
+.pageStoryItemLink {
+    text-decoration: none;
+}
+
+.pageStoryItemBgTextMode {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.pageStoryItemDesc {
+    text-decoration: none;
+}
+
+.pageStoryItemUsername {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    color: #fff;
+}
+
+.pageStoryItemAvatar {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+}
+
+.pageStoryItemAvatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.pageRightTop {
+    width: 896px;
+}
+
+.pageRightTopTitle {
+    color: #e4e0dc;
+    font-size: 20px;
+    padding: 8px;
+    font-weight: 500;
+}
+
+.pageRightTopSubTitle {
+    color: #b0b3b8;
+    font-size: 14px;
+    font-weight: 400;
+    padding-left: 8px;
+}
+
+.pageLeftTop {
+    padding: 16px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.pageLeftTopTitle {
+    font-size: 25px;
+    color: #e4e0dc;
+    font-weight: bold;
+}
+
+.pageLeftTopActionArchive {
+    color: #087cea;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.pageLeftHr {
+    border: none;
+    border-bottom: 0.5px solid rgb(68, 68, 68);
+}
+
+.pageLeftBottom {
+    padding: 8px 16px 8px 8px;
+}
+
+.pageLeftSubTitle {
+    color: #e4e0dc;
+    font-size: 18px;
+    font-weight: 500;
+    margin-left: 8px;
+    margin-top: 8px;
+}
+
+.pageLeftBtn {
+    color: #e4e0dc;
+    font-size: 15px;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    padding: 8px 8px;
+
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.pageLeftBtn:hover {
+    background-color: rgba(58, 57, 57, 0.522);
+    cursor: pointer;
+}
+
+.pageLeftSubTitleBtn {
+    font-size: 24px;
+    background-color: #424344;
+    width: 34px;
+    height: 34px;
+    text-align: center;
+    line-height: 34px;
+    border-radius: 50%;
+}
+
+.pageLeftBtnText {
+    margin-left: 8px;
+}

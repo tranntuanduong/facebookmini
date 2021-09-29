@@ -19,7 +19,7 @@ function StoryItem({ currentUser, story }) {
 
     return (
         <li key={storyViewer._id} className="friendStory">
-            <Link to="/stories">
+            <Link to={`/stories/${storyViewer._id}`}>
                 {storyViewer.img ? (
                     <>
                         <img

@@ -9,6 +9,8 @@
     height: 190px;
     list-style: none;
     padding: 0;
+
+    flex-wrap: wrap;
 }
 
 .myStory,
@@ -22,6 +24,7 @@
     overflow: hidden;
     text-align: center;
     background-color: #242526;
+    width: 136px;
 }
 
 .friendStoryDesc {

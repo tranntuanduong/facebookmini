@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
-import './Story.css';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { NO_AVARTAR, PF } from '../../constants';
-import { AuthContext } from '../../context/AuthProvider';
-import StoryItem from './StoryItem';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { NO_AVARTAR, PF } from '../../constants';
+import './Story.css';
+import StoryItem from './StoryItem';
 
 Stories.propTypes = {};
 
@@ -33,9 +32,9 @@ function Stories({ currentUser, stories }) {
                     <StoryItem key={story._id} story={story} />
                 ))}
             </ul>
-            <div className="storyBtn">
+            <Link to="/stories" className="storyBtn">
                 <ArrowForwardIcon />
-            </div>
+            </Link>
         </div>
     );
 }

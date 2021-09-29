@@ -145,3 +145,7 @@ export const BACKGROUND_LIST = [
     '#8bd9ff',
     'linear-gradient(315deg, rgba(255,184,0,1) 0%, rgba(237,68,77,0.7175245098039216) 61%, rgba(232,68,237,1) 78%)',
 ];
+
+// View mode for story
+export const STORY_DETAIL_MODE = 'STORY_DETAIL_MODE';
+export const STORY_LIST_MODE = 'STORY_LIST_MODE';
