@@ -13,6 +13,7 @@ function ListStory(props) {
     useEffect(() => {
         (async () => {
             // get stories
+
             const storiesRes = await axios.get(`/stories/${currentUser._id}`);
             setStories(storiesRes.data);
         })();

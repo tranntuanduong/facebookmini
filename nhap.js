@@ -115,5 +115,10 @@ const story = {
   viewerId: [1, 2, 3, 4],
   text: "",
   img: "",
-  likeIds: [1, 2, 3, 4],
+  likeIds: [
+    {
+      userId: 1,
+      type: ["haha", "wow", "like", "wow", "wow"], //max length = 5
+    },
+  ],
 };

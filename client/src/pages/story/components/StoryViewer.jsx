@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import axios from 'axios';
+import { PropTypes } from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { format } from 'timeago.js';
 import { NO_AVARTAR, PF } from '../../../constants';
 import ProgressTimeOut from './ProgressTimeOut';
 import StoryAction from './StoryAction';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import { PropTypes } from 'prop-types';
-import { format } from 'timeago.js';
-import axios from 'axios';
 
 StoryViewer.propTypes = {
     changeStoryIndex: PropTypes.func,
@@ -21,7 +21,11 @@ function StoryViewer(props) {
         storyAuthor,
         changeStoryIndex,
         currentUser,
+        firstStory,
+        lastStory,
     } = props;
+
+    const [reaction, setReaction] = useState({});
 
     const mouseMoveHandler = () => {
         if (pauseFlagBtn.current) return; /*cancel mouse event when click btn pause */
@@ -45,63 +49,218 @@ function StoryViewer(props) {
     useEffect(() => {
         (async () => {
             // update story viewerIds
-            //  await axios.put(`/stories/`)
-            if (storyViewer[showStoryIndex]?._id) {
-                console.log(
-                    'update:',
-                    storyViewer[showStoryIndex]?._id,
-                    'userId:',
-                    currentUser._id
-                );
+
+            if (!storyViewer[showStoryIndex]?.viewerIds.includes(currentUser._id)) {
+                await axios.put(`/stories/${storyViewer[showStoryIndex]?._id}`, {
+                    userId: currentUser._id,
+                });
             }
-            await axios.put(`/stories/${storyViewer[showStoryIndex]?._id}`, {
-                userId: currentUser._id,
-            });
         })();
     }, [storyViewer, showStoryIndex, currentUser]);
 
+    const chooseLikeTypeHandler = (data) => {
+        // get only 5 reactions
+        const newReaction = data.type;
+        console.log(reaction);
+        if (Object.keys(reaction).length === 0) {
+            console.log('ronggg');
+            setReaction({
+                userId: currentUser._id,
+                type: [data.type],
+            });
+        } else {
+            if (reaction?.type.length < 5) {
+                setReaction({
+                    userId: reaction.userId,
+                    type: [...reaction.type, newReaction],
+                });
+            } else {
+                const [firstReaction, ...ortherReaction] = reaction.type;
+
+                setReaction({
+                    userId: reaction.userId,
+                    type: [...ortherReaction, newReaction],
+                });
+            }
+        }
+    };
+
+    useEffect(() => {
+        const myReaction = storyViewer[showStoryIndex]?.likeIds.find(
+            (like) => like?.userId === currentUser._id
+        );
+
+        if (myReaction) {
+            setReaction(myReaction);
+        } else {
+            setReaction({});
+        }
+    }, [currentUser, showStoryIndex, storyViewer]);
+    console.log(reaction);
     return (
         <div
-            className="storyItem"
-            style={{ background: storyViewer[showStoryIndex]?.style?.background }}
+            className="storyViewerWrap"
             onMouseMove={mouseMoveHandler}
             onMouseOut={mouseOutHandler}
         >
-            <ProgressTimeOut
-                storyViewer={storyViewer}
-                showStoryIndex={showStoryIndex}
-                pauseFlagMouse={pauseFlagMouse}
-            />
+            <div
+                className="storyItem"
+                style={{ background: storyViewer[showStoryIndex]?.style?.background }}
+                onMouseMove={mouseMoveHandler}
+                onMouseOut={mouseOutHandler}
+            >
+                <ProgressTimeOut
+                    storyViewer={storyViewer}
+                    showStoryIndex={showStoryIndex}
+                    pauseFlagMouse={pauseFlagMouse}
+                />
 
-            <div className="storyItemWrap">
-                <div className="storyItemUser">
-                    <img
-                        src={`${PF}/${
-                            storyAuthor.avatar ? `person/${storyAuthor.avatar}` : NO_AVARTAR
-                        }`}
-                        alt=""
-                        className="storyItemUserAvatar"
-                    />
-                    <div className="storyItemUserText">
-                        <div className="storyItemTextTop">
-                            <div className="storyItemTextTopUsername">{`${storyAuthor.firstName} ${storyAuthor.lastName}`}</div>
-                            <div className="storyItemTextTopText">
-                                {format(storyViewer[showStoryIndex]?.createdAt)}
+                <div className="storyItemWrap">
+                    <div className="storyItemUser">
+                        <img
+                            src={`${PF}/${
+                                storyAuthor.avatar ? `person/${storyAuthor.avatar}` : NO_AVARTAR
+                            }`}
+                            alt=""
+                            className="storyItemUserAvatar"
+                        />
+                        <div className="storyItemUserText">
+                            <div className="storyItemTextTop">
+                                <div className="storyItemTextTopUsername">{`${storyAuthor.firstName} ${storyAuthor.lastName}`}</div>
+                                <div className="storyItemTextTopText">
+                                    {format(storyViewer[showStoryIndex]?.createdAt)}
+                                </div>
                             </div>
+                            <div className="storyItemTextBottm">Cavendish music</div>
                         </div>
-                        <div className="storyItemTextBottm">Cavendish music</div>
                     </div>
+                    <StoryAction pauseFlagBtn={pauseFlagBtn} pauseFlagMouse={pauseFlagMouse} />
                 </div>
-
-                <StoryAction pauseFlagBtn={pauseFlagBtn} pauseFlagMouse={pauseFlagMouse} />
+                {firstStory?._id !== storyViewer[showStoryIndex]?._id && (
+                    <div id="storyPrevBtn" onClick={() => changeStoryIndexHandler(-1)}>
+                        <KeyboardArrowLeftIcon style={{ fontSize: 'inherit' }} />
+                    </div>
+                )}
+                {lastStory?._id !== storyViewer[showStoryIndex]?._id && (
+                    <div id="storyNextBtn" onClick={() => changeStoryIndexHandler(1)}>
+                        <KeyboardArrowRightIcon style={{ fontSize: 'inherit' }} />
+                    </div>
+                )}
+                <div className="myReaction">
+                    {Object.keys(reaction).length !== 0 && (
+                        <>
+                            <ul className="myReactionIconList">
+                                {reaction.type.map((reactionType, index) => (
+                                    <li key={index} className="myReactionIconItem">
+                                        <img
+                                            src={`/assets/feed/${reactionType}.svg`}
+                                            alt=""
+                                            className="myReactionIconItem"
+                                        />
+                                    </li>
+                                ))}
+                            </ul>
+                            {storyAuthor._id === currentUser._id ? (
+                                <div className="myReactionText">
+                                    Bạn tự thả tim chính mình 🙂 ???
+                                </div>
+                            ) : (
+                                <div className="myReactionText">
+                                    Đã gửi cho {storyAuthor.firstName} {storyAuthor.lastName}
+                                </div>
+                            )}
+                        </>
+                    )}
+                </div>
+                <div className="storyItemContent">{storyViewer[showStoryIndex]?.desc}</div>
             </div>
 
-            <div className="storyItemContent">{storyViewer[showStoryIndex]?.desc}</div>
-            <div id="storyPrevBtn" onClick={() => changeStoryIndexHandler(-1)}>
-                <KeyboardArrowLeftIcon style={{ fontSize: 'inherit' }} />
-            </div>
-            <div id="storyNextBtn" onClick={() => changeStoryIndexHandler(1)}>
-                <KeyboardArrowRightIcon style={{ fontSize: 'inherit' }} />
+            <div className="storyItemBottom">
+                <div className="storyItemChat">
+                    <input type="text" placeholder="Trả lời..." className="storyItemChatInput" />
+                    <div
+                        className="storyItemChatIcon"
+                        style={{
+                            backgroundImage: `url("/assets/story/1.png")`,
+                            backgroundPosition: '0 -21px',
+                        }}
+                    ></div>
+                </div>
+                <ul className="storyItemLikes">
+                    <li
+                        className="storyItemLike"
+                        onClick={() =>
+                            chooseLikeTypeHandler({
+                                type: 'like',
+                                text: 'Thích',
+                                styleColor: 'rgb(247, 177, 37)',
+                            })
+                        }
+                    >
+                        <div className="storyItemLikeDesc">Thích</div>
+                        <img src="/assets/feed/like.svg" alt="" className="storyItemLikeImg" />
+                    </li>
+                    <li
+                        className="storyItemLike"
+                        onClick={() =>
+                            chooseLikeTypeHandler({
+                                type: 'heart',
+                                styleColor: 'rgb(247, 177, 37)',
+                            })
+                        }
+                    >
+                        <div className="storyItemLikeDesc">Yêu thích</div>
+                        <img src="/assets/feed/heart.svg" alt="" className="storyItemLikeImg" />
+                    </li>
+                    <li
+                        className="storyItemLike"
+                        onClick={() =>
+                            chooseLikeTypeHandler({
+                                type: 'lovely',
+                                styleColor: 'rgb(247, 177, 37)',
+                            })
+                        }
+                    >
+                        <div className="storyItemLikeDesc">Thương thương</div>
+                        <img src="/assets/feed/lovely.svg" alt="" className="storyItemLikeImg" />
+                    </li>
+                    <li
+                        className="storyItemLike"
+                        onClick={() =>
+                            chooseLikeTypeHandler({
+                                type: 'haha',
+                                styleColor: 'rgb(247, 177, 37)',
+                            })
+                        }
+                    >
+                        <div className="storyItemLikeDesc">Ha ha</div>
+                        <img src="/assets/feed/haha.svg" alt="" className="storyItemLikeImg" />
+                    </li>
+                    <li
+                        className="storyItemLike"
+                        onClick={() =>
+                            chooseLikeTypeHandler({
+                                type: 'wow',
+                                styleColor: 'rgb(247, 177, 37)',
+                            })
+                        }
+                    >
+                        <div className="storyItemLikeDesc">Woww</div>
+                        <img src="/assets/feed/wow.svg" alt="" className="storyItemLikeImg" />
+                    </li>
+                    <li
+                        className="storyItemLike"
+                        onClick={() =>
+                            chooseLikeTypeHandler({
+                                type: 'angry',
+                                styleColor: 'rgb(247, 177, 37)',
+                            })
+                        }
+                    >
+                        <div className="storyItemLikeDesc">Phẫn nộ</div>
+                        <img src="/assets/feed/angry.svg" alt="" className="storyItemLikeImg" />
+                    </li>
+                </ul>
             </div>
         </div>
     );
