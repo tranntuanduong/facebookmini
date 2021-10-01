@@ -126,3 +126,15 @@ const story = {
     },
   ],
 };
+
+const conversation = {
+  id: 1,
+  memberIds: [1, 2],
+};
+
+const message = {
+  id: 1,
+  conversationId: 1,
+  text: "",
+  senderId: 1,
+};

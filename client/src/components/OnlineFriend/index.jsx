@@ -21,7 +21,7 @@ function OnlineFriend({ friends }) {
             sender: currentUser,
         };
 
-        // check if conversation is open
+        // check if conversation is open [CHECK IN LOCALSTORAGE]
         if (conversations.some((item) => item.id === conversation.id)) {
             const conversationIndex = conversations.findIndex(
                 (item) => item.id === conversation.id

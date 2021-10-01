@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { NO_AVARTAR, PF } from '../../constants';
 import './Message.css';
+import { format } from 'timeago.js';
 
 Message.propTypes = {};
 
-function Message({ own, conversation }) {
+function Message({ own, conversation, message }) {
+    const scrollRef = useRef();
+
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({
+            behavior: 'smooth',
+        });
+    }, [message]);
+
     return (
         <>
             {own ? (
-                <div className="message">
+                <div className="message own" ref={scrollRef}>
+                    <div className="messageContent">
+                        <div className="messageContentText">{message.text}</div>
+                        <div className="messageContentTime">{format(message.createdAt)}</div>
+                    </div>
+                </div>
+            ) : (
+                <div className="message" ref={scrollRef}>
                     <img
                         src={`${PF}/${
                             conversation.receiver.avatar
@@ -19,19 +35,8 @@ function Message({ own, conversation }) {
                         className="messageAvatar"
                     />
                     <div className="messageContent">
-                        <div className="messageContentText">
-                            hôm trc sàng lọc F0 chọc 1 phát rồi
-                        </div>
-                        <div className="messageContentTime">32 phút</div>
-                    </div>
-                </div>
-            ) : (
-                <div className="message own">
-                    <div className="messageContent">
-                        <div className="messageContentText">
-                            hôm trc sàng lọc F0 chọc 1 phát rồi
-                        </div>
-                        <div className="messageContentTime">32 phút</div>
+                        <div className="messageContentText">{message.text}</div>
+                        <div className="messageContentTime">{format(message.createdAt)}</div>
                     </div>
                 </div>
             )}

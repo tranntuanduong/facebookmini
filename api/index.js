@@ -18,8 +18,11 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, () => {
 
 // middleware
 app.use(morgan('dev'));
-app.use(express.json());
+
 app.use(helmet());
+
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
@@ -30,6 +33,8 @@ const postRoute = require('./routers/postRoute');
 const commentRoute = require('./routers/commentRoute');
 const subCommentRoute = require('./routers/subCommentRoute');
 const storyRoute = require('./routers/storyRoute');
+const conversationRoute = require('./routers/conversationRoute');
+const messageRoute = require('./routers/messageRoute');
 
 // app
 app.use('/api/users', userRoute);
@@ -38,6 +43,8 @@ app.use('/api/posts', postRoute);
 app.use('/api/comments', commentRoute);
 app.use('/api/subcomments', subCommentRoute);
 app.use('/api/stories', storyRoute);
+app.use('/api/conversations', conversationRoute);
+app.use('/api/messages', messageRoute);
 
 // upload file
 const storagePost = multer.diskStorage({

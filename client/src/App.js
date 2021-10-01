@@ -13,23 +13,6 @@ import Story from './pages/story';
 
 function App() {
     const { user: currentUser } = useContext(AuthContext);
-    const { conversations: conversationsStore, dispatch } = useContext(ConversationsContext);
-    const [conversations, setConversations] = useState([]);
-
-    useEffect(() => {
-        setConversations(conversationsStore);
-    }, [conversationsStore]);
-
-    const handleZoomOutState = (conversationLocalId, zoomState) => {
-        const conversationIndex = conversations.findIndex(
-            (conversation) => conversation.id === conversationLocalId
-        );
-        const updatedConversation = conversations.splice(conversationIndex, 1)[0];
-        updatedConversation.isZoomOut = zoomState;
-
-        const newConversation = [...conversations, updatedConversation];
-        toggleConversation(newConversation, dispatch);
-    };
 
     return (
         <Router>
@@ -41,9 +24,8 @@ function App() {
                     {currentUser ? <Home /> : <Login />}
                 </Route>
             </Switch>
-            {conversations && (
-                <Chat conversations={conversations} zoomOutState={handleZoomOutState} />
-            )}
+
+            <Chat />
         </Router>
     );
 }
