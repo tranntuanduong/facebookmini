@@ -10,4 +10,4 @@ mongodb skip, limit, sort: https://docs.mongodb.com/manual/reference/operator/ag
 
 CSS gradient genarator: https://cssgradient.io/
 
-
+Project Fields to Return from Query: https://docs.mongodb.com/manual/tutorial/project-fields-from-query-results/

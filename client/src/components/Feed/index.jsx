@@ -28,7 +28,6 @@ function Feed({ currentUser }) {
         (async () => {
             const res = await axios.get(`/stories/view-home/${currentUser._id}`);
             setStories(res.data);
-            console.log(res.data);
         })();
     }, [currentUser]);
 

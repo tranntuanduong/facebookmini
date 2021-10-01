@@ -4,11 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthContextProvider } from './context/AuthProvider';
+import { ConversationsContextProvider } from './context/conversations/ConversationsProvider';
 
 ReactDOM.render(
     <React.StrictMode>
         <AuthContextProvider>
-            <App />
+            <ConversationsContextProvider>
+                <App />
+            </ConversationsContextProvider>
         </AuthContextProvider>
     </React.StrictMode>,
     document.getElementById('root')

@@ -120,5 +120,9 @@ const story = {
       userId: 1,
       type: ["haha", "wow", "like", "wow", "wow"], //max length = 5
     },
+    {
+      userId: 2,
+      type: ["like", "wow", "wow"],
+    },
   ],
 };

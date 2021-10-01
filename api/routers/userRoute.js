@@ -37,4 +37,20 @@ router.put('/list', async (req, res) => {
     }
 });
 
+// get friend: [GET] api/users/friends
+router.get('/:userId/friends', async (req, res) => {
+    try {
+        const user = await User.findOne({ _id: req.params.userId });
+        const friendIds = user.friendIds;
+        const friends = await Promise.all(
+            friendIds.map((id) => {
+                return User.findOne({ _id: id }, { _id: 1, firstName: 1, lastName: 1, avatar: 1 });
+            })
+        );
+        res.status(200).json(friends);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+
 module.exports = router;

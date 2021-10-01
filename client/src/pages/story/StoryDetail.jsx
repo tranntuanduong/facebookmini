@@ -104,7 +104,7 @@ function StoryDetail(props) {
                         changeStoryIndexHandler(1);
                     }
                 }
-            }, 25000);
+            }, 250);
         }
 
         return () => {

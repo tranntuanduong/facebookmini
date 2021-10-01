@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './OnlineFriend.css';
 import VideoCallIcon from '@mui/icons-material/VideoCall';
 import SearchIcon from '@mui/icons-material/Search';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { NO_AVARTAR, PF } from '../../constants';
+import { ConversationsContext } from '../../context/conversations/ConversationsProvider';
+import { openConversation } from '../../context/conversations/useConversations';
+import { AuthContext } from '../../context/AuthProvider';
 
 OnlineFriend.propTypes = {};
 
-function OnlineFriend(props) {
+function OnlineFriend({ friends }) {
+    const { conversations, dispatch } = useContext(ConversationsContext);
+    const { user: currentUser } = useContext(AuthContext);
+
+    const openConversationHandler = (friendInfo) => {
+        const conversation = {
+            id: `${currentUser._id}_${friendInfo._id}`,
+            receiver: friendInfo,
+            sender: currentUser,
+        };
+        openConversation(conversation, dispatch);
+    };
+
     return (
         <div className="onlineFriend">
             <div className="onlineFriendTop">
@@ -24,160 +40,27 @@ function OnlineFriend(props) {
                 </div>
             </div>
             <ul className="onlineFriendList">
-                <li className="onlineFirendItem">
-                    <div className="onlineFriendItemAvatarWrap">
-                        <img
-                            src="./assets/person/6.jpeg"
-                            alt=""
-                            className="onlineFriendItemAvatar"
-                        />
-                        <div className="onlineFriendItemBadge"></div>
-                    </div>
-                    <span className="onlineFriendItemName">Tống Min</span>
-                </li>
-                <li className="onlineFirendItem">
-                    <div className="onlineFriendItemAvatarWrap">
-                        <img
-                            src="./assets/person/6.jpeg"
-                            alt=""
-                            className="onlineFriendItemAvatar"
-                        />
-                        <div className="onlineFriendItemBadge"></div>
-                    </div>
-                    <span className="onlineFriendItemName">Tống Min</span>
-                </li>
-                <li className="onlineFirendItem">
-                    <div className="onlineFriendItemAvatarWrap">
-                        <img
-                            src="./assets/person/6.jpeg"
-                            alt=""
-                            className="onlineFriendItemAvatar"
-                        />
-                        <div className="onlineFriendItemBadge"></div>
-                    </div>
-                    <span className="onlineFriendItemName">Tống Min</span>
-                </li>
-                <li className="onlineFirendItem">
-                    <div className="onlineFriendItemAvatarWrap">
-                        <img
-                            src="./assets/person/6.jpeg"
-                            alt=""
-                            className="onlineFriendItemAvatar"
-                        />
-                        <div className="onlineFriendItemBadge"></div>
-                    </div>
-                    <span className="onlineFriendItemName">Tống Min</span>
-                </li>
-                <li className="onlineFirendItem">
-                    <div className="onlineFriendItemAvatarWrap">
-                        <img
-                            src="./assets/person/6.jpeg"
-                            alt=""
-                            className="onlineFriendItemAvatar"
-                        />
-                        <div className="onlineFriendItemBadge"></div>
-                    </div>
-                    <span className="onlineFriendItemName">Tống Min</span>
-                </li>
-                <li className="onlineFirendItem">
-                    <div className="onlineFriendItemAvatarWrap">
-                        <img
-                            src="./assets/person/6.jpeg"
-                            alt=""
-                            className="onlineFriendItemAvatar"
-                        />
-                        <div className="onlineFriendItemBadge"></div>
-                    </div>
-                    <span className="onlineFriendItemName">Tống Min</span>
-                </li>
-                <li className="onlineFirendItem">
-                    <div className="onlineFriendItemAvatarWrap">
-                        <img
-                            src="./assets/person/6.jpeg"
-                            alt=""
-                            className="onlineFriendItemAvatar"
-                        />
-                        <div className="onlineFriendItemBadge"></div>
-                    </div>
-                    <span className="onlineFriendItemName">Tống Min</span>
-                </li>
-                <li className="onlineFirendItem">
-                    <div className="onlineFriendItemAvatarWrap">
-                        <img
-                            src="./assets/person/6.jpeg"
-                            alt=""
-                            className="onlineFriendItemAvatar"
-                        />
-                        <div className="onlineFriendItemBadge"></div>
-                    </div>
-                    <span className="onlineFriendItemName">Tống Min</span>
-                </li>
-                <li className="onlineFirendItem">
-                    <div className="onlineFriendItemAvatarWrap">
-                        <img
-                            src="./assets/person/6.jpeg"
-                            alt=""
-                            className="onlineFriendItemAvatar"
-                        />
-                        <div className="onlineFriendItemBadge"></div>
-                    </div>
-                    <span className="onlineFriendItemName">Tống Min</span>
-                </li>
-                <li className="onlineFirendItem">
-                    <div className="onlineFriendItemAvatarWrap">
-                        <img
-                            src="./assets/person/6.jpeg"
-                            alt=""
-                            className="onlineFriendItemAvatar"
-                        />
-                        <div className="onlineFriendItemBadge"></div>
-                    </div>
-                    <span className="onlineFriendItemName">Tống Min</span>
-                </li>
-                <li className="onlineFirendItem">
-                    <div className="onlineFriendItemAvatarWrap">
-                        <img
-                            src="./assets/person/6.jpeg"
-                            alt=""
-                            className="onlineFriendItemAvatar"
-                        />
-                        <div className="onlineFriendItemBadge"></div>
-                    </div>
-                    <span className="onlineFriendItemName">Tống Min</span>
-                </li>
-                <li className="onlineFirendItem">
-                    <div className="onlineFriendItemAvatarWrap">
-                        <img
-                            src="./assets/person/6.jpeg"
-                            alt=""
-                            className="onlineFriendItemAvatar"
-                        />
-                        <div className="onlineFriendItemBadge"></div>
-                    </div>
-                    <span className="onlineFriendItemName">Tống Min</span>
-                </li>
-                <li className="onlineFirendItem">
-                    <div className="onlineFriendItemAvatarWrap">
-                        <img
-                            src="./assets/person/6.jpeg"
-                            alt=""
-                            className="onlineFriendItemAvatar"
-                        />
-                        <div className="onlineFriendItemBadge"></div>
-                    </div>
-                    <span className="onlineFriendItemName">Tống Min</span>
-                </li>
-                <li className="onlineFirendItem">
-                    <div className="onlineFriendItemAvatarWrap">
-                        <img
-                            src="./assets/person/6.jpeg"
-                            alt=""
-                            className="onlineFriendItemAvatar"
-                        />
-                        <div className="onlineFriendItemBadge"></div>
-                    </div>
-                    <span className="onlineFriendItemName">Tống Min</span>
-                </li>
+                {friends.map((friend) => (
+                    <li
+                        key={friend._id}
+                        className="onlineFirendItem"
+                        onClick={() => openConversationHandler(friend)}
+                    >
+                        <div className="onlineFriendItemAvatarWrap">
+                            <img
+                                src={`${PF}/${
+                                    friend.avatar ? `person/${friend.avatar}` : NO_AVARTAR
+                                }`}
+                                alt=""
+                                className="onlineFriendItemAvatar"
+                            />
+                            <div className="onlineFriendItemBadge"></div>
+                        </div>
+                        <span className="onlineFriendItemName">
+                            {friend.firstName} {friend.lastName}
+                        </span>
+                    </li>
+                ))}
             </ul>
         </div>
     );

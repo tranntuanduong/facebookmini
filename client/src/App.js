@@ -1,9 +1,11 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Chat from './components/Chat';
 import Header from './components/Header';
 import { AuthContext } from './context/AuthProvider';
+import { ConversationsContext } from './context/conversations/ConversationsProvider';
+import { toggleConversation } from './context/conversations/useConversations';
 import Home from './pages/home';
 import Login from './pages/login';
 import Profile from './pages/profile';
@@ -11,27 +13,30 @@ import Story from './pages/story';
 
 function App() {
     const { user: currentUser } = useContext(AuthContext);
-    const [conversations, setConversations] = useState([
-        {
-            id: 1,
-            isZoomOut: true,
-            receiverName: 'Sophie Phan',
-        },
-        {
-            id: 2,
-            isZoomOut: true,
-            receiverName: 'Sống Tích Cực',
-        },
-    ]);
+    const { conversations: conversationsStore, dispatch } = useContext(ConversationsContext);
+    const [conversations, setConversations] = useState([]);
 
-    const handleZoomOutState = (conversationId, zoomState) => {
-        console.log(conversationId, zoomState);
-        const newConversations = conversations.map((cov) =>
-            cov.id === conversationId
-                ? { id: conversationId, isZoomOut: zoomState, receiverName: cov.receiverName }
-                : cov
+    useEffect(() => {
+        setConversations(conversationsStore);
+    }, [conversationsStore]);
+
+    const handleZoomOutState = (conversationLocalId, zoomState) => {
+        // const newConversations = conversations.map((conversation) =>
+        //     conversation.id === conversationLocalId
+        //         ? {
+        //               ...conversation,
+        //               isZoomOut: zoomState,
+        //           }
+        //         : conversation
+        // );
+        const conversationIndex = conversations.findIndex(
+            (conversation) => conversation.id === conversationLocalId
         );
-        setConversations(newConversations);
+        const updatedConversation = conversations.splice(conversationIndex, 1)[0];
+        updatedConversation.isZoomOut = zoomState;
+
+        const newConversation = [...conversations, updatedConversation];
+        toggleConversation(newConversation, dispatch);
     };
 
     return (
@@ -54,7 +59,9 @@ function App() {
                     {currentUser ? <Home /> : <Login />}
                 </Route>
             </Switch>
-            <Chat conversations={conversations} zoomOutState={handleZoomOutState} />
+            {conversations && (
+                <Chat conversations={conversations} zoomOutState={handleZoomOutState} />
+            )}
         </Router>
     );
 }

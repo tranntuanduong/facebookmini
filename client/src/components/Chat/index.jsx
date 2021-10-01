@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Chat.css';
 import Message from '../Message';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -6,6 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import RemoveIcon from '@mui/icons-material/Remove';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import PropTypes from 'prop-types';
+import { NO_AVARTAR, PF } from '../../constants';
 
 Chat.propTypes = {
     zoomOutState: PropTypes.func,
@@ -14,10 +15,13 @@ Chat.propTypes = {
 function Chat({ conversations, zoomOutState = null }) {
     const zoomInConversations = conversations.filter((cov) => cov.isZoomOut === false);
     const zoomOutConversations = conversations.filter((cov) => cov.isZoomOut === true);
+    // const { dispatch } = useContext(ConversationsContext);
 
-    const handleChangeZoomState = (conversationId, zoomState) => {
-        if (zoomOutState) zoomOutState(conversationId, zoomState);
+    const handleChangeZoomState = (conversationIdLocal, zoomState) => {
+        if (zoomOutState) zoomOutState(conversationIdLocal, zoomState);
+        // toggleConversation(conversationIdLocal, dispatch);
     };
+
     return (
         <>
             {zoomInConversations.map((conversation, index) => (
@@ -29,13 +33,21 @@ function Chat({ conversations, zoomOutState = null }) {
                     <div className="chatTop">
                         <div className="chatTopUser">
                             <div className="chatTopUserAvatar">
-                                <img src="./assets/person/1.jpeg" alt="" />
+                                <img
+                                    src={`${PF}/${
+                                        conversation.receiver.avatar
+                                            ? `person/${conversation.receiver.avatar}`
+                                            : NO_AVARTAR
+                                    }`}
+                                    alt=""
+                                />
                                 <div className="chatTopUserAvatarBadge"></div>
                             </div>
 
                             <div className="chatTopUserInfo">
                                 <div className="chatTopUserInfoName">
-                                    {conversation.receiverName}
+                                    {conversation.receiver.firstName}{' '}
+                                    {conversation.receiver.lastName}
                                 </div>
                                 <div className="chatTopUserInfoState">Đang hoạt động</div>
                             </div>
@@ -56,13 +68,13 @@ function Chat({ conversations, zoomOutState = null }) {
                         </div>
                     </div>
                     <div className="chatContent">
-                        <Message own={true} />
-                        <Message />
-                        <Message own={true} />
-                        <Message own={true} />
-                        <Message />
-                        <Message />
-                        <Message />
+                        <Message conversation={conversation} own={true} />
+                        <Message conversation={conversation} />
+                        <Message conversation={conversation} own={true} />
+                        <Message conversation={conversation} own={true} />
+                        <Message conversation={conversation} />
+                        <Message conversation={conversation} />
+                        <Message conversation={conversation} />
                     </div>
                     <div className="chatBottom">
                         <div className="chatBottomInput">
@@ -90,7 +102,15 @@ function Chat({ conversations, zoomOutState = null }) {
                     style={{ bottom: `${index * (40 + 20) + 40}px` }}
                     onClick={() => handleChangeZoomState(conversation.id, false)}
                 >
-                    <img src="./assets/person/1.jpeg" alt="" className="chatZoomOutImg" />
+                    <img
+                        src={`${PF}/${
+                            conversation.receiver.avatar
+                                ? `person/${conversation.receiver.avatar}`
+                                : NO_AVARTAR
+                        }`}
+                        alt=""
+                        className="chatZoomOutImg"
+                    />
                     <div className="chatZoomOutBadge"></div>
                     <div className="chatZoomOutClose">
                         <CloseIcon style={{ fontSize: 'inherit' }} />

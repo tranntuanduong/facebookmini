@@ -1,14 +1,23 @@
 import React from 'react';
+import { NO_AVARTAR, PF } from '../../constants';
 import './Message.css';
 
 Message.propTypes = {};
 
-function Message({ own }) {
+function Message({ own, conversation }) {
     return (
         <>
             {own ? (
                 <div className="message">
-                    <img src="./assets/person/3.jpeg" alt="" className="messageAvatar" />
+                    <img
+                        src={`${PF}/${
+                            conversation.receiver.avatar
+                                ? `person/${conversation.receiver.avatar}`
+                                : NO_AVARTAR
+                        }`}
+                        alt=""
+                        className="messageAvatar"
+                    />
                     <div className="messageContent">
                         <div className="messageContentText">
                             hôm trc sàng lọc F0 chọc 1 phát rồi
