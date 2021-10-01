@@ -5,7 +5,7 @@ import { format } from 'timeago.js';
 
 Message.propTypes = {};
 
-function Message({ own, conversation, message }) {
+function Message({ own, conversation, message, wrap, period }) {
     const scrollRef = useRef();
 
     useEffect(() => {
@@ -14,31 +14,46 @@ function Message({ own, conversation, message }) {
         });
     }, [message]);
 
+    console.log(period);
+
     return (
         <>
             {own ? (
                 <div className="message own" ref={scrollRef}>
-                    <div className="messageContent">
-                        <div className="messageContentText">{message.text}</div>
+                    {/* <div className="messageContentTime">{format(message.createdAt)}</div> */}
+                    {period >= 20 && (
                         <div className="messageContentTime">{format(message.createdAt)}</div>
-                    </div>
+                    )}
+                    <div className="messageContentText">{message.text}</div>
                 </div>
             ) : (
-                <div className="message" ref={scrollRef}>
-                    <img
-                        src={`${PF}/${
-                            conversation.receiver.avatar
-                                ? `person/${conversation.receiver.avatar}`
-                                : NO_AVARTAR
-                        }`}
-                        alt=""
-                        className="messageAvatar"
-                    />
-                    <div className="messageContent">
-                        <div className="messageContentText">{message.text}</div>
+                <>
+                    {/* <div className="messageContentTime">{format(message.createdAt)}</div> */}
+                    {period >= 20 && (
                         <div className="messageContentTime">{format(message.createdAt)}</div>
+                    )}
+                    <div className="message" ref={scrollRef}>
+                        {wrap ? (
+                            <>
+                                <div className="messageWrapUser"></div>
+                                <div className="messageContentText">{message.text}</div>
+                            </>
+                        ) : (
+                            <div className="messageWrapFirst">
+                                <img
+                                    src={`${PF}/${
+                                        conversation.receiver.avatar
+                                            ? `person/${conversation.receiver.avatar}`
+                                            : NO_AVARTAR
+                                    }`}
+                                    alt=""
+                                    className="messageAvatar"
+                                />
+                                <div className="messageContentText">{message.text}</div>
+                            </div>
+                        )}
                     </div>
-                </div>
+                </>
             )}
         </>
     );

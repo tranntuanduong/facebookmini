@@ -33,7 +33,6 @@ function ConversationItem({ conversation, index, changeZoomState = null }) {
         if (changeZoomState) changeZoomState(conversationId, flag);
     };
 
-    console.log(currentUser._id);
     return (
         <div className="chat" style={{ right: `${index * (330 + 12) + 90}px` }}>
             <div className="chatTop">
@@ -73,14 +72,23 @@ function ConversationItem({ conversation, index, changeZoomState = null }) {
                 </div>
             </div>
             <div className="chatContent">
-                {messages.map((message) => (
-                    <Message
-                        key={message._id}
-                        conversation={conversation}
-                        message={message}
-                        own={message.senderId === currentUser._id}
-                    />
-                ))}
+                {messages.map((message, index, array) => {
+                    const period = Math.floor(
+                        ((new Date(message.createdAt) - new Date(array[index - 1]?.createdAt)) /
+                            (1000 * 60)) %
+                            60
+                    );
+                    return (
+                        <Message
+                            key={message._id}
+                            conversation={conversation}
+                            message={message}
+                            own={message.senderId === currentUser._id}
+                            wrap={message.senderId === array[index - 1]?.senderId && period <= 20}
+                            period={period}
+                        />
+                    );
+                })}
                 {/* <Message conversation={conversation} own={true} />
                 <Message conversation={conversation} />
                 <Message conversation={conversation} own={true} />

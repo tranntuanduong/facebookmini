@@ -1,6 +1,6 @@
 .message {
     display: flex;
-    margin-top: 10px;
+    margin-top: 3px;
 }
 
 .messageAvatar {
@@ -22,6 +22,8 @@
     font-size: 14px;
     font-weight: 400;
     max-width: 200px;
+    min-width: 30px;
+    margin-left: 6px;
 }
 
 .messageContentTime {
@@ -29,6 +31,9 @@
     font-size: 12px;
     font-weight: 400;
     margin-top: 5px;
+    margin-left: 10px;
+    text-align: center;
+    margin: 14px 0;
 }
 
 .message.own {
@@ -42,4 +47,14 @@
 .own .messageContentTime {
     display: flex;
     justify-content: flex-end;
+}
+
+/* Wrap user */
+.messageWrapUser {
+    margin-left: 30px;
+}
+
+.messageWrapFirst {
+    margin-top: 16px;
+    display: flex;
 }
