@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { NO_AVARTAR, PF } from '../../constants';
 import { ConversationsContext } from '../../context/conversations/ConversationsProvider';
-import { openConversation } from '../../context/conversations/useConversations';
+import { openConversation, toggleConversation } from '../../context/conversations/useConversations';
 import { AuthContext } from '../../context/AuthProvider';
 
 OnlineFriend.propTypes = {};
@@ -20,7 +20,20 @@ function OnlineFriend({ friends }) {
             receiver: friendInfo,
             sender: currentUser,
         };
-        openConversation(conversation, dispatch);
+
+        // check if conversation is open
+        if (conversations.some((item) => item.id === conversation.id)) {
+            const conversationIndex = conversations.findIndex(
+                (item) => item.id === conversation.id
+            );
+            const updatedConversation = conversations.splice(conversationIndex, 1)[0];
+            updatedConversation.isZoomOut = !updatedConversation.isZoomOut;
+
+            const newConversation = [...conversations, updatedConversation];
+            toggleConversation(newConversation, dispatch);
+        } else {
+            openConversation(conversation, dispatch);
+        }
     };
 
     return (

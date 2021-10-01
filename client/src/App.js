@@ -21,14 +21,6 @@ function App() {
     }, [conversationsStore]);
 
     const handleZoomOutState = (conversationLocalId, zoomState) => {
-        // const newConversations = conversations.map((conversation) =>
-        //     conversation.id === conversationLocalId
-        //         ? {
-        //               ...conversation,
-        //               isZoomOut: zoomState,
-        //           }
-        //         : conversation
-        // );
         const conversationIndex = conversations.findIndex(
             (conversation) => conversation.id === conversationLocalId
         );
@@ -40,16 +32,6 @@ function App() {
     };
 
     return (
-        // <div>
-        //     {currentUser ? (
-        //         <>
-        //             <Home />
-        //             <Chat conversations={conversations} zoomOutState={handleZoomOutState} />
-        //         </>
-        //     ) : (
-        //         <Login />
-        //     )}
-        // </div>
         <Router>
             {currentUser && <Header />}
             <Switch>
@@ -67,6 +49,3 @@ function App() {
 }
 
 export default App;
-
-// 90px
-// 436px
