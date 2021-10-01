@@ -2,7 +2,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import axios from 'axios';
 import { PropTypes } from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { format } from 'timeago.js';
 import { NO_AVARTAR, PF } from '../../../constants';
 import ProgressTimeOut from './ProgressTimeOut';
@@ -26,6 +26,7 @@ function StoryViewer(props) {
     } = props;
 
     const [reaction, setReaction] = useState({});
+    const saveLikeTimeOut = useRef();
 
     const mouseMoveHandler = () => {
         if (pauseFlagBtn.current) return; /*cancel mouse event when click btn pause */
@@ -51,7 +52,7 @@ function StoryViewer(props) {
             // update story viewerIds
 
             if (!storyViewer[showStoryIndex]?.viewerIds.includes(currentUser._id)) {
-                await axios.put(`/stories/${storyViewer[showStoryIndex]?._id}`, {
+                await axios.put(`/stories/${storyViewer[showStoryIndex]?._id}/viewer`, {
                     userId: currentUser._id,
                 });
             }
@@ -61,28 +62,35 @@ function StoryViewer(props) {
     const chooseLikeTypeHandler = (data) => {
         // get only 5 reactions
         const newReaction = data.type;
-        console.log(reaction);
+        let saveReaction;
         if (Object.keys(reaction).length === 0) {
-            console.log('ronggg');
-            setReaction({
-                userId: currentUser._id,
-                type: [data.type],
-            });
+            saveReaction = { userId: currentUser._id, type: [data.type] };
+            setReaction(saveReaction);
         } else {
             if (reaction?.type.length < 5) {
-                setReaction({
+                saveReaction = {
                     userId: reaction.userId,
                     type: [...reaction.type, newReaction],
-                });
+                };
+                setReaction(saveReaction);
             } else {
                 const [firstReaction, ...ortherReaction] = reaction.type;
-
-                setReaction({
+                saveReaction = {
                     userId: reaction.userId,
                     type: [...ortherReaction, newReaction],
-                });
+                };
+                setReaction(saveReaction);
             }
         }
+
+        // use debounce technique to update like for story
+        clearTimeout(saveLikeTimeOut.current);
+
+        saveLikeTimeOut.current = setTimeout(() => {
+            (async () => {
+                await axios.put(`/stories/${storyViewer[showStoryIndex]._id}/likes`, saveReaction);
+            })();
+        }, 1500);
     };
 
     useEffect(() => {
@@ -96,7 +104,7 @@ function StoryViewer(props) {
             setReaction({});
         }
     }, [currentUser, showStoryIndex, storyViewer]);
-    console.log(reaction);
+
     return (
         <div
             className="storyViewerWrap"

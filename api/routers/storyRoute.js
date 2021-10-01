@@ -81,12 +81,43 @@ router.get('/view-home/:userId', async (req, res) => {
     }
 });
 
-// update viewer
-router.put('/:id', async (req, res) => {
+// update viewer [PUT] /stories
+router.put('/:id/viewer', async (req, res) => {
     try {
         const story = await Story.findOne({ _id: req.params.id });
         await story.updateOne({ $push: { viewerIds: req.body.userId } });
         res.status(200).json('The story has been view by ' + req.body.userId);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+// update viewer [PUT] /stories
+router.put('/:id/likes', async (req, res) => {
+    try {
+        const story = await Story.findOne({ _id: req.params.id });
+
+        if (story.likeIds.some((like) => (like.userId = req.body.userId))) {
+            await story.updateOne({
+                $set: {
+                    likeIds: {
+                        userId: req.body.userId,
+                        type: req.body.type,
+                    },
+                },
+            });
+            res.status(200).json('story has been update likes');
+        } else {
+            await story.updateOne({
+                $push: {
+                    likeIds: {
+                        userId: req.body.userId,
+                        type: req.body.type,
+                    },
+                },
+            });
+            res.status(200).json('story has been likes');
+        }
     } catch (error) {
         res.status(500).json(error);
     }
