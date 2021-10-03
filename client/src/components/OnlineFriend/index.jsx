@@ -11,25 +11,23 @@ import { AuthContext } from '../../context/AuthProvider';
 OnlineFriend.propTypes = {};
 
 function OnlineFriend({ friends }) {
-    const { conversations, dispatch } = useContext(ConversationsContext);
+    const { data, dispatch } = useContext(ConversationsContext);
     const { user: currentUser } = useContext(AuthContext);
 
     const openConversationHandler = (friendInfo) => {
         const conversation = {
-            id: `${currentUser._id}_${friendInfo._id}`,
+            key: `${currentUser._id}_${friendInfo._id}`,
             receiver: friendInfo,
             sender: currentUser,
         };
 
         // check if conversation is open [CHECK IN LOCALSTORAGE]
-        if (conversations.some((item) => item.id === conversation.id)) {
-            const conversationIndex = conversations.findIndex(
-                (item) => item.id === conversation.id
-            );
-            const updatedConversation = conversations.splice(conversationIndex, 1)[0];
+        if (data.some((item) => item.key === conversation.key)) {
+            const conversationIndex = data.findIndex((item) => item.id === conversation.id);
+            const updatedConversation = data.splice(conversationIndex, 1)[0];
             updatedConversation.isZoomOut = !updatedConversation.isZoomOut;
 
-            const newConversation = [...conversations, updatedConversation];
+            const newConversation = [...data, updatedConversation];
             toggleConversation(newConversation, dispatch);
         } else {
             openConversation(conversation, dispatch);

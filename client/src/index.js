@@ -5,12 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthContextProvider } from './context/AuthProvider';
 import { ConversationsContextProvider } from './context/conversations/ConversationsProvider';
+import { MessagesContextProvider } from './context/message/MessagesProvider';
 
 ReactDOM.render(
     <React.StrictMode>
         <AuthContextProvider>
             <ConversationsContextProvider>
-                <App />
+                <MessagesContextProvider>
+                    <App />
+                </MessagesContextProvider>
             </ConversationsContextProvider>
         </AuthContextProvider>
     </React.StrictMode>,

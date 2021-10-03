@@ -78,7 +78,7 @@
 }
 
 .chatTopActionItem {
-    color: #0084ff;
+    color: #cbd1ca;
     margin-left: 4px;
     width: 30px;
     height: 30px;
@@ -86,6 +86,10 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+}
+
+.chat.active .chatTopActionItem {
+    color: #0084ff;
 }
 
 .chatTopActionItem:hover {
@@ -171,6 +175,11 @@
     left: -2px;
 }
 
+.chat.active .chatBottomInputIconBg {
+    filter: invert(34%) sepia(24%) saturate(6194%) hue-rotate(195deg) brightness(103%)
+        contrast(108%);
+}
+
 .chatBottomLikeIcon {
     color: #666768;
     margin-left: 4px;
@@ -183,6 +192,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.chat.active .chatBottomLikeIcon {
+    color: #0084ff;
 }
 
 .chatBottomLikeIcon:hover {

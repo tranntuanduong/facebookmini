@@ -59,11 +59,15 @@ function Login(props) {
                             <input type="text" placeholder="Email" ref={email} />
                         </div>
                         <div className="loginRightFormInput">
-                            <input type="text" placeholder="Mật khẩu" ref={password} />
+                            <input type="password" placeholder="Mật khẩu" ref={password} />
                         </div>
 
                         {isFetching ? (
-                            <button type="submit" className="loginRightFormBtnSubmit disabled" disabled>
+                            <button
+                                type="submit"
+                                className="loginRightFormBtnSubmit disabled"
+                                disabled
+                            >
                                 <div className="lds-ring">
                                     <div></div>
                                     <div></div>
@@ -118,14 +122,22 @@ function Login(props) {
                                 <div className=" grid__col-12-12">
                                     <div className="grid__col">
                                         <div className="registerInput">
-                                            <input type="text" placeholder="Số di động hoặc email" ref={email} />
+                                            <input
+                                                type="text"
+                                                placeholder="Số di động hoặc email"
+                                                ref={email}
+                                            />
                                         </div>
                                     </div>
                                 </div>
                                 <div className=" grid__col-12-12">
                                     <div className="grid__col">
                                         <div className="registerInput">
-                                            <input type="text" placeholder="Mật khẩu" ref={password} />
+                                            <input
+                                                type="text"
+                                                placeholder="Mật khẩu"
+                                                ref={password}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -149,9 +161,10 @@ function Login(props) {
                                             <div className="registerInput">
                                                 <select ref={monthOfBirth}>
                                                     {Array.from(new Array(12)).map((x, index) => (
-                                                        <option key={index} value={index + 1}>{`Tháng ${
-                                                            index + 1
-                                                        }`}</option>
+                                                        <option
+                                                            key={index}
+                                                            value={index + 1}
+                                                        >{`Tháng ${index + 1}`}</option>
                                                     ))}
                                                 </select>
                                             </div>
@@ -177,7 +190,13 @@ function Login(props) {
                                         <div className="grid__col">
                                             <div className="registerInput">
                                                 <label htmlFor="male">Nữ</label>
-                                                <input type="radio" id="male" name="sex" ref={sex} value="male" />
+                                                <input
+                                                    type="radio"
+                                                    id="male"
+                                                    name="sex"
+                                                    ref={sex}
+                                                    value="male"
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -185,7 +204,13 @@ function Login(props) {
                                         <div className="grid__col">
                                             <div className="registerInput">
                                                 <label htmlFor="female">Nam</label>
-                                                <input type="radio" id="female" name="sex" ref={sex} value="female" />
+                                                <input
+                                                    type="radio"
+                                                    id="female"
+                                                    name="sex"
+                                                    ref={sex}
+                                                    value="female"
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -193,7 +218,13 @@ function Login(props) {
                                         <div className="grid__col">
                                             <div className="registerInput">
                                                 <label htmlFor="orther">Khác</label>
-                                                <input type="radio" id="orther" name="sex" ref={sex} value="orther" />
+                                                <input
+                                                    type="radio"
+                                                    id="orther"
+                                                    name="sex"
+                                                    ref={sex}
+                                                    value="orther"
+                                                />
                                             </div>
                                         </div>
                                     </div>

@@ -1,14 +1,15 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { NO_AVARTAR, PF } from '../../constants';
-import './Profile.css';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import CreateIcon from '@mui/icons-material/Create';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import Share from '../../components/Share';
-import { AuthContext } from '../../context/AuthProvider';
 import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
 import Post from '../../components/Post';
+import Share from '../../components/Share';
+import { NO_AVARTAR, PF } from '../../constants';
+import { AuthContext } from '../../context/AuthProvider';
+import { sortDateUtils } from '../../utils/utils';
+import './Profile.css';
 
 Profile.propTypes = {};
 
@@ -19,7 +20,7 @@ function Profile(props) {
     useEffect(() => {
         (async () => {
             const res = await axios.get(`/posts/${currentUser._id}/me`);
-            setPosts(res.data);
+            setPosts(sortDateUtils(res.data));
         })();
     }, [currentUser]);
 
@@ -43,7 +44,9 @@ function Profile(props) {
                 <div className="profileTopWrap">
                     <div className="profileTopAvatar">
                         <img
-                            src={`${PF}/${currentUser.avatar ? `person/${currentUser.avatar}` : NO_AVARTAR}`}
+                            src={`${PF}/${
+                                currentUser.avatar ? `person/${currentUser.avatar}` : NO_AVARTAR
+                            }`}
                             alt=""
                             className="profileTopAvatarImg"
                         />
@@ -96,26 +99,51 @@ function Profile(props) {
                         <div className="mainIntroduceTitle">Giới thiệu</div>
                         <ul className="mainIntroduceList">
                             <li className="mainIntroduceItem">
-                                <img src="./assets/profile/bagIcon.png" alt="" className="mainIntroduceItemBadge" />
-                                <div className="mainIntroduceItemText">Đã tốt nghiệp tại THPT Sơn Thịnh</div>
-                            </li>
-                            <li className="mainIntroduceItem">
-                                <img src="./assets/profile/bagIcon.png" alt="" className="mainIntroduceItemBadge" />
+                                <img
+                                    src="./assets/profile/bagIcon.png"
+                                    alt=""
+                                    className="mainIntroduceItemBadge"
+                                />
                                 <div className="mainIntroduceItemText">
-                                    sinh viên tại Đại học Bách khoa Hà Nội - Hanoi University of Science and Technology
+                                    Đã tốt nghiệp tại THPT Sơn Thịnh
                                 </div>
                             </li>
                             <li className="mainIntroduceItem">
-                                <img src="./assets/profile/homeIcon.png" alt="" className="mainIntroduceItemBadge" />
+                                <img
+                                    src="./assets/profile/bagIcon.png"
+                                    alt=""
+                                    className="mainIntroduceItemBadge"
+                                />
+                                <div className="mainIntroduceItemText">
+                                    sinh viên tại Đại học Bách khoa Hà Nội - Hanoi University of
+                                    Science and Technology
+                                </div>
+                            </li>
+                            <li className="mainIntroduceItem">
+                                <img
+                                    src="./assets/profile/homeIcon.png"
+                                    alt=""
+                                    className="mainIntroduceItemBadge"
+                                />
                                 <div className="mainIntroduceItemText">Sống tại Yên Bái</div>
                             </li>
                             <li className="mainIntroduceItem">
-                                <img src="./assets/profile/heartIcon.png" alt="" className="mainIntroduceItemBadge" />
+                                <img
+                                    src="./assets/profile/heartIcon.png"
+                                    alt=""
+                                    className="mainIntroduceItemBadge"
+                                />
                                 <div className="mainIntroduceItemText">Hẹn hò</div>
                             </li>
                             <li className="mainIntroduceItem">
-                                <img src="./assets/profile/clockIcon.png" alt="" className="mainIntroduceItemBadge" />
-                                <div className="mainIntroduceItemText">Tham gia vào Tháng 6 năm 2016</div>
+                                <img
+                                    src="./assets/profile/clockIcon.png"
+                                    alt=""
+                                    className="mainIntroduceItemBadge"
+                                />
+                                <div className="mainIntroduceItemText">
+                                    Tham gia vào Tháng 6 năm 2016
+                                </div>
                             </li>
                         </ul>
                         <div className="mainIntroduceBtn">Chỉnh sửa chi tiết</div>

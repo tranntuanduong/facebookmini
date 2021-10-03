@@ -20,7 +20,9 @@ function Comment({ post, totalComment, setTotalComment }) {
         (async () => {
             const res = await axios.get(`/comments/${post._id}/${skip}`);
             // Dang loi, ko dung body dc
-            const count = await axios.get(`/comments/count?postId=${post._id}`, { postId: post._id });
+            const count = await axios.get(`/comments/count?postId=${post._id}`, {
+                postId: post._id,
+            });
 
             // ----Code chua clean----
             // setComments(sortDateUtils(res.data));
@@ -53,7 +55,9 @@ function Comment({ post, totalComment, setTotalComment }) {
         <div className="comment">
             <div className="commentTop" ref={viewInputRef}>
                 <img
-                    src={`${PF}/${currentUser.avatar ? `person/${currentUser.avatar}` : NO_AVARTAR}`}
+                    src={`${PF}/${
+                        currentUser.avatar ? `person/${currentUser.avatar}` : NO_AVARTAR
+                    }`}
                     alt=""
                     className="commentTopAvatar"
                 />
@@ -70,7 +74,11 @@ function Comment({ post, totalComment, setTotalComment }) {
             <ul className="commentList">
                 {comments.map((comment) => (
                     <li key={comment._id} className="commentItem">
-                        <CommentItem key={comment._id} comment={comment} currentUser={currentUser} />
+                        <CommentItem
+                            key={comment._id}
+                            comment={comment}
+                            currentUser={currentUser}
+                        />
                     </li>
                 ))}
             </ul>

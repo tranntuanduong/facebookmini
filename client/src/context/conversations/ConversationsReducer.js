@@ -6,7 +6,7 @@ const ConversationsReducer = (state, action) => {
                 conversations.shift();
             }
             const newConversation = {
-                id: action.payload.id,
+                key: action.payload.key,
                 isZoomOut: false,
                 receiver: action.payload.receiver,
                 sender: action.payload.sender,
@@ -23,6 +23,10 @@ const ConversationsReducer = (state, action) => {
             return conversations;
         case 'TOGGLE_CONVERSATION': {
             localStorage.setItem('CONVERSATIONS', JSON.stringify(action.payload));
+            return action.payload;
+        }
+
+        case 'SEND_MESSAGE': {
             return action.payload;
         }
 

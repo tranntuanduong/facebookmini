@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
-import { BACKGROUND_LIST } from '../../constants';
 import axios from 'axios';
+import React, { useState } from 'react';
+import { BACKGROUND_LIST } from '../../constants';
 
 StoryForm.propTypes = {};
 
@@ -35,7 +35,7 @@ function StoryForm({
         };
         console.log('story:', newStory);
         try {
-            const res = await axios.post('/stories', newStory);
+            await axios.post('/stories', newStory);
             window.location.href = 'http://localhost:3000/';
         } catch (error) {
             console.log(error);

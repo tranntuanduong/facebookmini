@@ -1,7 +1,7 @@
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import PublicIcon from '@material-ui/icons/Public';
 import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { format } from 'timeago.js';
 import { NO_AVARTAR, PF } from '../../constants';
 import { chooseLikeTypeUtils, likeBtnHanderUtils, likeUtils } from '../../utils/utils';
@@ -11,7 +11,6 @@ import './Post.css';
 Post.propTypes = {};
 
 function Post({ post, currentUser }) {
-    const [isShowComment, setIsShowComment] = useState(true);
     const [likes, setLikes] = useState(post.likes);
     const [user, setUser] = useState({});
     const [topLikeType, setTopLikeType] = useState([]);
@@ -52,7 +51,14 @@ function Post({ post, currentUser }) {
         // }
         // setOpenChooseLikeType(false);
 
-        chooseLikeTypeUtils(likes, currentUser, data, setLikes, setCurrentLikeIndex, setOpenChooseLikeType);
+        chooseLikeTypeUtils(
+            likes,
+            currentUser,
+            data,
+            setLikes,
+            setCurrentLikeIndex,
+            setOpenChooseLikeType
+        );
 
         await axios.put(`/posts/${post._id}/changelikes`, {
             userId: currentUser._id,
@@ -128,7 +134,8 @@ function Post({ post, currentUser }) {
                 <div className="postTopInfo">
                     <span className="postTopInfoName">{`${user.firstName} ${user.lastName}`}</span>
                     <div className="postTopInfoTime">
-                        <span>{format(post.createdAt)} · </span> <PublicIcon style={{ fontSize: 'inherit' }} />
+                        <span>{format(post.createdAt)} · </span>{' '}
+                        <PublicIcon style={{ fontSize: 'inherit' }} />
                     </div>
                 </div>
                 <div className="postTopAction">
@@ -141,14 +148,23 @@ function Post({ post, currentUser }) {
                 <div className="imgWraper">
                     {/* imgConnections: 1 */}
                     {post.imgCollections.length === 1 && (
-                        <img src={`${PF}/post/${post.imgCollections[0]}`} alt="" className="postContentImg" />
+                        <img
+                            src={`${PF}/post/${post.imgCollections[0]}`}
+                            alt=""
+                            className="postContentImg"
+                        />
                     )}
 
                     {/* imgConnections: 2 */}
                     {post.imgCollections.length === 2 && (
                         <div className="postContentImgWrap2">
                             {post.imgCollections.map((img, index) => (
-                                <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg2_2" />
+                                <img
+                                    key={index}
+                                    src={`${PF}/post/${img}`}
+                                    alt=""
+                                    className="postContentImg2_2"
+                                />
                             ))}
                         </div>
                     )}
@@ -158,12 +174,22 @@ function Post({ post, currentUser }) {
                         <>
                             <div className="postContentImgWrap3">
                                 {post.imgCollections.slice(0, 1).map((img, index) => (
-                                    <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg3_1" />
+                                    <img
+                                        key={index}
+                                        src={`${PF}/post/${img}`}
+                                        alt=""
+                                        className="postContentImg3_1"
+                                    />
                                 ))}
                             </div>
                             <div className="postContentImgWrap2">
                                 {post.imgCollections.slice(1, 3).map((img, index) => (
-                                    <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg2_2" />
+                                    <img
+                                        key={index}
+                                        src={`${PF}/post/${img}`}
+                                        alt=""
+                                        className="postContentImg2_2"
+                                    />
                                 ))}
                             </div>
                         </>
@@ -174,12 +200,22 @@ function Post({ post, currentUser }) {
                         <>
                             <div className="postContentImgWrap2">
                                 {post.imgCollections.slice(0, 2).map((img, index) => (
-                                    <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg2_2" />
+                                    <img
+                                        key={index}
+                                        src={`${PF}/post/${img}`}
+                                        alt=""
+                                        className="postContentImg2_2"
+                                    />
                                 ))}
                             </div>
                             <div className="postContentImgWrap2">
                                 {post.imgCollections.slice(2, 4).map((img, index) => (
-                                    <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg2_2" />
+                                    <img
+                                        key={index}
+                                        src={`${PF}/post/${img}`}
+                                        alt=""
+                                        className="postContentImg2_2"
+                                    />
                                 ))}
                             </div>
                         </>
@@ -190,12 +226,22 @@ function Post({ post, currentUser }) {
                         <>
                             <div className="postContentImgWrap2">
                                 {post.imgCollections.slice(0, 2).map((img, index) => (
-                                    <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg2_2" />
+                                    <img
+                                        key={index}
+                                        src={`${PF}/post/${img}`}
+                                        alt=""
+                                        className="postContentImg2_2"
+                                    />
                                 ))}
                             </div>
                             <div className="postContentImgWrap3_3">
                                 {post.imgCollections.slice(2, 5).map((img, index) => (
-                                    <img key={index} src={`${PF}/post/${img}`} alt="" className="postContentImg3_3" />
+                                    <img
+                                        key={index}
+                                        src={`${PF}/post/${img}`}
+                                        alt=""
+                                        className="postContentImg3_3"
+                                    />
                                 ))}
                                 {post.imgCollections.slice(5, 6).map((img, index) => (
                                     <div key={index} className="postContentMoreImg">
@@ -220,11 +266,15 @@ function Post({ post, currentUser }) {
                             />
                         ))}
 
-                        <span className="postBottomLikeInfoText">{!likes.length ? '' : `${likes.length}`}</span>
+                        <span className="postBottomLikeInfoText">
+                            {!likes.length ? '' : `${likes.length}`}
+                        </span>
                     </div>
 
                     <div className="postBottomTextInfo">
-                        <span className="postBottomTextInfoItem">{totalComment} lượt bình luận</span>
+                        <span className="postBottomTextInfoItem">
+                            {totalComment} lượt bình luận
+                        </span>
                         <span className="postBottomTextInfoItem">31 lượt chia sẻ</span>
                     </div>
                 </div>
@@ -256,7 +306,10 @@ function Post({ post, currentUser }) {
                                     </>
                                 )}
                             </div> */}
-                            <div className="postBottomActionItemLikeWrap" onClick={() => likeBtnHandler()}>
+                            <div
+                                className="postBottomActionItemLikeWrap"
+                                onClick={() => likeBtnHandler()}
+                            >
                                 {currentLikeIndex >= 0 ? (
                                     // Khac voi chooseLikeTypeHandler, likeBtnHandler dung de xu li like va dislike
                                     <div className="likeBtn">
@@ -303,7 +356,11 @@ function Post({ post, currentUser }) {
                                         })
                                     }
                                 >
-                                    <img src="./assets/feed/like.svg" alt="" className="postBottomLikeDetailImg" />
+                                    <img
+                                        src="./assets/feed/like.svg"
+                                        alt=""
+                                        className="postBottomLikeDetailImg"
+                                    />
                                 </li>
                                 <li
                                     className="postBottomLikeDetailItem"
@@ -315,7 +372,11 @@ function Post({ post, currentUser }) {
                                         })
                                     }
                                 >
-                                    <img src="./assets/feed/haha.svg" alt="" className="postBottomLikeDetailImg" />
+                                    <img
+                                        src="./assets/feed/haha.svg"
+                                        alt=""
+                                        className="postBottomLikeDetailImg"
+                                    />
                                 </li>
                                 <li
                                     className="postBottomLikeDetailItem"
@@ -327,7 +388,11 @@ function Post({ post, currentUser }) {
                                         })
                                     }
                                 >
-                                    <img src="./assets/feed/lovely.svg" alt="" className="postBottomLikeDetailImg" />
+                                    <img
+                                        src="./assets/feed/lovely.svg"
+                                        alt=""
+                                        className="postBottomLikeDetailImg"
+                                    />
                                 </li>
                                 <li
                                     className="postBottomLikeDetailItem"
@@ -339,7 +404,11 @@ function Post({ post, currentUser }) {
                                         })
                                     }
                                 >
-                                    <img src="./assets/feed/heart.svg" alt="" className="postBottomLikeDetailImg" />
+                                    <img
+                                        src="./assets/feed/heart.svg"
+                                        alt=""
+                                        className="postBottomLikeDetailImg"
+                                    />
                                 </li>
                                 <li
                                     className="postBottomLikeDetailItem"
@@ -351,7 +420,11 @@ function Post({ post, currentUser }) {
                                         })
                                     }
                                 >
-                                    <img src="./assets/feed/wow.svg" alt="" className="postBottomLikeDetailImg" />
+                                    <img
+                                        src="./assets/feed/wow.svg"
+                                        alt=""
+                                        className="postBottomLikeDetailImg"
+                                    />
                                 </li>
                                 <li
                                     className="postBottomLikeDetailItem"
@@ -363,7 +436,11 @@ function Post({ post, currentUser }) {
                                         })
                                     }
                                 >
-                                    <img src="./assets/feed/sad.svg" alt="" className="postBottomLikeDetailImg" />
+                                    <img
+                                        src="./assets/feed/sad.svg"
+                                        alt=""
+                                        className="postBottomLikeDetailImg"
+                                    />
                                 </li>
                                 <li
                                     className="postBottomLikeDetailItem"
@@ -375,7 +452,11 @@ function Post({ post, currentUser }) {
                                         })
                                     }
                                 >
-                                    <img src="./assets/feed/angry.svg" alt="" className="postBottomLikeDetailImg" />
+                                    <img
+                                        src="./assets/feed/angry.svg"
+                                        alt=""
+                                        className="postBottomLikeDetailImg"
+                                    />
                                 </li>
                             </ul>
                         </div>
@@ -403,12 +484,15 @@ function Post({ post, currentUser }) {
                     </div>
                 </div>
             </div>
-            {isShowComment && (
-                <div className="postCommentWrap">
-                    <hr className="postHr" />
-                    <Comment post={post} setTotalComment={setTotalComment} totalComment={totalComment} />
-                </div>
-            )}
+
+            <div className="postCommentWrap">
+                <hr className="postHr" />
+                <Comment
+                    post={post}
+                    setTotalComment={setTotalComment}
+                    totalComment={totalComment}
+                />
+            </div>
         </div>
     );
 }

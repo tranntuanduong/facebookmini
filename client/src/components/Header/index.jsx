@@ -1,18 +1,18 @@
-import React, { useContext } from 'react';
-import './Header.css';
-import SearchIcon from '@material-ui/icons/Search';
-import HomeIcon from '@material-ui/icons/Home';
-import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
-import StorefrontIcon from '@material-ui/icons/Storefront';
-import GroupIcon from '@material-ui/icons/Group';
-import GamesIcon from '@material-ui/icons/Games';
 import AppsIcon from '@material-ui/icons/Apps';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import GamesIcon from '@material-ui/icons/Games';
+import GroupIcon from '@material-ui/icons/Group';
+import HomeIcon from '@material-ui/icons/Home';
 import MessageIcon from '@material-ui/icons/Message';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import { AuthContext } from '../../context/AuthProvider';
-import { NO_AVARTAR, PF } from '../../constants';
+import SearchIcon from '@material-ui/icons/Search';
+import StorefrontIcon from '@material-ui/icons/Storefront';
+import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { NO_AVARTAR, PF } from '../../constants';
+import { AuthContext } from '../../context/AuthProvider';
+import './Header.css';
 Header.propTypes = {};
 
 function Header(props) {

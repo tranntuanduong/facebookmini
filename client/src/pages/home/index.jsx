@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import Feed from '../../components/Feed';
-import Header from '../../components/Header';
 import RightBar from '../../components/RightBar';
 import SideBar from '../../components/SideBar';
 import { AuthContext } from '../../context/AuthProvider';

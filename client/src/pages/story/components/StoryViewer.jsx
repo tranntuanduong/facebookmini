@@ -75,6 +75,7 @@ function StoryViewer(props) {
                 setReaction(saveReaction);
             } else {
                 const [firstReaction, ...ortherReaction] = reaction.type;
+
                 saveReaction = {
                     userId: reaction.userId,
                     type: [...ortherReaction, newReaction],

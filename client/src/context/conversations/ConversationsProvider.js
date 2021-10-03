@@ -1,4 +1,4 @@
-import { createContext, useReducer, useState } from 'react';
+import { createContext, useReducer } from 'react';
 import ConversationsReducer from './ConversationsReducer';
 
 const initialState = JSON.parse(localStorage.getItem('CONVERSATIONS')) || [];
@@ -7,9 +7,8 @@ export const ConversationsContext = createContext(initialState);
 
 export const ConversationsContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(ConversationsReducer, initialState);
-
     const store = {
-        conversations: state,
+        data: state,
         dispatch,
     };
 

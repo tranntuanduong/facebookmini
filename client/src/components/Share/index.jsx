@@ -34,7 +34,7 @@ function Share({ currentUser, posts, setPosts }) {
             //     console.log(value);
             // }
             try {
-                await axios.post('/uploads', formData);
+                await axios.post('./uploads', formData);
             } catch (error) {
                 console.log(error);
             }
@@ -46,7 +46,7 @@ function Share({ currentUser, posts, setPosts }) {
             imgCollections: imgCollections,
         };
 
-        const res = await axios.post('/posts', newPost);
+        const res = await axios.post('./posts', newPost);
         setPosts([res.data, ...posts]);
         setDesc('');
         setFiles(null);
@@ -60,7 +60,9 @@ function Share({ currentUser, posts, setPosts }) {
         <form className="share" onSubmit={handleShareSubmmit}>
             <div className="shareTop">
                 <img
-                    src={`${PF}/${currentUser.avatar ? `person/${currentUser.avatar}` : NO_AVARTAR}`}
+                    src={`${PF}/${
+                        currentUser.avatar ? `person/${currentUser.avatar}` : NO_AVARTAR
+                    }`}
                     alt=""
                     className="shareTopImg"
                 />
@@ -81,15 +83,25 @@ function Share({ currentUser, posts, setPosts }) {
                             <div key={index} className="shareImgItemWrap">
                                 {index < 3 ? (
                                     <>
-                                        <img src={URL.createObjectURL(files[key])} alt="" className="shareImg" />
+                                        <img
+                                            src={URL.createObjectURL(files[key])}
+                                            alt=""
+                                            className="shareImg"
+                                        />
                                         <CloseIcon className="shareCancelImg" />
                                     </>
                                 ) : (
                                     <>
-                                        <img src={URL.createObjectURL(files[key])} alt="" className="shareImg" />
+                                        <img
+                                            src={URL.createObjectURL(files[key])}
+                                            alt=""
+                                            className="shareImg"
+                                        />
                                         <CloseIcon className="shareCancelImg" />
                                         {Object.keys(files).length > 4 && (
-                                            <div className="moreImg">+{Object.keys(files).length - 4}</div>
+                                            <div className="moreImg">
+                                                +{Object.keys(files).length - 4}
+                                            </div>
                                         )}
                                     </>
                                 )}

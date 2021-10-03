@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { NO_AVARTAR, PF } from '../../constants';
-import { format } from 'timeago.js';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { chooseLikeTypeUtils, likeBtnHanderUtils, likeUtils } from '../../utils/utils';
-import { AuthContext } from '../../context/AuthProvider';
 import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
+import { format } from 'timeago.js';
+import { NO_AVARTAR, PF } from '../../constants';
+import { AuthContext } from '../../context/AuthProvider';
+import { chooseLikeTypeUtils, likeBtnHanderUtils, likeUtils } from '../../utils/utils';
 
 SubCommentItem.propTypes = {};
 
@@ -27,7 +26,14 @@ function SubCommentItem({ subComment }) {
     };
 
     const chooseLikeTypeHandler = async (data) => {
-        chooseLikeTypeUtils(likes, currentUser, data, setLikes, setCurrentLikeIndex, setOpenChooseLikeType);
+        chooseLikeTypeUtils(
+            likes,
+            currentUser,
+            data,
+            setLikes,
+            setCurrentLikeIndex,
+            setOpenChooseLikeType
+        );
 
         await axios.put(`/subcomments/${subComment._id}/changelikes`, {
             userId: currentUser._id,
@@ -62,7 +68,9 @@ function SubCommentItem({ subComment }) {
         <>
             <div className="commentItemAvatar">
                 <img
-                    src={`${PF}/${subComment.userAvatar ? `person/${subComment.userAvatar}` : NO_AVARTAR}`}
+                    src={`${PF}/${
+                        subComment.userAvatar ? `person/${subComment.userAvatar}` : NO_AVARTAR
+                    }`}
                     alt=""
                     className="commentItemAvatarImg"
                 />
@@ -120,13 +128,22 @@ function SubCommentItem({ subComment }) {
                                     {likes[currentLikeIndex]?.text}
                                 </div>
                             ) : (
-                                <div className="commentItemContentActionItem" onClick={likeBtnHandler}>
+                                <div
+                                    className="commentItemContentActionItem"
+                                    onClick={likeBtnHandler}
+                                >
                                     Thích
                                 </div>
                             )}
 
                             {/* Like comment list btn */}
-                            <ul className={openChooseLikeType ? 'commentLikeBtnList open' : 'commentLikeBtnList'}>
+                            <ul
+                                className={
+                                    openChooseLikeType
+                                        ? 'commentLikeBtnList open'
+                                        : 'commentLikeBtnList'
+                                }
+                            >
                                 <li
                                     className="commentLikeBtnItem"
                                     onClick={() =>
@@ -137,7 +154,11 @@ function SubCommentItem({ subComment }) {
                                         })
                                     }
                                 >
-                                    <img src="./assets/feed/like.svg" alt="" className="commentLikeBtnItemImg" />
+                                    <img
+                                        src="./assets/feed/like.svg"
+                                        alt=""
+                                        className="commentLikeBtnItemImg"
+                                    />
                                 </li>
                                 <li
                                     className="commentLikeBtnItem"
@@ -149,7 +170,11 @@ function SubCommentItem({ subComment }) {
                                         })
                                     }
                                 >
-                                    <img src="./assets/feed/haha.svg" alt="" className="commentLikeBtnItemImg" />
+                                    <img
+                                        src="./assets/feed/haha.svg"
+                                        alt=""
+                                        className="commentLikeBtnItemImg"
+                                    />
                                 </li>
                                 <li
                                     className="commentLikeBtnItem"
@@ -161,7 +186,11 @@ function SubCommentItem({ subComment }) {
                                         })
                                     }
                                 >
-                                    <img src="./assets/feed/lovely.svg" alt="" className="commentLikeBtnItemImg" />
+                                    <img
+                                        src="./assets/feed/lovely.svg"
+                                        alt=""
+                                        className="commentLikeBtnItemImg"
+                                    />
                                 </li>
                                 <li
                                     className="commentLikeBtnItem"
@@ -173,7 +202,11 @@ function SubCommentItem({ subComment }) {
                                         })
                                     }
                                 >
-                                    <img src="./assets/feed/heart.svg" alt="" className="commentLikeBtnItemImg" />
+                                    <img
+                                        src="./assets/feed/heart.svg"
+                                        alt=""
+                                        className="commentLikeBtnItemImg"
+                                    />
                                 </li>
                                 <li
                                     className="commentLikeBtnItem"
@@ -185,7 +218,11 @@ function SubCommentItem({ subComment }) {
                                         })
                                     }
                                 >
-                                    <img src="./assets/feed/wow.svg" alt="" className="commentLikeBtnItemImg" />
+                                    <img
+                                        src="./assets/feed/wow.svg"
+                                        alt=""
+                                        className="commentLikeBtnItemImg"
+                                    />
                                 </li>
                                 <li
                                     className="commentLikeBtnItem"
@@ -197,7 +234,11 @@ function SubCommentItem({ subComment }) {
                                         })
                                     }
                                 >
-                                    <img src="./assets/feed/sad.svg" alt="" className="commentLikeBtnItemImg" />
+                                    <img
+                                        src="./assets/feed/sad.svg"
+                                        alt=""
+                                        className="commentLikeBtnItemImg"
+                                    />
                                 </li>
                                 <li
                                     className="commentLikeBtnItem"
@@ -209,7 +250,11 @@ function SubCommentItem({ subComment }) {
                                         })
                                     }
                                 >
-                                    <img src="./assets/feed/angry.svg" alt="" className="commentLikeBtnItemImg" />
+                                    <img
+                                        src="./assets/feed/angry.svg"
+                                        alt=""
+                                        className="commentLikeBtnItemImg"
+                                    />
                                 </li>
                             </ul>
                         </div>

@@ -1,34 +1,58 @@
-import React, { useContext, useEffect, useState } from 'react';
-import './Chat.css';
-import Message from '../Message';
-import PhoneIcon from '@mui/icons-material/Phone';
 import CloseIcon from '@mui/icons-material/Close';
-import RemoveIcon from '@mui/icons-material/Remove';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { NO_AVARTAR, PF } from '../../constants';
-import axios from 'axios';
-import ConversationItem from './ConversationItem';
 import { ConversationsContext } from '../../context/conversations/ConversationsProvider';
 import { toggleConversation } from '../../context/conversations/useConversations';
+import './Chat.css';
+import ConversationItem from './ConversationItem';
+import { io } from 'socket.io-client';
+import { AuthContext } from '../../context/AuthProvider';
 
 Chat.propTypes = {
     zoomOutState: PropTypes.func,
 };
 
 function Chat(props) {
-    const { conversations: conversationsStore, dispatch } = useContext(ConversationsContext);
+    const { user: currentUser } = useContext(AuthContext);
+
+    const { data: conversationsStore, dispatch } = useContext(ConversationsContext);
     const [conversations, setConversations] = useState([]);
     const zoomInConversations = conversations.filter((cov) => cov.isZoomOut === false);
     const zoomOutConversations = conversations.filter((cov) => cov.isZoomOut === true);
+    const [currentConverastionKey, setCurrentConversationKey] = useState();
+
+    const [arrivalMessage, setArrivalMessage] = useState(null);
+
+    // socket
+    const socket = useRef();
+    useEffect(() => {
+        socket.current = io('ws://localhost:8900');
+        // console.log('render: ', socket.current);
+        socket.current.on('getMessage', (data) => {
+            // console.log('data', data);
+            setArrivalMessage({
+                senderId: data.senderId,
+                text: data.text,
+                createdAt: Date.now(),
+            });
+        });
+    }, []);
+
+    useEffect(() => {
+        socket.current.emit('addUser', currentUser._id);
+        // socket.current.on('getUsers', (users) => {
+        //     console.log('socket users:', users);
+        // });
+    }, [currentUser]);
 
     useEffect(() => {
         setConversations(conversationsStore);
     }, [conversationsStore]);
 
-    const handleZoomOutState = (conversationLocalId, zoomState) => {
+    const handleZoomOutState = (conversationKey, zoomState) => {
         const conversationIndex = conversations.findIndex(
-            (conversation) => conversation.id === conversationLocalId
+            (conversation) => conversation.key === conversationKey
         );
         const updatedConversation = conversations.splice(conversationIndex, 1)[0];
         updatedConversation.isZoomOut = zoomState;
@@ -37,22 +61,30 @@ function Chat(props) {
         toggleConversation(newConversation, dispatch);
     };
 
+    const emitSendMessageHandler = (event, sendMessage) => {
+        socket.current.emit('sendMessage', sendMessage);
+    };
+
     return (
         <>
             {zoomInConversations.map((conversation, index) => (
                 <ConversationItem
+                    setCurrentConversationKey={setCurrentConversationKey}
+                    currentConverastionKey={currentConverastionKey}
                     key={index}
                     conversation={conversation}
                     index={index}
                     changeZoomState={handleZoomOutState}
+                    arrivalMessage={arrivalMessage}
+                    emitSendMessage={emitSendMessageHandler}
                 />
             ))}
             {zoomOutConversations.map((conversation, index) => (
                 <div
-                    key={conversation.id}
+                    key={conversation.key}
                     className="chatZoomOut"
                     style={{ bottom: `${index * (40 + 20) + 40}px` }}
-                    onClick={() => handleZoomOutState(conversation.id, false)}
+                    onClick={() => handleZoomOutState(conversation.key, false)}
                 >
                     <img
                         src={`${PF}/${

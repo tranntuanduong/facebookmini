@@ -1,20 +1,69 @@
 import CloseIcon from '@mui/icons-material/Close';
 import PhoneIcon from '@mui/icons-material/Phone';
 import RemoveIcon from '@mui/icons-material/Remove';
+import SendIcon from '@mui/icons-material/Send';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+// import { io } from 'socket.io-client';
 import { NO_AVARTAR, PF } from '../../constants';
 import { AuthContext } from '../../context/AuthProvider';
 import Message from '../Message';
+
 ConversationItem.propTypes = {
     changeZoomState: PropTypes.func,
+    emitSendMessage: PropTypes.func,
 };
 
-function ConversationItem({ conversation, index, changeZoomState = null }) {
+function ConversationItem({
+    conversation,
+    index,
+    changeZoomState = null,
+    setCurrentConversationKey,
+    currentConverastionKey,
+    arrivalMessage,
+    emitSendMessage,
+}) {
+    // console.log(conversation);
     const { user: currentUser } = useContext(AuthContext);
     const [messages, setMessages] = useState([]);
+    const [messageSender, setMessageSender] = useState('');
+    const [converastionDB, setConverastionDB] = useState();
+    // const [arrivalMessage, setArrivalMessage] = useState(null);
+
+    // socket
+    // const socket = useRef();
+    // useEffect(() => {
+    //     socket.current = io('ws://localhost:8900');
+    //     // console.log('render: ', socket.current);
+    //     socket.current.on('getMessage', (data) => {
+    //         // console.log('data', data);
+    //         setArrivalMessage({
+    //             senderId: data.senderId,
+    //             text: data.text,
+    //             createdAt: Date.now(),
+    //         });
+    //     });
+    // }, []);
+
+    // useEffect(() => {
+    //     socket.current.emit('addUser', currentUser._id);
+    //     // socket.current.on('getUsers', (users) => {
+    //     //     console.log('socket users:', users);
+    //     // });
+    // }, [currentUser]);
+
+    useEffect(() => {
+        console.log('conversationDB', converastionDB);
+
+        // console.log('members', members);
+        // console.log('arrivalMessage', arrivalMessage);
+        if (arrivalMessage && converastionDB?.memberIds.includes(arrivalMessage.senderId)) {
+            // setMessages([...messages, arrivalMessage]);
+            setMessages((prev) => [...prev, arrivalMessage]);
+        }
+    }, [arrivalMessage, converastionDB]);
 
     useEffect(() => {
         (async () => {
@@ -22,19 +71,64 @@ function ConversationItem({ conversation, index, changeZoomState = null }) {
                 senderId: conversation.sender._id,
                 receiverId: conversation.receiver._id,
             });
+
             if (conversationRes.data) {
                 const messagesRes = await axios.get(`/messages/${conversationRes.data._id}`);
                 setMessages(messagesRes.data);
+                setConverastionDB(conversationRes.data);
             }
         })();
     }, [conversation]);
 
-    const handleChangeZoomState = (conversationId, flag) => {
-        if (changeZoomState) changeZoomState(conversationId, flag);
+    const handleChangeZoomState = (conversationKey, flag) => {
+        if (changeZoomState) changeZoomState(conversationKey, flag);
+    };
+
+    const handlerChatInputChange = (e) => {
+        setMessageSender(e.target.value);
+    };
+
+    const handleSendMessage = async (e) => {
+        e.preventDefault();
+
+        const savedMessage = await axios.post('/messages', {
+            conversationId: converastionDB._id,
+            senderId: currentUser._id,
+            text: messageSender,
+        });
+
+        const sendMessage = {
+            senderId: currentUser._id,
+            receiverId: conversation.receiver._id,
+            text: messageSender,
+        };
+
+        if (emitSendMessage) emitSendMessage('sendMessage', sendMessage);
+
+        // socket.current.emit('sendMessage', {
+        //     senderId: currentUser._id,
+        //     receiverId: conversation.receiver._id,
+        //     text: messageSender,
+        // });
+
+        // const sendMessage = {
+        //     senderId: currentUser._id,
+        //     receiverId: conversation.receiver._id,
+        //     text: messageSender,
+        // };
+
+        // messageChatArrival(sendMessage, dispatch);
+
+        setMessageSender('');
+        setMessages([...messages, savedMessage.data]);
     };
 
     return (
-        <div className="chat" style={{ right: `${index * (330 + 12) + 90}px` }}>
+        <div
+            className={currentConverastionKey === conversation.key ? 'chat active' : 'chat'}
+            style={{ right: `${index * (330 + 12) + 90}px` }}
+            onClick={() => setCurrentConversationKey(conversation.key)}
+        >
             <div className="chatTop">
                 <div className="chatTopUser">
                     <div className="chatTopUserAvatar">
@@ -62,7 +156,7 @@ function ConversationItem({ conversation, index, changeZoomState = null }) {
                     </div>
                     <div
                         className="chatTopActionItem"
-                        onClick={() => handleChangeZoomState(conversation.id, true)}
+                        onClick={() => handleChangeZoomState(conversation.key, true)}
                     >
                         <RemoveIcon />
                     </div>
@@ -73,14 +167,15 @@ function ConversationItem({ conversation, index, changeZoomState = null }) {
             </div>
             <div className="chatContent">
                 {messages.map((message, index, array) => {
-                    const period = Math.floor(
-                        ((new Date(message.createdAt) - new Date(array[index - 1]?.createdAt)) /
-                            (1000 * 60)) %
-                            60
-                    );
+                    const duration =
+                        new Date(message.createdAt) - new Date(array[index - 1]?.createdAt);
+                    const period =
+                        Math.floor((duration / (1000 * 60 * 60)) % 24) * 60 +
+                        Math.floor((duration / (1000 * 60)) % 60);
+
                     return (
                         <Message
-                            key={message._id}
+                            key={index}
                             conversation={conversation}
                             message={message}
                             own={message.senderId === currentUser._id}
@@ -89,17 +184,16 @@ function ConversationItem({ conversation, index, changeZoomState = null }) {
                         />
                     );
                 })}
-                {/* <Message conversation={conversation} own={true} />
-                <Message conversation={conversation} />
-                <Message conversation={conversation} own={true} />
-                <Message conversation={conversation} own={true} />
-                <Message conversation={conversation} />
-                <Message conversation={conversation} />
-                <Message conversation={conversation} /> */}
             </div>
             <div className="chatBottom">
-                <div className="chatBottomInput">
-                    <input type="text" placeholder="Aa" />
+                <form className="chatBottomInput" onSubmit={handleSendMessage}>
+                    <input
+                        type="text"
+                        placeholder="Aa"
+                        value={messageSender}
+                        onChange={handlerChatInputChange}
+                    />
+
                     <div className="chatBottomInputIcon">
                         <div
                             className="chatBottomInputIconBg"
@@ -109,9 +203,13 @@ function ConversationItem({ conversation, index, changeZoomState = null }) {
                             }}
                         ></div>
                     </div>
-                </div>
+                </form>
                 <div className="chatBottomLikeIcon">
-                    <ThumbUpIcon style={{ fontSize: 'inherit' }} />
+                    {messageSender ? (
+                        <SendIcon style={{ fontSize: 'inherit' }} />
+                    ) : (
+                        <ThumbUpIcon style={{ fontSize: 'inherit' }} />
+                    )}
                 </div>
             </div>
         </div>

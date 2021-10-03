@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import PauseIcon from '@mui/icons-material/Pause';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import React, { useState } from 'react';
 
 StoryAction.propTypes = {};
 

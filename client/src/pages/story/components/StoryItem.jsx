@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { NO_AVARTAR, PF } from '../../../constants';
-import axios from 'axios';
 import { sortDateUtils } from '../../../utils/utils';
 
 StoryItem.propTypes = {};

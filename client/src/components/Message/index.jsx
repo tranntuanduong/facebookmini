@@ -5,6 +5,7 @@ import { format } from 'timeago.js';
 
 Message.propTypes = {};
 
+// show message: very hard: *****************
 function Message({ own, conversation, message, wrap, period }) {
     const scrollRef = useRef();
 
@@ -14,21 +15,27 @@ function Message({ own, conversation, message, wrap, period }) {
         });
     }, [message]);
 
-    console.log(period);
-
     return (
         <>
             {own ? (
-                <div className="message own" ref={scrollRef}>
-                    {/* <div className="messageContentTime">{format(message.createdAt)}</div> */}
+                <>
                     {period >= 20 && (
                         <div className="messageContentTime">{format(message.createdAt)}</div>
                     )}
-                    <div className="messageContentText">{message.text}</div>
-                </div>
+                    {/* {period} */}
+                    {/* <div className="messageContentTime">{format(message.createdAt)}</div> */}
+                    <div className="message own" ref={scrollRef}>
+                        {wrap ? (
+                            <div className="messageContentText">{message.text}</div>
+                        ) : (
+                            <div className="messageWrapFirst">
+                                <div className="messageContentText">{message.text}</div>
+                            </div>
+                        )}
+                    </div>
+                </>
             ) : (
                 <>
-                    {/* <div className="messageContentTime">{format(message.createdAt)}</div> */}
                     {period >= 20 && (
                         <div className="messageContentTime">{format(message.createdAt)}</div>
                     )}

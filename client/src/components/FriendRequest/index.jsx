@@ -21,7 +21,7 @@ function FriendRequest(props) {
                 </div>
             </div>
             <div className="friendRequestContent">
-                <img src="./assets/person/4.jpeg" alt="" className="friendRequestAvatar" />
+                <img src="./assets/ads/gearvn.jpg" alt="" className="friendRequestAvatar" />
                 <div className="friendRequestContentBody">
                     <span className="friendRequestContentBodyName">Thái Đình Thỏa</span>
                     <div className="friendRequestContentBodyBtn">

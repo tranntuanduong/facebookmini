@@ -1,6 +1,6 @@
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { NO_AVARTAR, PF } from '../../constants';
 import './Story.css';
