@@ -1,4 +1,6 @@
 const express = require('express');
+const { solidityKeccak256 } = require('ethers/lib/utils');
+
 const app = express();
 const port = 8800;
 const path = require('path');
@@ -35,6 +37,10 @@ const subCommentRoute = require('./routers/subCommentRoute');
 const storyRoute = require('./routers/storyRoute');
 const conversationRoute = require('./routers/conversationRoute');
 const messageRoute = require('./routers/messageRoute');
+const ticketRoute = require('./routers/ticketRoute');
+
+
+
 
 // app
 app.use('/api/users', userRoute);
@@ -45,6 +51,10 @@ app.use('/api/subcomments', subCommentRoute);
 app.use('/api/stories', storyRoute);
 app.use('/api/conversations', conversationRoute);
 app.use('/api/messages', messageRoute);
+app.use('/api/initNFT', ticketRoute);
+
+var router = express.Router();
+
 
 // upload file
 const storagePost = multer.diskStorage({
